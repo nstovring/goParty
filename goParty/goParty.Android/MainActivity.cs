@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using goParty.Droid.Services;
+using Xamarin.Forms;
+using goParty.Abstractions;
 
 namespace goParty.Droid
 {
@@ -20,7 +23,13 @@ namespace goParty.Droid
 			base.OnCreate (bundle);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
-			LoadApplication (new goParty.App ());
+
+
+            var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
+            loginProvider.Init(this);
+
+
+            LoadApplication (new goParty.App ());
 		}
 	}
 }

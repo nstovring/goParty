@@ -9,6 +9,7 @@ using goPartyc3799bc758f544faa52787e94a24730dService.Models;
 
 namespace goPartyc3799bc758f544faa52787e94a24730dService.Controllers
 {
+    [Authorize]
     public class TodoItemController : TableController<TodoItem>
     {
         protected override void Initialize(HttpControllerContext controllerContext)

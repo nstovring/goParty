@@ -23,6 +23,7 @@ namespace goPartyc3799bc758f544faa52787e94a24730dService.Models
         } 
 
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
