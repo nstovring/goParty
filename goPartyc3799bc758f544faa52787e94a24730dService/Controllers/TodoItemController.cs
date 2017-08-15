@@ -6,10 +6,10 @@ using System.Web.Http.OData;
 using Microsoft.Azure.Mobile.Server;
 using goPartyc3799bc758f544faa52787e94a24730dService.DataObjects;
 using goPartyc3799bc758f544faa52787e94a24730dService.Models;
+using goPartyc3799bc758f544faa52787e94a24730dService.Helpers;
 
 namespace goPartyc3799bc758f544faa52787e94a24730dService.Controllers
 {
-    [Authorize]
     public class TodoItemController : TableController<TodoItem>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
@@ -32,12 +32,14 @@ namespace goPartyc3799bc758f544faa52787e94a24730dService.Controllers
         }
 
         // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
+       // [AuthorizeClaims("http://schemas.microsoft.com/identity/claims/identityprovider", "facebook")]
         public Task<TodoItem> PatchTodoItem(string id, Delta<TodoItem> patch)
         {
             return UpdateAsync(id, patch);
         }
 
         // POST tables/TodoItem
+        //[AuthorizeClaims("http://schemas.microsoft.com/identity/claims/identityprovider", "facebook")]
         public async Task<IHttpActionResult> PostTodoItem(TodoItem item)
         {
             TodoItem current = await InsertAsync(item);
@@ -45,6 +47,8 @@ namespace goPartyc3799bc758f544faa52787e94a24730dService.Controllers
         }
 
         // DELETE tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
+
+       // [AuthorizeClaims("http://schemas.microsoft.com/identity/claims/identityprovider", "facebook")]
         public Task DeleteTodoItem(string id)
         {
             return DeleteAsync(id);

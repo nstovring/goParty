@@ -57,6 +57,9 @@ namespace goPartyc3799bc758f544faa52787e94a24730dService
             {
                 new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
                 new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "third item", Complete = false },
+                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "fourth item", Complete = false },
+                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "fifth item", Complete = false },
             };
 
             foreach (TodoItem todoItem in todoItems)

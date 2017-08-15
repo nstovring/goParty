@@ -24,7 +24,8 @@ namespace goParty.iOS
 		{
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init ();
-			LoadApplication (new goParty.App ());
+            //SQLitePCL.CurrentPlatform.Init();
+            LoadApplication(new goParty.App ());
 
 			return base.FinishedLaunching (app, options);
 		}

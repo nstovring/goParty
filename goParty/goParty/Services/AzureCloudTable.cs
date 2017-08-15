@@ -2,6 +2,7 @@
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,14 @@ namespace goParty.Services
 
         public async Task<ICollection<T>> ReadAllItemsAsync()
         {
-            return await table.ToListAsync();
+            try
+            {
+                return await table.ToListAsync();
+            }catch(Exception ex)
+            {
+                Debug.WriteLine($"[Login] Error = {ex.Message}");
+            }
+            return null;
         }
 
         public async Task<T> ReadItemAsync(string id)

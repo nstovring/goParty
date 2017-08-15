@@ -16,5 +16,7 @@ namespace goParty.Abstractions
         Task LoginAsync(User user);
 
         Task<AppServiceIdentity> GetIdentityAsync();
+
+        Task RegisterForPushNotifications();
     }
 }

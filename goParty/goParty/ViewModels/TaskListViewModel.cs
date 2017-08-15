@@ -13,6 +13,8 @@ namespace goParty.ViewModels
     public class TaskListViewModel : BaseViewModel
     {
         ICloudService cloudService;
+        // Track whether the user has authenticated.
+        bool authenticated = false;
 
         public TaskListViewModel()
         {
@@ -74,7 +76,7 @@ namespace goParty.ViewModels
                 var identity = await cloudService.GetIdentityAsync();
                 if (identity != null)
                 {
-                    var name = identity.UserClaims.FirstOrDefault(c => c.Type.Equals("name")).Value;
+                    var name = identity.UserClaims.FirstOrDefault(c => c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")).Value;
                     Title = $"Tasks for {name}";
                 }
                 var list = await Table.ReadAllItemsAsync();

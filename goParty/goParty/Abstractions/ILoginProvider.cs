@@ -15,5 +15,7 @@ namespace goParty.Abstractions
         void RemoveTokenFromSecureStore();
 
         Task<MobileServiceUser> LoginAsync(MobileServiceClient client);
+
+        Task RegisterForPushNotifications(MobileServiceClient client);
     }
 }
