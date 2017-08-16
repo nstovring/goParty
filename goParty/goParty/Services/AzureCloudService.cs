@@ -33,23 +33,23 @@ namespace goParty.Services
             var loginProvider = DependencyService.Get<ILoginProvider>();
 
             client.CurrentUser = loginProvider.RetrieveTokenFromSecureStore();
-            //if (client.CurrentUser != null)
-            //{
-            //    // User has previously been authenticated - try to Refresh the token
-            //    try
-            //    {
-            //        var refreshed = await client.RefreshUserAsync();
-            //        if (refreshed != null)
-            //        {
-            //            loginProvider.StoreTokenInSecureStore(refreshed);
-            //            return refreshed;
-            //        }
-            //    }
-            //    catch (Exception refreshException)
-            //    {
-            //        Debug.WriteLine($"Could not refresh token: {refreshException.Message}");
-            //    }
-            //}
+            if (client.CurrentUser != null)
+            {
+                // User has previously been authenticated - try to Refresh the token
+                try
+                {
+                    var refreshed = await client.RefreshUserAsync();
+                    if (refreshed != null)
+                    {
+                        loginProvider.StoreTokenInSecureStore(refreshed);
+                        return refreshed;
+                    }
+                }
+                catch (Exception refreshException)
+                {
+                    Debug.WriteLine($"Could not refresh token: {refreshException.Message}");
+                }
+            }
 
             if (client.CurrentUser != null && !IsTokenExpired(client.CurrentUser.MobileServiceAuthenticationToken))
             {

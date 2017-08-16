@@ -22,10 +22,6 @@
         public static readonly string AppName = "PartyCrash2";
         public static readonly string AzureUrl = "http://partycrash.azurewebsites.net";
 
-        public static readonly string FacebookClientId = "838382242982955";
-        public static readonly string FacebookRedirectUri = "https://gopartyc3799bc758f544faa52787e94a24730d.azurewebsites.net/.auth/login/facebook/callback";
-
-        public static readonly string FacebookRequestNameURI = "https://graph.facebook.com/me";
 
         public const string StorageConnection = "DefaultEndpointsProtocol=https;AccountName=partycrasherblob;AccountKey=WaDHg28g9iKacJXo/PZ6I2MCoSYfbITrRDspe/Cp5z9jp3AI7hGxodxytaRmYzjSH9nX69jPx1WzLmWYs7a1dw==;EndpointSuffix=core.windows.net";
 

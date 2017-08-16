@@ -9,6 +9,7 @@ using Android.OS;
 using goParty.Droid.Services;
 using Xamarin.Forms;
 using goParty.Abstractions;
+using Plugin.Permissions;
 
 namespace goParty.Droid
 {
@@ -21,16 +22,27 @@ namespace goParty.Droid
 			ToolbarResource = Resource.Layout.Toolbar; 
 
 			base.OnCreate (bundle);
-
-			global::Xamarin.Forms.Forms.Init (this, bundle);
-
+            global::Xamarin.Forms.Forms.Init (this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
+            global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
 
             var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
             loginProvider.Init(this);
 
+            try
+            {
+                LoadApplication(new goParty.App());
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"[Login] Error = {ex.Message}");
+            }
+        }
 
-            LoadApplication (new goParty.App ());
-		}
-	}
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }
 }
 

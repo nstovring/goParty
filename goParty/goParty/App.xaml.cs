@@ -30,8 +30,15 @@ namespace goParty
 		{
 			InitializeComponent();
             ServiceLocator.Instance.Add<ICloudService, AzureCloudService>();
-            MainPage = new EntryPage();
-		}
+            //MainPage = new EntryPage();
+            try
+            {
+                MainPage = new EntryPage();
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"[Load Error] Error = {ex.Message}");
+            }
+        }
 
 
         //protected override void OnActivated(IActivatedEventArgs args)

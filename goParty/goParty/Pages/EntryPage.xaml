@@ -12,6 +12,7 @@
                     Command="{Binding LoginCommand}"
                     Text="Login"
                     TextColor="White" />
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
