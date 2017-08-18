@@ -18,11 +18,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\TableData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthenticationDelegatingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\PartyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MasterPageItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetails.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -32,12 +33,26 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\TodoItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\CreatePartyPage.xaml.cs">
+      <DependentUpon>CreatePartyPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\EntryPage.xaml.cs">
       <DependentUpon>EntryPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml.cs">
+      <DependentUpon>PartyCarouselPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RootPage.xaml.cs">
@@ -59,7 +74,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\AzureDocumentManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AzurePartyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntryPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RootPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskDetailViewModel.cs" />
@@ -107,6 +122,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\CreatePartyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

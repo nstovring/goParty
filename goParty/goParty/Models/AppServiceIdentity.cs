@@ -14,6 +14,9 @@ namespace goParty.Models
         [JsonProperty(PropertyName = "user_id")]
         public string UserId { get; set; }
 
+        [JsonProperty(PropertyName = "picture")]
+        public string pictureURI { get; set; }
+
         [JsonProperty(PropertyName = "user_claims")]
         public List<UserClaim> UserClaims { get; set; }
     }

@@ -36,24 +36,27 @@ namespace goParty.Pages
             if (item != null && item.TargetType != Detail.GetType())
             {
                 //Check if page already exists
-                foreach (Page page in detailPages)
+                if (detailPages.Any(x => x.GetType().Equals(item.TargetType)))
                 {
-                    if (page.GetType() == item.TargetType)
+                    //Find the page and use it
+                    foreach (Page page in detailPages)
                     {
-                        Detail = page;
-                        masterPage.ListView.SelectedItem = null;
-                        IsPresented = false;
-                        return;
+                        if (page.GetType().Equals(item.TargetType))
+                        {
+                            Detail = page;
+                            masterPage.ListView.SelectedItem = null;
+                            IsPresented = false;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        Page newPage = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
-                        detailPages.Add(newPage);
-                        Detail = newPage;
-                        masterPage.ListView.SelectedItem = null;
-                        IsPresented = false;
-                        return;
-                    }
+                }
+                else //If the page doesn't exist create it
+                {
+                    Page newPage = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                    detailPages.Add(newPage);
+                    Detail = newPage;
+                    masterPage.ListView.SelectedItem = null;
+                    IsPresented = false;
                 }
                 //Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
                 //masterPage.ListView.SelectedItem = null;

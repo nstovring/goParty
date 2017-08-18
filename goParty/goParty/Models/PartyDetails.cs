@@ -3,12 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Azure.Documents.Spatial;
+using goParty.Abstractions;
 namespace goParty.Models
 {
-    enum PartyType { Club, Home, Bar, PopUp, Street }
-
-    [JsonObject(Title = "PartyDetails")]
-    public class PartyDetails
+    public class PartyDetails : TableData
     {
         public PartyDetails()
         {
@@ -32,79 +30,42 @@ namespace goParty.Models
             this.maxParticipants = v13;
             this.rating = v14;
             this.partyId = Guid.NewGuid().ToString();
-            this.location = new Point(latt, lon);
+            //this.location = new Point(latt, lon);
             //this.v15 = v15;
             //this.v16 = v16;
         }
 
-        [JsonProperty("Id")]
-        public string Id { get; set; }
-        //public int id { get; set; }
-        [JsonProperty("createdAt")]
-        public DateTimeOffset createdAt { get; set; }
+        public string documentDBId { get; set; }
 
-        [JsonProperty("updatedAt")]
-        public DateTimeOffset updatedAt { get; set; }
-
-        [Microsoft.WindowsAzure.MobileServices.Version]
-        public string AzureVersion { get; set; }
-
-        [JsonProperty("deleted")]
-        public bool deleted { get; set; }
-
-        [JsonProperty("userId")]
         public string userId { get; set; }
 
-        [JsonProperty("partyId")]
         public string partyId { get; set; }
 
-        [JsonProperty("title")]
         public string title { get; set; }
 
-        [JsonProperty("picture")]
         public string picture { get; set; }
 
-        [JsonProperty("description")]
         public string description { get; set; }
 
-        [JsonProperty("type")]
         public int type { get; set; }
 
-        [JsonProperty("price")]
         public int price { get; set; }
 
-        [JsonProperty("ageMin")]
         public int ageMin { get; set; }
 
-        [JsonProperty("ageMax")]
         public int ageMax { get; set; }
 
-        [JsonProperty("latt")]
         public double latt { get; set; }
 
-        [JsonProperty("lon")]
         public double lon { get; set; }
 
-        [JsonProperty("location")]
-        public Point location;
-
-        [JsonProperty("when")]
         public DateTime when { get; set; }
 
-        [JsonProperty("where")]
         public string where { get; set; }
 
-        [JsonProperty("rating")]
         public int rating { get; set; }
 
-        [JsonProperty("maxparticipants")]
         public int maxParticipants { get; set; }
-
-        //public int restrictionAge { get; set; }
-        //public int restrictionParticipants { get; set; }
-        //public float restrictionRating { get; set; }
-        //public float restrictionPrice { get; set; }
-        //public DateTime restrictionTime { get; set; }
 
     }
 }

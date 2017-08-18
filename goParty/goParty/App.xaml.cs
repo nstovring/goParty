@@ -8,6 +8,9 @@ using goParty.Pages;
 using Xamarin.Forms;
 using goParty.Helpers;
 using System.Threading.Tasks;
+using goParty.Models;
+using Xamarin.Auth;
+using Microsoft.Azure.Search;
 
 namespace goParty
 {
@@ -19,6 +22,9 @@ namespace goParty
     public partial class App : Application
 	{
 
+        public static UserDetails userDetails;
+        public static Account account;
+        public static SearchIndexClient UserIdSearchIndexClient;
         public static IAuthenticate Authenticator { get; private set; }
 
         public static void Init(IAuthenticate authenticator)

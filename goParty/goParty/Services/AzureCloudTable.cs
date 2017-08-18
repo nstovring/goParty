@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,13 @@ namespace goParty.Services
             await table.InsertAsync(item);
             return item;
         }
+
+
+        //public async Task<List<T>> CreateItemsAsync(List<T> items)
+        //{
+        //    await  Task.WhenAll(items.Select(q => table.InsertAsync(q)));
+        //    return items;
+        //}
 
         public async Task DeleteItemAsync(T item)
         {

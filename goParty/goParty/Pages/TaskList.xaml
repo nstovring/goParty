@@ -35,6 +35,10 @@
                 Command="{Binding AddNewItemCommand}"
                 Text="Add New Item"
                 TextColor="White" />
+                <Button BackgroundColor="Teal"
+                Command="{Binding LogoutCommand}"
+                Text="Log Out"
+                TextColor="White" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

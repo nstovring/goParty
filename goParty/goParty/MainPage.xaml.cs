@@ -19,6 +19,7 @@ namespace goParty.Pages
 
             var masterPageItems = new List<MasterPageItem>();
 
+           
             masterPageItems.Add(new MasterPageItem
             {
                 Title = "Task List",
@@ -32,6 +33,7 @@ namespace goParty.Pages
                 IconSource = "contacts.png",
                 TargetType = typeof(MapPage)
             });
+
 
             masterPageItems.Add(new MasterPageItem
             {

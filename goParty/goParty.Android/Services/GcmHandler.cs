@@ -1,5 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Media;
+using Android.Support.V4.App;
 using Android.Util;
 using Gcm.Client;
 
@@ -34,6 +36,23 @@ namespace goParty.Droid.Services
         protected override void OnMessage(Context context, Intent intent)
         {
             Log.Info("GcmService", $"Message {intent.ToString()}");
+
+            var message = intent.Extras.GetString("message");
+
+            var notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
+            var uiIntent = new Intent(context, typeof(MainActivity));
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+
+            var notification = builder.SetContentIntent(PendingIntent.GetActivity(context, 0, uiIntent, 0))
+                .SetSmallIcon(Android.Resource.Drawable.SymDefAppIcon)
+                .SetTicker("TaskList")
+                .SetContentTitle("TaskList")
+                .SetContentText(message)
+                .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
+                .SetAutoCancel(true)
+                .Build();
+
+            notificationManager.Notify(1, notification);
         }
 
         protected override void OnError(Context context, string errorId)

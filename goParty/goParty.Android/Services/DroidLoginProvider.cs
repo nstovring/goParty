@@ -86,8 +86,7 @@ namespace goParty.Droid.Services
             //return await client.LoginAsync(RootView, "facebook", "baldrbytesgoparty");
 
             //Native facebook
-            return await LoginFacebookAsync(RootView, client);
-
+            return await LoginFacebookAsync(client);
 
             //return await client.LoginAsync(RootView, "facebook", Locations.FacebookRedirectUri);
             //return client.CurrentUser;
@@ -186,7 +185,7 @@ namespace goParty.Droid.Services
 
         #region Facebook Client Flow
 
-        public async Task<MobileServiceUser> LoginFacebookAsync(Context activity, MobileServiceClient client)
+        public async Task<MobileServiceUser> LoginFacebookAsync(MobileServiceClient client)
         {
             var authenticator = new OAuth2Authenticator(
                  Helpers.Constants.FacebookClientId,
@@ -202,7 +201,7 @@ namespace goParty.Droid.Services
 
             authenticator.Completed += async (sender, e) => {
                 Account acc = e.Account;
-
+                App.account = acc;
                 string accessToken = acc.Properties["access_token"];
                 var zumoPayload = new JObject();
                 zumoPayload.Add("access_token", accessToken);

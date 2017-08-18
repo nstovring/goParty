@@ -10,6 +10,7 @@ using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Models;
 using Xamarin.Forms;
+using Xamarin.Auth;
 
 namespace goParty.Services
 {
@@ -17,7 +18,7 @@ namespace goParty.Services
     {
         MobileServiceClient client;
         List<AppServiceIdentity> identities = null;
-
+        List<UserInfo> identityInfos = null;
         public AzureCloudService()
         {
             client = new MobileServiceClient(Locations.AppServiceUrl, new AuthenticationDelegatingHandler());
@@ -89,10 +90,10 @@ namespace goParty.Services
             await client.LogoutAsync();
         }
 
-        public Task LoginAsync(User user)
-        {
-            return client.LoginAsync("custom", JObject.FromObject(user));
-        }
+       //public Task LoginAsync(User user)
+       //{
+       //    return client.LoginAsync("custom", JObject.FromObject(user));
+       //}
 
         public async Task<AppServiceIdentity> GetIdentityAsync()
         {
@@ -103,6 +104,7 @@ namespace goParty.Services
 
             if (identities == null)
             {
+                //client.CurrentUser.
                 identities = await client.InvokeApiAsync<List<AppServiceIdentity>>("/.auth/me");
             }
 

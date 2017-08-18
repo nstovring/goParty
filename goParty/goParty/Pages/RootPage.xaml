@@ -10,7 +10,7 @@
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <local:TaskList />
+                <local:MapPage />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>
