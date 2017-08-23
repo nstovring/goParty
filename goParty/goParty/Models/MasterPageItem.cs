@@ -4,7 +4,7 @@ using System.Text;
 
 namespace goParty.Models
 {
-    class MasterPageItem
+    public class MasterPageItem
     {
         public string Title { get; set; }
 

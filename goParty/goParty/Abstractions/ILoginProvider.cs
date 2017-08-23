@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Auth;
 
 namespace goParty.Abstractions
 {
@@ -17,5 +18,9 @@ namespace goParty.Abstractions
         Task<MobileServiceUser> LoginAsync(MobileServiceClient client);
 
         Task RegisterForPushNotifications(MobileServiceClient client);
+        Account RetreiveAccountFromSecureStore();
+        string RetrieveTableIdFromSecureStore();
+        void SaveAccountInSecureStore(Account account);
+        AccountStore AccountStore();
     }
 }

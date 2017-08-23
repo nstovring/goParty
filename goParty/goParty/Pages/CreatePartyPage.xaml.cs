@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goParty.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace goParty.Pages
 		public CreatePartyPage ()
 		{
 			InitializeComponent ();
+            CreatePartyViewModel myViewModel = new CreatePartyViewModel();
+            myViewModel.ResultMap = ResultMap;
+            BindingContext = myViewModel;
 		}
 	}
 }

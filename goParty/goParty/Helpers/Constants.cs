@@ -17,7 +17,16 @@ namespace goParty.Helpers
         public static readonly string SearchAdminApiKey = "6841CB0D756DC0A63B82D3AD141FBB8B";
 
         public static readonly string userIDIndex = "userdetails-userid";
-        public static readonly string partyIDIndex = "partyidindex";
+        public static readonly string attendeePartyIDIndex = "attendeedetails-partyid";
+        public static readonly string attendeeUserIDIndex = "attendeedetails-userid";
 
+
+        public enum JoinedPartyStates { JoinParty, RequestSent, EventJoined, CancelEvent };
+        public static readonly string[] joinButtonTitles = { "Join Event", "Request Sent", "Event Joined", "Cancel Event" };
+
+        public static readonly string wherePlaceholder = "Insert Adresse Here";
+        public static readonly string picturePlaceholder = "party.jpg";
+        public static readonly string titlePlaceholder = "Insert Title Here";
+        public static readonly string descriptionPlaceholder = "Insert Description Here";
     }
 }

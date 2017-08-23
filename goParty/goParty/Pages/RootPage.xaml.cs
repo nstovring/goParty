@@ -13,12 +13,14 @@ namespace goParty.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RootPage : MasterDetailPage
 	{
-        static MasterDetailPage instance;
+        public static RootPage instance;
 
         private List<Page> detailPages;
 
         public RootPage ()
 		{
+            NavigationPage.SetHasNavigationBar(this, false);
+
             detailPages = new List<Page>();
             instance = this;
 
@@ -28,11 +30,16 @@ namespace goParty.Pages
             detailPages.Add(Detail);
 
             masterPage.ListView.ItemSelected += ListView_ItemSelected;
-		}
+        }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MasterPageItem;
+            GoToDetailPage(item);
+        }
+
+        public void GoToDetailPage(MasterPageItem item)
+        {
             if (item != null && item.TargetType != Detail.GetType())
             {
                 //Check if page already exists
@@ -58,9 +65,6 @@ namespace goParty.Pages
                     masterPage.ListView.SelectedItem = null;
                     IsPresented = false;
                 }
-                //Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
-                //masterPage.ListView.SelectedItem = null;
-                //IsPresented = false;
             }
             else
             {

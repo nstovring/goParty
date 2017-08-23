@@ -13,6 +13,25 @@ namespace goParty.Models
 
         }
 
+        public PartyDetailsDB(PartyDetails valueSource)
+        {
+            userId = valueSource.userId;
+            partyId = valueSource.partyId;
+            ageMin = valueSource.ageMin;
+            ageMax = valueSource.ageMax;
+            picture = valueSource.picture;
+            title = valueSource.title;
+            description = valueSource.description;
+            when = valueSource.when;
+            where = valueSource.where;
+            lon = valueSource.lon;
+            latt = valueSource.latt;
+            Id = valueSource.Id;
+            documentDBId = valueSource.Id;
+            price = valueSource.price;
+            this.location = new Point(lon, latt);
+        }
+
         public PartyDetailsDB(int v1, int v2, string v3, int v4, string v5, int v6, int v7, double v8, double v9, string v10, string v11, int v12, int v13, int v14, int v15, string v16)
         {
             //this.v1 = v1;
@@ -30,7 +49,7 @@ namespace goParty.Models
             this.maxParticipants = v13;
             this.rating = v14;
             this.partyId = Guid.NewGuid().ToString();
-            this.location = new Point(latt, lon);
+            this.location = new Point(lon, latt);
             //this.v15 = v15;
             //this.v16 = v16;
         }

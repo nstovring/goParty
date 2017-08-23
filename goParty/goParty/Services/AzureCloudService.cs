@@ -11,6 +11,8 @@ using goParty.Helpers;
 using goParty.Models;
 using Xamarin.Forms;
 using Xamarin.Auth;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace goParty.Services
 {
@@ -32,7 +34,6 @@ namespace goParty.Services
         public async Task<MobileServiceUser> LoginAsync()
         {
             var loginProvider = DependencyService.Get<ILoginProvider>();
-
             client.CurrentUser = loginProvider.RetrieveTokenFromSecureStore();
             if (client.CurrentUser != null)
             {
@@ -149,6 +150,79 @@ namespace goParty.Services
         {
             var platformProvider = DependencyService.Get<ILoginProvider>();
             await platformProvider.RegisterForPushNotifications(client);
+        }
+
+        async Task RetreiveExtraDataFromCloud()
+        {
+            Application app = Application.Current;
+
+            //Get UserId from social provider
+            var identity = await GetIdentityAsync();
+            string userId;
+            if (identity != null)
+            {
+                userId = client.CurrentUser.UserId;//identity.UserClaims.FirstOrDefault(c => c.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).Value;
+                var loginProvider = DependencyService.Get<ILoginProvider>();
+
+                try
+                {
+                    bool registered = await IsUserRegisteredInTheCloud(loginProvider);
+                    if (!registered) //Create new user and request additional information
+                    {
+                        var request = new OAuth2Request("GET", new Uri(Locations.FacebookRequestUserInfoUrl), null, App.account);
+                        var response = await request.GetResponseAsync();
+
+                        UserInfo userTobeStored = JsonConvert.DeserializeObject<UserInfo>(await response.GetResponseTextAsync());
+                        UserDetails tempUserDetails = new UserDetails
+                        {
+                            name = userTobeStored.name,
+                            picture = userTobeStored.picture.data.url,
+                            userId = userId,//userTobeStored.Id,
+                            age = userTobeStored.age_range.min,
+                            rating = 0
+                        };
+
+                        tempUserDetails = await GetTable<UserDetails>().CreateItemAsync(tempUserDetails);
+                        App.userDetails = tempUserDetails;
+                        Account account = loginProvider.RetreiveAccountFromSecureStore();
+                        account.Properties.Add("table_id", tempUserDetails.Id);
+                        loginProvider.SaveAccountInSecureStore(account);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Login] Error = {ex.Message}");
+                }
+            }
+        }
+
+        async Task<bool> IsUserRegisteredInTheCloud(ILoginProvider loginProvider)
+        {
+            ICloudTable<UserDetails> Table = GetTable<UserDetails>();
+            string tableId = loginProvider.RetrieveTableIdFromSecureStore();
+            Account account = loginProvider.RetreiveAccountFromSecureStore();
+
+            if (tableId == null)
+            {
+                ICollection<UserDetails> tempUserDetailsList = await Table.ReadAllItemsAsync();
+                account.Properties.Add("table_id", tempUserDetailsList.ToList()[0].Id);
+                loginProvider.SaveAccountInSecureStore(account);
+                App.userDetails = tempUserDetailsList.ToList()[0];
+            }
+            else
+            {
+                UserDetails tempUserDetails = await Table.ReadItemAsync(tableId);
+                App.userDetails = tempUserDetails;
+            }
+
+            if (App.userDetails != null)
+                return true;
+            return false;
+        }
+
+        async Task ICloudService.RetreiveExtraDataFromCloud()
+        {
+            await RetreiveExtraDataFromCloud();
         }
     }
 }

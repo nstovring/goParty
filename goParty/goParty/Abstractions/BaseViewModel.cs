@@ -33,6 +33,8 @@ namespace goParty.Abstractions
             OnPropertyChanged(propName);
         }
 
+        
+
         public void OnPropertyChanged(string propName)
         {
             if (PropertyChanged == null)

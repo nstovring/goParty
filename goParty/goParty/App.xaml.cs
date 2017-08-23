@@ -24,7 +24,10 @@ namespace goParty
 
         public static UserDetails userDetails;
         public static Account account;
-        public static SearchIndexClient UserIdSearchIndexClient;
+        public static SearchIndexClient UserDetailsUserIdSearchIndexClient;
+        public static SearchIndexClient AttendeeUserIdSearchIndexClient;
+        public static SearchIndexClient AttendeePartyIdSearchIndexClient;
+
         public static IAuthenticate Authenticator { get; private set; }
 
         public static void Init(IAuthenticate authenticator)

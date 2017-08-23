@@ -18,5 +18,7 @@ namespace goParty.Abstractions
         Task<AppServiceIdentity> GetIdentityAsync();
 
         Task RegisterForPushNotifications();
+
+        Task RetreiveExtraDataFromCloud();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goParty.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace goParty.Pages
 		public ProfilePage ()
 		{
 			InitializeComponent ();
+            ProfilePageViewModel profilePageViewModel = new ProfilePageViewModel();
+            profilePageViewModel.stackLayout = StackLayout;
+            profilePageViewModel.stackLayoutHosting = StackLayoutHosting;
+            BindingContext = profilePageViewModel;
 		}
 	}
 }

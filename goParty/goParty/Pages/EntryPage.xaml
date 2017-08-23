@@ -4,15 +4,16 @@
              x:Class="goParty.Pages.EntryPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center"
+        <StackLayout HorizontalOptions="CenterAndExpand"
                      Orientation="Vertical"
                      VerticalOptions="Center">
-            <Button BackgroundColor="Teal"
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Button BackgroundColor="Blue"
                     BorderRadius="10"
                     Command="{Binding LoginCommand}"
-                    Text="Login"
-                    TextColor="White" />
-            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" />
+                    Text="Login with Facebook"
+                    TextColor="White" 
+                    HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

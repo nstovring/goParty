@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Azure.Documents.Spatial;
 using goParty.Abstractions;
+using goParty.Helpers;
+using System.ComponentModel;
+
 namespace goParty.Models
 {
     public class PartyDetails : TableData

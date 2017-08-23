@@ -1,10 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="goParty.Pages.CreatePartyPage">
+             xmlns:local="clr-namespace:goParty.Helpers"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="goParty.Pages.CreatePartyPage"
+             >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
+            <Grid Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFill" Source="{Binding partyHeaderImageSource, Mode=TwoWay}" VerticalOptions="FillAndExpand">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReplacePartyImageCmd}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Placeholder="{Binding Source={x:Static local:Constants.titlePlaceholder}, Mode=OneWay}" PlaceholderColor="White" TextColor="White" Text="{Binding partyDetailsTitle ,Mode=TwoWay}" FontSize="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                </Entry>
+                
+                <Button Grid.Row="1" Grid.Column="2" TextColor="Black" Text="{Binding joinButtonLabel, Mode=OneWay}" Command="{Binding CreatePartyCommand}" FontSize="16" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" IsEnabled="{Binding isJoinButtonActive}" BackgroundColor="OrangeRed"/>
+                <ActivityIndicator Grid.Row="2" Grid.Column="1" IsRunning="{Binding isBusy}" Color="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                <Grid Grid.Row="2" Grid.ColumnSpan="3" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Entry Grid.Row="0" Grid.Column="0" TextColor="Black" Text="{Binding partyDetails.price , Mode=TwoWay}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Keyboard="Numeric"/>
+                    <Entry Grid.Row="1" Grid.Column="0" TextColor="Black" Text="{Binding partyDetails.ageMin , Mode=TwoWay}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Keyboard="Numeric"/>
+                    <DatePicker Grid.Row="2" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Editor Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" TextColor="Black" Text="{Binding partyDetailsDescription, Mode=TwoWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
+                    <SearchBar Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Placeholder="{Binding Source={x:Static local:Constants.wherePlaceholder}, Mode=OneWay}" Text="{Binding SearchText, Mode=TwoWay}" SearchCommand="{Binding FindLocationCmd}"/>
+                </Grid>
+                <maps:Map Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="ResultMap" IsShowingUser="True">
+                </maps:Map>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

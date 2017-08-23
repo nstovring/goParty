@@ -47,6 +47,42 @@ namespace goParty.Droid.Services
             return null;
         }
 
+        public string RetrieveTableIdFromSecureStore()
+        {
+            var accounts = AccountStore.FindAccountsForService(Locations.AppName);
+            if (accounts != null)
+            {
+                foreach (var acct in accounts)
+                {
+                    string tableId;
+
+                    if (acct.Properties.TryGetValue("table_id", out tableId))
+                    {
+                        return tableId;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Account RetreiveAccountFromSecureStore()
+        {
+            var accounts = AccountStore.FindAccountsForService(Locations.AppName);
+            if (accounts != null)
+            {
+                foreach (var acct in accounts)
+                {
+                    return acct;
+                }
+            }
+            return null;
+        }
+
+        public void SaveAccountInSecureStore(Account account)
+        {
+            AccountStore.Save(account, Locations.AppName);
+        }
+
         public void StoreTokenInSecureStore(MobileServiceUser user)
         {
             var account = new Account(user.UserId);
@@ -224,6 +260,8 @@ namespace goParty.Droid.Services
             //someViewController.PresentViewController(ui, true, null);
             return await tcs.Task; 
         }
+
+
         #endregion
 
         #region Auth0 Client Flow
@@ -234,5 +272,11 @@ namespace goParty.Droid.Services
         //    return user.IdToken;
         //}
         #endregion
+
+
+        AccountStore ILoginProvider.AccountStore()
+        {
+            return AccountStore;
+        }
     }
 }

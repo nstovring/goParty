@@ -5,6 +5,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Azure.Documents.Spatial;
+using Microsoft.Azure.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,7 @@ namespace goParty.Services
         }
 
         public List<PartyDetailsDB> Items { get; private set; }
+        public List<PartyDetailsDBCarouselItem> CarouselItems { get; private set; }
 
         public async Task<List<PartyDetailsDB>> GetPartiesFromLocationAsync(double latt, double lon, double range)
         {
@@ -65,8 +67,91 @@ namespace goParty.Services
                 Console.Error.WriteLine(@"ERROR {0}", e.Message);
                 return null;
             }
-
             return Items;
+        }
+
+        public async Task<List<PartyDetailsDBCarouselItem>> GetPartiesUserIsHostingAsync()
+        {
+            List<PartyDetailsDBCarouselItem> tempCarouselList = new List<PartyDetailsDBCarouselItem>();
+            List<PartyDetailsDB> tempPartyList = new List<PartyDetailsDB>();
+
+            //Query databse for parties user is hosting
+            try
+            {
+                var query = client.CreateDocumentQuery<PartyDetailsDB>(collectionLink, new FeedOptions { MaxItemCount = -1, EnableScanInQuery = true })
+                     .Where(party => party.userId == App.userDetails.userId) //1 = 1m
+                     .AsDocumentQuery();
+                tempPartyList = new List<PartyDetailsDB>();
+                while (query.HasMoreResults)
+                {
+                    tempPartyList.AddRange(await query.ExecuteNextAsync<PartyDetailsDB>());
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("$[Query]" + ex.Message);
+            }
+            //Convert parties to CarouselParties
+            foreach (var item in tempPartyList)
+            {
+                PartyDetailsDBCarouselItem tempParty = new PartyDetailsDBCarouselItem(item);
+                tempParty.isThisUserHosting = true;
+                tempParty.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.CancelEvent];
+                tempCarouselList.Add(tempParty);
+            }
+            return tempCarouselList;
+        }
+
+        public async Task<List<PartyDetailsDBCarouselItem>> GetCarouselItemsAsync(List<PartyDetailsDB> partyList)
+        {
+            //First convert parties to CarouselParties
+            List<PartyDetailsDBCarouselItem> tempCarouselList = new List<PartyDetailsDBCarouselItem>();
+            foreach (var item in partyList)
+            {
+                tempCarouselList.Add(new PartyDetailsDBCarouselItem(item));
+            }
+
+            //Get Table with attendee details
+            var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+            ICloudTable<AttendeeDetails> Table = cloudService.GetTable<AttendeeDetails>();
+
+            if (App.AttendeeUserIdSearchIndexClient == null)
+                App.AttendeeUserIdSearchIndexClient = new SearchIndexClient(Constants.SearchServiceName, Constants.attendeeUserIDIndex, new SearchCredentials(Constants.SearchAdminApiKey));
+
+            //Find out which parties the user is attending
+            try
+            {
+                var searchResults = await App.UserDetailsUserIdSearchIndexClient.Documents.SearchAsync<AttendeeDetails>(App.userDetails.Id);
+
+                //User found for every match make party special 
+                if (searchResults.Results.Count > 0)
+                {
+                    foreach (var attendeeDetail in searchResults.Results)
+                    {
+                        foreach (var party in tempCarouselList)
+                        {
+                            if(attendeeDetail.Document.partyId == party.partyId)
+                            {
+                                party.isThisUserAttending = true;
+                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.RequestSent];
+                            }
+                            else if(party.userId == App.userDetails.userId) {
+                                party.isThisUserHosting = true;
+                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.CancelEvent];
+                            }
+                            else
+                            {
+                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.JoinParty];
+                            }
+                        }
+                    }
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"[Login] Error = {ex.Message}");
+            }
+            CarouselItems = tempCarouselList;
+            return tempCarouselList;
         }
 
         public async Task<List<PartyDetailsDB>> GetAllPartiesAsync()
@@ -147,9 +232,10 @@ namespace goParty.Services
             try
             {
                 //First insert party in document Db
-                partyDetailsDB.documentDBId = partyDetailsDB.Id;
                 var result = await client.CreateDocumentAsync(collectionLink, partyDetailsDB);
                 partyDetailsDB.Id = result.Resource.Id;
+                if (Items == null)
+                    Items = new List<PartyDetailsDB>();
                 Items.Add(partyDetailsDB);
                 //Then insert party in sql table
                

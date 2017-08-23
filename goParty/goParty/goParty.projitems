@@ -14,11 +14,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ICloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ILoginProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPicturePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPlatformProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\TableData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthenticationDelegatingHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ByteArrayToImageSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MasterDetailPageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PartyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MasterPageItem.cs" />
@@ -32,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsDBCarouselItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TodoItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserInfo.cs" />
@@ -75,7 +80,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzurePartyManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AzureStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreatePartyViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntryPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PartyCarouselPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RootPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskListViewModel.cs" />

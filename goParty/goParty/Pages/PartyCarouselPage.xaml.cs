@@ -1,4 +1,6 @@
-﻿using System;
+﻿using goParty.Helpers;
+using goParty.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,7 @@ namespace goParty.Pages
 		public PartyCarouselPage ()
 		{
 			InitializeComponent ();
-		}
+            BindingContext = new PartyCarouselPageViewModel();
+        }
 	}
 }

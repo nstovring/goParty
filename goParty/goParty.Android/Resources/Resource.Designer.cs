@@ -3034,11 +3034,11 @@ namespace goParty.Droid
 			// aapt resource value: 0x7f020136
 			public const int notification_icon_background = 2130837814;
 			
-			// aapt resource value: 0x7f02013b
-			public const int notification_template_icon_bg = 2130837819;
+			// aapt resource value: 0x7f020150
+			public const int notification_template_icon_bg = 2130837840;
 			
-			// aapt resource value: 0x7f02013c
-			public const int notification_template_icon_low_bg = 2130837820;
+			// aapt resource value: 0x7f020151
+			public const int notification_template_icon_low_bg = 2130837841;
 			
 			// aapt resource value: 0x7f020137
 			public const int notification_tile_bg = 2130837815;
@@ -3047,10 +3047,73 @@ namespace goParty.Droid
 			public const int notify_panel_notification_icon_bg = 2130837816;
 			
 			// aapt resource value: 0x7f020139
-			public const int reminders = 2130837817;
+			public const int p1 = 2130837817;
 			
 			// aapt resource value: 0x7f02013a
-			public const int todo = 2130837818;
+			public const int p10 = 2130837818;
+			
+			// aapt resource value: 0x7f02013b
+			public const int p11 = 2130837819;
+			
+			// aapt resource value: 0x7f02013c
+			public const int p12 = 2130837820;
+			
+			// aapt resource value: 0x7f02013d
+			public const int p13 = 2130837821;
+			
+			// aapt resource value: 0x7f02013e
+			public const int p14 = 2130837822;
+			
+			// aapt resource value: 0x7f02013f
+			public const int p15 = 2130837823;
+			
+			// aapt resource value: 0x7f020140
+			public const int p16 = 2130837824;
+			
+			// aapt resource value: 0x7f020141
+			public const int p17 = 2130837825;
+			
+			// aapt resource value: 0x7f020142
+			public const int p18 = 2130837826;
+			
+			// aapt resource value: 0x7f020143
+			public const int p19 = 2130837827;
+			
+			// aapt resource value: 0x7f020144
+			public const int p2 = 2130837828;
+			
+			// aapt resource value: 0x7f020145
+			public const int p20 = 2130837829;
+			
+			// aapt resource value: 0x7f020146
+			public const int p3 = 2130837830;
+			
+			// aapt resource value: 0x7f020147
+			public const int p4 = 2130837831;
+			
+			// aapt resource value: 0x7f020148
+			public const int p5 = 2130837832;
+			
+			// aapt resource value: 0x7f020149
+			public const int p6 = 2130837833;
+			
+			// aapt resource value: 0x7f02014a
+			public const int p7 = 2130837834;
+			
+			// aapt resource value: 0x7f02014b
+			public const int p8 = 2130837835;
+			
+			// aapt resource value: 0x7f02014c
+			public const int p9 = 2130837836;
+			
+			// aapt resource value: 0x7f02014d
+			public const int party = 2130837837;
+			
+			// aapt resource value: 0x7f02014e
+			public const int reminders = 2130837838;
+			
+			// aapt resource value: 0x7f02014f
+			public const int todo = 2130837839;
 			
 			static Drawable()
 			{
