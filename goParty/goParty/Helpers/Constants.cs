@@ -28,5 +28,8 @@ namespace goParty.Helpers
         public static readonly string picturePlaceholder = "party.jpg";
         public static readonly string titlePlaceholder = "Insert Title Here";
         public static readonly string descriptionPlaceholder = "Insert Description Here";
+
+        public static readonly string stripeTestKey = "pk_test_iiM8BYGCcNk6AbWkx7joIQKv";
+        public static readonly string stripeAccountIdPropertyName = "stripe_account_id";
     }
 }

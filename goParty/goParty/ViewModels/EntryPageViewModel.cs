@@ -20,6 +20,7 @@ namespace goParty.ViewModels
         public EntryPageViewModel()
         {
             Title = "Task List";
+            ExecuteLoginCommand();
         }
 
         Command loginCmd;

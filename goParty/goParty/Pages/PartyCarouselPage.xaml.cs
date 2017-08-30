@@ -1,4 +1,5 @@
 ﻿using goParty.Helpers;
+using goParty.Models;
 using goParty.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,9 @@ namespace goParty.Pages
 		public PartyCarouselPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new PartyCarouselPageViewModel();
+            PartyCarouselPageViewModel partyCarouselPageViewModel = new PartyCarouselPageViewModel();
+            //partyCarouselPageViewModel.selectedParty = selectedItem;
+            BindingContext = partyCarouselPageViewModel;
         }
 	}
 }

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:bv="clr-namespace:goParty.Views"
+             x:Class="goParty.Pages.CreditCardPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Red"/>
+                <Entry  Placeholder="Enter Your Card Number Here" FontSize="Medium" Keyboard="Numeric" Text="{Binding CardNumber}"/>
+                <Entry  Placeholder="MM" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateM}"/>
+                <Entry  Placeholder="YY" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateY}"/>
+                <Entry  Placeholder="CVC" FontSize="Medium" Keyboard="Numeric" Text="{Binding CVC}"/>
+
+                <Button Text="Save Details" Command="{Binding SaveCardDetailsCommand}" />
+                <Button Text="Get Details" Command="{Binding GetCardDetailsCommand}" />
+
+                <bv:BankAccountView HorizontalOptions="CenterAndExpand"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

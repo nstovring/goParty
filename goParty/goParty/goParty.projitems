@@ -16,15 +16,25 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\ILoginProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPicturePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPlatformProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IStripeProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\TableData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthenticationDelegatingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ByteArrayToImageSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\MasterDetailPageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PartyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeBankAccount.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeCharge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeCustomer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\APIModels\StripeTokenResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MasterPageItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetails.cs" />
@@ -44,6 +54,10 @@
       <DependentUpon>CreatePartyPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\StripePages\CreditCardPage.xaml.cs">
+      <DependentUpon>CreditCardPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\EntryPage.xaml.cs">
       <DependentUpon>EntryPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -54,6 +68,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml.cs">
       <DependentUpon>PartyCarouselPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\PaymentPage.xaml.cs">
+      <DependentUpon>PaymentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ProfilePage.xaml.cs">
@@ -81,13 +99,28 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureCloudTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzurePartyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StripeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AttendeeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BankAccountViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreatePartyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreditCardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntryPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PartyCarouselPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PaymentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RootPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AtendeeView.xaml.cs">
+      <DependentUpon>AtendeeView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\BankAccountView.xaml.cs">
+      <DependentUpon>BankAccountView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardStackView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
@@ -149,6 +182,33 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\PaymentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\StripePages\CreditCardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\StripePages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\BankAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AtendeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

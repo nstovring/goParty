@@ -31,6 +31,7 @@ namespace goParty.Droid
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
 
             var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
+
             loginProvider.Init(this);
 
             try

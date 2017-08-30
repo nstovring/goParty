@@ -198,8 +198,6 @@ namespace goParty.ViewModels
             {
                 _searchResult += position.Latitude + ", " + position.Longitude + "\n";
                 positions.Add(position);
-
-               
             }
             if (positions.Count > 0)
             {
@@ -225,10 +223,6 @@ namespace goParty.ViewModels
                 partyDetails.where = SearchText;
                 ResultMap.MoveToRegion(mapSpan);
             }
-            //for (int i = 0; i < approximateLocations.Count; i++)
-            //{
-            //
-            //}
         }
 
         private async Task SelectImageCommand()

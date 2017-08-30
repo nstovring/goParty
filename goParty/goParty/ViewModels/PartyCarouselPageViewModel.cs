@@ -19,11 +19,10 @@ namespace goParty.ViewModels
     {
         public ObservableRangeCollection<PartyDetailsDBCarouselItem> Parties { get; set; }
         public ObservableRangeCollection<PartyDetailsDB> PartiesGrouped { get; set; }
-
+        //public PartyDetailsDBCarouselItem selectedParty;
         public PartyCarouselPageViewModel()
         {
             Parties = new ObservableRangeCollection<PartyDetailsDBCarouselItem>();
-
             Parties.AddRange(AzurePartyManager.DefaultManager.CarouselItems);
         }
     }

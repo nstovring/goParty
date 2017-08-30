@@ -1,4 +1,5 @@
 ﻿using goParty.Abstractions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,10 @@ namespace goParty.Models
 
         public int rating { get; set; }
         public int age { get; set; }
+
+        [JsonIgnore]
+        public string partyID { get; set; }
+        [JsonIgnore]
+        public string attendeeID { get; set; }
     }
 }

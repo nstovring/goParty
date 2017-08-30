@@ -9,18 +9,19 @@ using Newtonsoft.Json.Linq;
 using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Models;
+using goParty.Models.APIModels;
 using Xamarin.Forms;
 using Xamarin.Auth;
 using System.Linq;
 using Newtonsoft.Json;
+using Stripe;
 
 namespace goParty.Services
 {
     public class AzureCloudService : ICloudService
     {
-        MobileServiceClient client;
+        public MobileServiceClient client;
         List<AppServiceIdentity> identities = null;
-        List<UserInfo> identityInfos = null;
         public AzureCloudService()
         {
             client = new MobileServiceClient(Locations.AppServiceUrl, new AuthenticationDelegatingHandler());
@@ -91,10 +92,6 @@ namespace goParty.Services
             await client.LogoutAsync();
         }
 
-       //public Task LoginAsync(User user)
-       //{
-       //    return client.LoginAsync("custom", JObject.FromObject(user));
-       //}
 
         public async Task<AppServiceIdentity> GetIdentityAsync()
         {

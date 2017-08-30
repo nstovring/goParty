@@ -1,6 +1,7 @@
 ﻿using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Models;
+using goParty.ViewModels;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
@@ -108,50 +109,58 @@ namespace goParty.Services
             List<PartyDetailsDBCarouselItem> tempCarouselList = new List<PartyDetailsDBCarouselItem>();
             foreach (var item in partyList)
             {
-                tempCarouselList.Add(new PartyDetailsDBCarouselItem(item));
+                PartyDetailsDBCarouselItem tempItem = new PartyDetailsDBCarouselItem(item);
+                tempItem.index = tempCarouselList.Count;
+                tempCarouselList.Add(tempItem);
             }
 
             //Get Table with attendee details
             var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
             ICloudTable<AttendeeDetails> Table = cloudService.GetTable<AttendeeDetails>();
 
-            if (App.AttendeeUserIdSearchIndexClient == null)
-                App.AttendeeUserIdSearchIndexClient = new SearchIndexClient(Constants.SearchServiceName, Constants.attendeeUserIDIndex, new SearchCredentials(Constants.SearchAdminApiKey));
+            //if (App.AttendeeUserIdSearchIndexClient == null)
+            //    App.AttendeeUserIdSearchIndexClient = new SearchIndexClient(Constants.SearchServiceName, Constants.attendeeUserIDIndex, new SearchCredentials(Constants.SearchAdminApiKey));
 
             //Find out which parties the user is attending
             try
             {
-                var searchResults = await App.UserDetailsUserIdSearchIndexClient.Documents.SearchAsync<AttendeeDetails>(App.userDetails.Id);
+                //var searchResults = await App.UserDetailsUserIdSearchIndexClient.Documents.SearchAsync<AttendeeDetails>(App.userDetails.Id);
+                ObservableRangeCollection<PartyDetails> partiesAttending = ProfilePageViewModel.PartiesAttending;
+                ObservableRangeCollection<PartyDetails> partiesHosting = ProfilePageViewModel.PartiesHosting;
+
+                if (partiesAttending != null && partiesAttending.Count > 0)
+                {
+                    var myParties = from m in tempCarouselList
+                                    let fr = (from f in partiesAttending select f.partyId)
+                                    where fr.Contains(m.partyId)
+                                    select m.isThisUserAttending == true;
+                    //myParties;
+                }
+
+                if (partiesHosting != null && partiesHosting.Count > 0)
+                {
+                    var myParties = from m in tempCarouselList
+                                    let fr = (from f in partiesHosting select f.userId)
+                                    where fr.Contains(App.userDetails.userId)
+                                    select m.isThisUserHosting = true;
+                    //myParties;
+                }
 
                 //User found for every match make party special 
-                if (searchResults.Results.Count > 0)
-                {
-                    foreach (var attendeeDetail in searchResults.Results)
-                    {
-                        foreach (var party in tempCarouselList)
-                        {
-                            if(attendeeDetail.Document.partyId == party.partyId)
-                            {
-                                party.isThisUserAttending = true;
-                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.RequestSent];
-                            }
-                            else if(party.userId == App.userDetails.userId) {
-                                party.isThisUserHosting = true;
-                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.CancelEvent];
-                            }
-                            else
-                            {
-                                party.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.JoinParty];
-                            }
-                        }
-                    }
-                }
+                
             }catch(Exception ex)
             {
                 Console.WriteLine($"[Login] Error = {ex.Message}");
             }
             CarouselItems = tempCarouselList;
             return tempCarouselList;
+        }
+
+        public void SortCarouselPartiesToIndex(int index)
+        {
+            PartyDetailsDBCarouselItem item = CarouselItems[Math.Max(index,CarouselItems.Count-1)];
+            CarouselItems[index] = CarouselItems[0];
+            CarouselItems[0] = item;
         }
 
         public async Task<List<PartyDetailsDB>> GetAllPartiesAsync()

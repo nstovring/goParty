@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using goParty.Models;
 using Xamarin.Auth;
 using Microsoft.Azure.Search;
+using Stripe;
 
 namespace goParty
 {
@@ -39,6 +40,7 @@ namespace goParty
 		{
 			InitializeComponent();
             ServiceLocator.Instance.Add<ICloudService, AzureCloudService>();
+            ServiceLocator.Instance.Add<IStripeProvider, StripeService>();
             //MainPage = new EntryPage();
             try
             {
@@ -48,22 +50,6 @@ namespace goParty
                 Console.WriteLine($"[Load Error] Error = {ex.Message}");
             }
         }
-
-
-        //protected override void OnActivated(IActivatedEventArgs args)
-        //{
-        //    if (args.Kind == ActivationKind.Protocol)
-        //    {
-        //        ProtocolActivatedEventArgs protocolArgs = args as ProtocolActivatedEventArgs;
-        //        Frame content = Window.Current.Content as Frame;
-        //        if (content.Content.GetType() == typeof(MainPage))
-        //        {
-        //            content.Navigate(typeof(MainPage), protocolArgs.Uri);
-        //        }
-        //    }
-        //    Window.Current.Activate();
-        //    base.OnActivated(args);
-        //}
 
         protected override void OnStart ()
 		{

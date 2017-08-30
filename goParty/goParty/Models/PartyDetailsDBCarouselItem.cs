@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Azure.Documents.Spatial;
+using goParty.Models.APIModels;
+using Xamarin.Auth;
+using System.IO;
 
 namespace goParty.Models
 {
@@ -18,6 +21,7 @@ namespace goParty.Models
         Command joinPartyCmd;
         public Command JoinPartyCommand => joinPartyCmd ?? (joinPartyCmd = new Command(async () => await ExecuteJoinPartyCommand().ConfigureAwait(false)));
 
+        public int index;
         bool _isJoinButtonActive = true;
         bool _isThisUserAttending = false;
         bool _isThisUsersFriendsAttending = false;
@@ -87,7 +91,21 @@ namespace goParty.Models
             documentDBId = valueSource.documentDBId;
             price = valueSource.price;
             location = new Microsoft.Azure.Documents.Spatial.Point(lon,latt);
-            //LoadImage();
+
+            if (isThisUserAttending == true)
+            {
+                joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.RequestSent];
+            }
+            else if (isThisUserHosting == true)
+            {
+                joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.CancelEvent];
+            }
+            else
+            {
+                joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.JoinParty];
+            }
+
+            LoadImage();
         }
 
         public async void LoadImage()
@@ -95,7 +113,9 @@ namespace goParty.Models
             if (picture.Length > 10)
             {
                 ByteArrayToImageSource byteArrayToImageSource = new ByteArrayToImageSource();
-                pictureImageSource = byteArrayToImageSource.Convert(await AzureStorage.GetFileAsync(ContainerType.Image, picture), typeof(ImageSource), null, null) as ImageSource;
+                Byte[] imageByteArray = await AzureStorage.GetFileAsync(ContainerType.Image, picture);
+                Byte[] resizedImageByteArray = await ImageResizer.ResizeImage(imageByteArray, 800, 533);
+                pictureImageSource = byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;
             }
             else
             {
@@ -112,14 +132,23 @@ namespace goParty.Models
            
             try
             {
+                var loginProvider = DependencyService.Get<ILoginProvider>();
+
+                //TODO Optimize
+                string customerid;
+                loginProvider.RetreiveAccountFromSecureStore().Properties.TryGetValue(Constants.stripeAccountIdPropertyName,out customerid);
+                string userTableid = loginProvider.RetrieveTableIdFromSecureStore();
+
                 var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
                 ICloudTable<AttendeeDetails> Table = cloudService.GetTable<AttendeeDetails>();
+
                 AttendeeDetails attendeeDetails = new AttendeeDetails
                 {
-                    userId = App.userDetails.userId,
-                    partyId = this.partyId,
+                    userId = userTableid,
+                    partyId = documentDBId, //Actually tableid
                     paid = false,
                     accepted = false,
+                    chargeId = customerid,
                 };
             
                 await Table.CreateItemAsync(attendeeDetails);

@@ -31,31 +31,21 @@ namespace goParty.ViewModels
         public StackLayout stackLayout;
         public StackLayout stackLayoutHosting;
 
-        public ObservableRangeCollection<PartyDetailsDBCarouselItem> partiesAttending { get; set; }
-        public ObservableRangeCollection<PartyDetailsDBCarouselItem> partiesHosting { get; set; }
         AzurePartyManager azurePartyManager;
         public ProfilePageViewModel()
         {
             profilePicture = App.userDetails.picture;
             rating = App.userDetails.rating;
-            partiesHosting = new ObservableRangeCollection<PartyDetailsDBCarouselItem>();
-            partiesAttending = new ObservableRangeCollection<PartyDetailsDBCarouselItem>();
+            PartiesAttending = new ObservableRangeCollection<PartyDetails>();
+            PartiesHosting = new ObservableRangeCollection<PartyDetails>();
 
             azurePartyManager = AzurePartyManager.DefaultManager;
             QueryForPartiesAttending();
 
         }
 
-        async void Refresh()
-        {
-            partiesHosting.Clear();
-            partiesAttending.Clear();
-        }  
-
-        async void QueryForPartiesHosting()
-        {
-            partiesHosting.AddRange(await azurePartyManager.GetPartiesUserIsHostingAsync());
-        }
+        public static ObservableRangeCollection<PartyDetails> PartiesAttending { get; set; }
+        public static ObservableRangeCollection<PartyDetails> PartiesHosting { get; set; }
 
         async void QueryForPartiesAttending()
         {
@@ -66,8 +56,6 @@ namespace goParty.ViewModels
             List<Image> carouselImages = new List<Image>();
             if (attendeeDetails == null || attendeeDetails.Count < 0)
                 return;
-
-            int i = 0;
 
             ICollection<PartyDetails> partiesAttending = new List<PartyDetails>();
             ICollection<PartyDetails> partiesHosting = new List<PartyDetails>();
@@ -83,15 +71,12 @@ namespace goParty.ViewModels
                     partiesAttending.Add(item);
                 }
             }
-            //partiesHosting = attendeeDetails.Where(x => x.userId == App.userDetails.userId).ToList();
-            //partiesAttending = attendeeDetails.Where(x => x.userId != App.userDetails.userId).ToList();
-
             foreach (var item in partiesAttending)
             {
                 ImageSource src = await LoadImage(item.picture);
                 Image image = new Image() {
                     Source = src,
-                    VerticalOptions = LayoutOptions.Fill//Aspect = Aspect.AspectFit,
+                    VerticalOptions = LayoutOptions.CenterAndExpand//Aspect = Aspect.AspectFit,
                 };
 
                 stackLayout.Children.Add(image);
@@ -108,7 +93,10 @@ namespace goParty.ViewModels
 
                 stackLayoutHosting.Children.Add(image);
             }
-        }
+
+            PartiesAttending.AddRange(partiesAttending);
+            PartiesHosting.AddRange(partiesHosting);
+            }
 
 
         public async Task<ImageSource> LoadImage(string picture)
@@ -116,7 +104,9 @@ namespace goParty.ViewModels
             if (picture.Length > 10)
             {
                 ByteArrayToImageSource byteArrayToImageSource = new ByteArrayToImageSource();
-                return byteArrayToImageSource.Convert(await AzureStorage.GetFileAsync(ContainerType.Image, picture), typeof(ImageSource), null, null) as ImageSource;
+                Byte[] imageByteArray = await AzureStorage.GetFileAsync(ContainerType.Image, picture);
+                Byte[] resizedImageByteArray = await ImageResizer.ResizeImage(imageByteArray, 800, 533);
+                return byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;
             }
             else
             {

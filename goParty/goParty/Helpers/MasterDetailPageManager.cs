@@ -79,9 +79,9 @@ namespace goParty.Helpers
 
             masterPageItems.Add(new MasterPageItem
             {
-                Title = "TestPage",
+                Title = "Credit Card Page",
                 IconSource = "hamburger.png",
-                TargetType = typeof(TestPage)
+                TargetType = typeof(CreditCardPage)
             });
 
             return masterPageItems;

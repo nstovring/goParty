@@ -51,6 +51,19 @@ namespace goParty.Services
             return null;
         }
 
+        //public async Task<ICollection<T>> ReadAllItemsWithinRangeAsync(double lon, double latt, double range)
+        //{
+        //    try
+        //    {
+        //        return await table.ToListAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"[Login] Error = {ex.Message}");
+        //    }
+        //    return null;
+        //}
+
         public async Task<T> ReadItemAsync(string id)
         {
             return await table.LookupAsync(id);
