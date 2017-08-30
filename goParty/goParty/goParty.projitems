@@ -17,10 +17,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPicturePicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IPlatformProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\IStripeProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Abstractions\Math.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Abstractions\TableData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthenticationDelegatingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ByteArrayToImageSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\MasterDetailPageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PartyHelper.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RootPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserCardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AtendeeView.xaml.cs">
       <DependentUpon>AtendeeView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,8 +122,14 @@
       <DependentUpon>BankAccountView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CardStackView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CardView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardListView.xaml.cs">
+      <DependentUpon>CardListView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserCardView.xaml.cs">
+      <DependentUpon>UserCardView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
@@ -209,6 +218,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AtendeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UserCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

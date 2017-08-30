@@ -1,6 +1,7 @@
 ﻿using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Models.APIModels;
+using goParty.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,9 @@ namespace goParty.Models
             picture = userDetails.picture;
             partyID = userDetails.partyID;
             attendeeID = userDetails.attendeeID;
-
-            GetParty();
         }
 
-        public async void GetParty()
+        public async Task GetParty()
         {
             cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
             var Table = cloudService.GetTable<PartyDetails>();

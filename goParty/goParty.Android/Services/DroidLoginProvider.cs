@@ -236,6 +236,8 @@ namespace goParty.Droid.Services
             var tcs = new TaskCompletionSource<MobileServiceUser>();
 
             authenticator.Completed += async (sender, e) => {
+                if (e.Account == null)
+                    return;
                 Account acc = e.Account;
                 App.account = acc;
                 string accessToken = acc.Properties["access_token"];

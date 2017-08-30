@@ -9,41 +9,43 @@
              x:Class="goParty.Pages.ProfilePage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <ScrollView BackgroundColor="Black">
-            <StackLayout HorizontalOptions="CenterAndExpand" Padding="3">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Grid.Row="0" Source="{Binding profilePicture}" HeightRequest="200"></Image>
-                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding rating}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                </Grid>
+        <StackLayout HorizontalOptions="CenterAndExpand" Padding="3">
+            <ScrollView BackgroundColor="Black">
+                <StackLayout HorizontalOptions="CenterAndExpand" Padding="3">
+                    <Frame OutlineColor="Beige" HasShadow="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Grid.Row="0" Source="{Binding profilePicture}" HeightRequest="200"></Image>
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding rating}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
 
-                <Label Text="Parties Your Attending" TextColor="White"/>
+                    <Label Text="Parties Your Attending" TextColor="White"/>
+                    <ScrollView Orientation="Horizontal" Padding="5">
+                        <StackLayout x:Name="StackLayout"  Padding="0" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal" HeightRequest="160">
 
-                <ScrollView Orientation="Horizontal" Padding="5">
-                    <StackLayout x:Name="StackLayout"  Padding="0" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal" HeightRequest="160">
+                        </StackLayout>
+                    </ScrollView>
 
-                    </StackLayout>
-                </ScrollView>
+                    <Label Text="Parties Your Hosting" TextColor="White"/>
 
-                <Label Text="Parties Your Hosting" TextColor="White"/>
+                    <ScrollView Orientation="Horizontal" Padding="5">
+                        <StackLayout x:Name="StackLayoutHosting"  Padding="0" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal" HeightRequest="160">
 
-                <ScrollView Orientation="Horizontal" Padding="5">
-                    <StackLayout x:Name="StackLayoutHosting"  Padding="0" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Orientation="Horizontal" HeightRequest="160">
+                        </StackLayout>
+                    </ScrollView>
 
-                    </StackLayout>
-                </ScrollView>
+                    <Label Text="Pending Join Requests" />
 
-                <Label Text="Pending Join Requests" />
-                <av:AtendeeView HorizontalOptions="Center"/>
-
-
-            </StackLayout>
-        </ScrollView>
+                </StackLayout>
+            </ScrollView>
+            <av:AtendeeView HorizontalOptions="Center"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

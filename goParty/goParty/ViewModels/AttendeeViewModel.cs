@@ -32,7 +32,7 @@ namespace goParty.ViewModels
             var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
             var AttendeeTable = cloudService.GetTable<AttendeeDetails>();
             var Table = cloudService.GetTable<UserDetails>();
-            List<UserDetails> temp = new List<UserDetails>();
+            List<AttendeeListItem> temp = new List<AttendeeListItem>();
             ICollection<AttendeeDetails> attendeeDetails = await AttendeeTable.ReadAllItemsAsync();
 
 
@@ -46,9 +46,12 @@ namespace goParty.ViewModels
                 tempDetails.partyID = att.partyId;
                 tempDetails.attendeeID = att.Id;
                 AttendeeListItem attitem = new AttendeeListItem(tempDetails);
+                await attitem.GetParty();
                 attitem.userDetails = tempDetails;
-                Attendees.Add(attitem);
+                temp.Add(attitem);
             }
+
+            Attendees.AddRange(temp);
         }
     }
 }

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="goParty.Views.UserCardView"
+             >
+  <ContentView.Content>
+        <Frame OutlineColor="Beige" HasShadow="True" Padding="0">
+           
+            <Grid Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.ColumnSpan="2" Source="{Binding PartyImageSource}" Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <StackLayout Grid.ColumnSpan="2" x:Name="CardStackLayout" Orientation="Horizontal">
+                    <Frame OutlineColor="Beige" HasShadow="True" Padding="1" HorizontalOptions="StartAndExpand">
+                        <Image Source="{Binding Attendee.picture}" VerticalOptions="Center" />
+                    </Frame>
+                    <Label Text="{Binding Attendee.name}" HorizontalOptions="Center" TextColor="White" FontSize="Medium" VerticalOptions="End"/>
+                </StackLayout>
+            </Grid>
+            
+            
+        </Frame>
+    </ContentView.Content>
+    
+</ContentView>

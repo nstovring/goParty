@@ -24,8 +24,7 @@
         public const string StorageConnection = "DefaultEndpointsProtocol=https;AccountName=partycrasherblob;AccountKey=WaDHg28g9iKacJXo/PZ6I2MCoSYfbITrRDspe/Cp5z9jp3AI7hGxodxytaRmYzjSH9nX69jPx1WzLmWYs7a1dw==;EndpointSuffix=core.windows.net";
 
 
-        public static string FacebookRequestUserInfoUrl = "https://graph.facebook.com/v2.10/me/?fields=name,age_range,picture&width=800&height=800&redirect=false";
-
+        public static string FacebookRequestUserInfoUrl = "https://graph.facebook.com/v2.10/me/?fields=name,age_range,picture.type(large)";
 
         public static string LocalDataBase = "LocalPartyCrasher.db";
 

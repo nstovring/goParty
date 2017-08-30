@@ -158,10 +158,12 @@ namespace goParty.Services
 
         public void SortCarouselPartiesToIndex(int index)
         {
-            PartyDetailsDBCarouselItem item = CarouselItems[Math.Max(index,CarouselItems.Count-1)];
+            PartyDetailsDBCarouselItem item = CarouselItems[MyMath.Clamp(index,0,CarouselItems.Count-1)];
             CarouselItems[index] = CarouselItems[0];
             CarouselItems[0] = item;
         }
+
+        
 
         public async Task<List<PartyDetailsDB>> GetAllPartiesAsync()
         {
@@ -176,8 +178,6 @@ namespace goParty.Services
                 {
                     Items.AddRange(await query.ExecuteNextAsync<PartyDetailsDB>());
                 }
-
-
             }
             catch (Exception e)
             {
@@ -204,22 +204,17 @@ namespace goParty.Services
                     //await Task.WhenAll(Items)
                     deleteItems.AddRange(await query.ExecuteNextAsync<PartyDetailsDB>());
                 }
-
                 await Task.WhenAll(deleteItems.Select(x => DeleteItemAsync(x)));
-
-
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(@"ERROR {0}", e.Message);
                 return null;
             }
-
             return Items;
         }
 
         public ICloudTable<PartyDetails> Table { get; set; }
-
 
         public async Task DeleteItemAsync(PartyDetailsDB partyDetailsDB)
         {

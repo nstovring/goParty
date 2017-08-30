@@ -22,6 +22,8 @@ namespace goParty
 
     public partial class App : Application
 	{
+        public static double ScreenWidth;
+        public static double ScreenHeight;
 
         public static UserDetails userDetails;
         public static Account account;

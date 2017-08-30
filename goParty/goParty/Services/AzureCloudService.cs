@@ -202,9 +202,10 @@ namespace goParty.Services
             if (tableId == null)
             {
                 ICollection<UserDetails> tempUserDetailsList = await Table.ReadAllItemsAsync();
-                account.Properties.Add("table_id", tempUserDetailsList.ToList()[0].Id);
+                UserDetails userDetails = tempUserDetailsList.FirstOrDefault(x => x.userId == client.CurrentUser.UserId);
+                account.Properties.Add("table_id", userDetails.Id);
                 loginProvider.SaveAccountInSecureStore(account);
-                App.userDetails = tempUserDetailsList.ToList()[0];
+                App.userDetails = userDetails;
             }
             else
             {

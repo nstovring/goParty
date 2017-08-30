@@ -5,30 +5,6 @@
              x:Class="goParty.Views.AtendeeView"
              >
   <ContentView.Content>
-
-        <cards:CardStackView ItemsSource="{Binding Attendees}"/>
-
-        <!-- Here's The Old List View
-        <ListView x:Name="ContextDemoList" ItemsSource="{Binding Attendees}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
-               Text="More" />
-                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
-               Text="Delete" IsDestructive="True" />
-                        </ViewCell.ContextActions>
-                        <StackLayout Padding="0" Orientation="Horizontal" HorizontalOptions="Fill" BackgroundColor="Red">
-                            <Image Source="{Binding picture}" HeightRequest="60" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
-                            <Label Text="{Binding name}"  TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label Text="{Binding rating}" TextColor="Black" HorizontalOptions="End" VerticalOptions="Center"/>
-                            <Switch IsToggled="{Binding Accepted, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  VerticalOptions="Center"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-       -->
+        <av:CardListView ItemsSource="{Binding Attendees}" HorizontalOptions="FillAndExpand"/>
     </ContentView.Content>
 </ContentView>
