@@ -45,7 +45,7 @@ namespace goParty.ViewModels
             }
             finally
             {
-                Application.Current.MainPage = new NavigationPage(new Pages.RootPage());
+                Application.Current.MainPage = new NavigationPage(new Pages.TabbedMainPage());
                 IsBusy = false;
             }
         }

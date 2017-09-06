@@ -11,6 +11,7 @@ using Microsoft.Azure.Documents.Spatial;
 using goParty.Models.APIModels;
 using Xamarin.Auth;
 using System.IO;
+using System.Linq;
 
 namespace goParty.Models
 {
@@ -112,14 +113,22 @@ namespace goParty.Models
         {
             if (picture.Length > 10)
             {
-                ByteArrayToImageSource byteArrayToImageSource = new ByteArrayToImageSource();
-                Byte[] imageByteArray = await AzureStorage.GetFileAsync(ContainerType.Image, picture);
-                Byte[] resizedImageByteArray = await ImageResizer.ResizeImage(imageByteArray, 800, 533);
-                pictureImageSource = byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;
+                ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
+                ImageSource img = item?.image;
+                pictureImageSource =  img ?? await AzureStorage.LoadImage(picture);
             }
             else
             {
-                pictureImageSource = ImageSource.FromFile(picture);
+                ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
+                ImageSource img;
+                if (item == null)
+                {
+                    img = ImageSource.FromFile(picture);
+                    ImageHelper.LoadedImages.Add(new ImageHelper.ImageHelperItem { image = img, imageId = picture });
+                    pictureImageSource = img;
+                    return;
+                }
+                pictureImageSource = item.image;
             }
         }
 

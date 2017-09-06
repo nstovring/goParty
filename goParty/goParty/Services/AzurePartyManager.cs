@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace goParty.Services
 {
@@ -54,7 +55,7 @@ namespace goParty.Services
             {
                 // The query excludes completed TodoItems
                 var query = client.CreateDocumentQuery<PartyDetailsDB>(collectionLink, new FeedOptions { MaxItemCount = -1, EnableScanInQuery = true })
-                      .Where(party => party.location.Distance(new Point(lon, latt)) < range) //1 = 1m
+                      .Where(party => party.location.Distance(new Microsoft.Azure.Documents.Spatial.Point(lon, latt)) < range) //1 = 1m
                       .AsDocumentQuery();
 
                 Items = new List<PartyDetailsDB>();
@@ -118,15 +119,13 @@ namespace goParty.Services
             var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
             ICloudTable<AttendeeDetails> Table = cloudService.GetTable<AttendeeDetails>();
 
-            //if (App.AttendeeUserIdSearchIndexClient == null)
-            //    App.AttendeeUserIdSearchIndexClient = new SearchIndexClient(Constants.SearchServiceName, Constants.attendeeUserIDIndex, new SearchCredentials(Constants.SearchAdminApiKey));
 
             //Find out which parties the user is attending
             try
             {
                 //var searchResults = await App.UserDetailsUserIdSearchIndexClient.Documents.SearchAsync<AttendeeDetails>(App.userDetails.Id);
-                ObservableRangeCollection<PartyDetails> partiesAttending = ProfilePageViewModel.PartiesAttending;
-                ObservableRangeCollection<PartyDetails> partiesHosting = ProfilePageViewModel.PartiesHosting;
+                ObservableRangeCollection<PartyDetails> partiesAttending = PartiesAttending;
+                ObservableRangeCollection<PartyDetails> partiesHosting = PartiesHosting;
 
                 if (partiesAttending != null && partiesAttending.Count > 0)
                 {
@@ -162,7 +161,6 @@ namespace goParty.Services
             CarouselItems[index] = CarouselItems[0];
             CarouselItems[0] = item;
         }
-
         
 
         public async Task<List<PartyDetailsDB>> GetAllPartiesAsync()
@@ -249,6 +247,63 @@ namespace goParty.Services
                 Console.Error.WriteLine(@"ERROR {0}", e.Message);
             }
             return partyDetailsDB;
+        }
+
+
+        public static ObservableRangeCollection<PartyDetails> PartiesAttending { get; set; }
+        public static ObservableRangeCollection<PartyDetails> PartiesHosting { get; set; }
+
+        public async void QueryForPartiesAttending()
+        {
+            ICloudService cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+            ICloudTable<PartyDetails> Table = cloudService.GetTable<PartyDetails>();
+            ICollection<PartyDetails> attendeeDetails = await Table.ReadAllItemsAsync();
+            List<PartyDetailsDBCarouselItem> carouselItems = new List<PartyDetailsDBCarouselItem>();
+            List<Image> carouselImages = new List<Image>();
+            if (attendeeDetails == null || attendeeDetails.Count < 0)
+                return;
+
+            ICollection<PartyDetails> partiesAttending = new List<PartyDetails>();
+            ICollection<PartyDetails> partiesHosting = new List<PartyDetails>();
+
+            foreach (var item in attendeeDetails)
+            {
+                if (item.userId == App.userDetails.userId)
+                {
+                    partiesHosting.Add(item);
+                }
+                else
+                {
+                    partiesAttending.Add(item);
+                }
+            }
+           
+            ImageHelper.LoadedImages.Clear();
+            PartiesAttending.AddRange(partiesAttending);
+            PartiesHosting.AddRange(partiesHosting);
+        }
+
+
+        public async Task<ImageSource> LoadImage(string picture)
+        {
+            if (picture.Length > 10)
+            {
+                ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
+                ImageSource img = item?.image;
+                return img ?? await AzureStorage.LoadImage(picture);
+            }
+            else
+            {
+                ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
+                ImageSource img;
+                if (item == null)
+                {
+                    img = ImageSource.FromFile(picture);
+                    ImageHelper.LoadedImages.Add(new ImageHelper.ImageHelperItem { image = img, imageId = picture });
+                    return img;
+                }
+                return item.image;
+            }
         }
     }
 }

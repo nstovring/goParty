@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="goParty.Pages.ManagementPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <AbsoluteLayout x:Name="ManagementRelativeLayout">
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="2*"/>
+                <ColumnDefinition Width ="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0"  Text="Create Party" Command="{Binding GoToCreatePartyViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="1" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToAttendeeViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="2" Grid.Column="0" Text="Pending Partycrashers" Command="{Binding GoToPartiesAttendingViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="3" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToPartiesHostingViewCommand}" BackgroundColor="OrangeRed"/>
+
+        </Grid>
+
+            
+            
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

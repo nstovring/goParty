@@ -13,6 +13,7 @@ using Plugin.Permissions;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Content;
+using SVG.Forms.Plugin.Droid;
 
 namespace goParty.Droid
 {
@@ -21,6 +22,7 @@ namespace goParty.Droid
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
             RequestWindowFeature(WindowFeatures.NoTitle);
             TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar; 
@@ -29,7 +31,6 @@ namespace goParty.Droid
             global::Xamarin.Forms.Forms.Init (this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
-
             var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
 
             loginProvider.Init(this);
@@ -44,7 +45,9 @@ namespace goParty.Droid
             try
             {
                 LoadApplication(new goParty.App());
-            }catch(Exception ex)
+                Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 0, 0, 0));
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"[Login] Error = {ex.Message}");
             }

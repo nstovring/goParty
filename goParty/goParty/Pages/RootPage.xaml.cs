@@ -20,7 +20,7 @@ namespace goParty.Pages
         public RootPage ()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
-
+            
             detailPages = new List<Page>();
             instance = this;
 

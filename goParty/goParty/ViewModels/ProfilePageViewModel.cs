@@ -1,6 +1,7 @@
 ﻿using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Models;
+using goParty.Pages;
 using goParty.Services;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,27 @@ namespace goParty.ViewModels
             get { return _profilePicture; }
             set { SetProperty(ref _profilePicture, value, "profilePicture"); }
         }
+        string _name;
+        public string name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name, value, "name"); }
+        }
+
         float _rating;
         public float rating
         {
             get { return _rating; }
             set { SetProperty(ref _rating, value, "rating"); }
+        }
+
+       
+        Command goToCreditDetailsPageCmd;
+        public Command GoToCreditDetailsPageCommand => goToCreditDetailsPageCmd ?? (goToCreditDetailsPageCmd = new Command(async () => await ExecuteGoToCreditDetailsPageCommand().ConfigureAwait(false)));
+
+        private async Task ExecuteGoToCreditDetailsPageCommand()
+        {
+            await App.Instance.MainPage.Navigation.PushModalAsync(new CreditCardPage());
         }
 
         public StackLayout stackLayout;
@@ -34,84 +51,18 @@ namespace goParty.ViewModels
         AzurePartyManager azurePartyManager;
         public ProfilePageViewModel()
         {
+            Title = Constants.profilePageTitle;
             profilePicture = App.userDetails.picture;
             rating = App.userDetails.rating;
-            PartiesAttending = new ObservableRangeCollection<PartyDetails>();
-            PartiesHosting = new ObservableRangeCollection<PartyDetails>();
+            name = App.userDetails.name;
+            //PartiesAttending = new ObservableRangeCollection<PartyDetails>();
+           // PartiesHosting = new ObservableRangeCollection<PartyDetails>();
 
             azurePartyManager = AzurePartyManager.DefaultManager;
-            QueryForPartiesAttending();
+            //QueryForPartiesAttending();
 
         }
 
-        public static ObservableRangeCollection<PartyDetails> PartiesAttending { get; set; }
-        public static ObservableRangeCollection<PartyDetails> PartiesHosting { get; set; }
-
-        async void QueryForPartiesAttending()
-        {
-            ICloudService cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
-            ICloudTable<PartyDetails> Table = cloudService.GetTable<PartyDetails>();
-            ICollection<PartyDetails> attendeeDetails = await Table.ReadAllItemsAsync();
-            List<PartyDetailsDBCarouselItem> carouselItems = new List<PartyDetailsDBCarouselItem>();
-            List<Image> carouselImages = new List<Image>();
-            if (attendeeDetails == null || attendeeDetails.Count < 0)
-                return;
-
-            ICollection<PartyDetails> partiesAttending = new List<PartyDetails>();
-            ICollection<PartyDetails> partiesHosting = new List<PartyDetails>();
-
-            foreach (var item in attendeeDetails)
-            {
-                if(item.userId == App.userDetails.userId)
-                {
-                    partiesHosting.Add(item);
-                }
-                else
-                {
-                    partiesAttending.Add(item);
-                }
-            }
-            foreach (var item in partiesAttending)
-            {
-                ImageSource src = await LoadImage(item.picture);
-                Image image = new Image() {
-                    Source = src,
-                    VerticalOptions = LayoutOptions.CenterAndExpand//Aspect = Aspect.AspectFit,
-                };
-
-                stackLayout.Children.Add(image);
-            }
-
-            foreach (var item in partiesHosting)
-            {
-                ImageSource src = await LoadImage(item.picture);
-                Image image = new Image()
-                {
-                    Source = src,
-                    VerticalOptions = LayoutOptions.Fill//Aspect = Aspect.AspectFit,
-                };
-
-                stackLayoutHosting.Children.Add(image);
-            }
-
-            PartiesAttending.AddRange(partiesAttending);
-            PartiesHosting.AddRange(partiesHosting);
-            }
-
-
-        public async Task<ImageSource> LoadImage(string picture)
-        {
-            if (picture.Length > 10)
-            {
-                ByteArrayToImageSource byteArrayToImageSource = new ByteArrayToImageSource();
-                Byte[] imageByteArray = await AzureStorage.GetFileAsync(ContainerType.Image, picture);
-                Byte[] resizedImageByteArray = await ImageResizer.ResizeImage(imageByteArray, 800, 533);
-                return byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;
-            }
-            else
-            {
-                return ImageSource.FromFile(picture);
-            }
-        }
+        
     }
 }

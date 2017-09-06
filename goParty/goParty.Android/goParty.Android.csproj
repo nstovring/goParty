@@ -94,6 +94,12 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NGraphics.Android.Custom, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\MonoAndroid10\NGraphics.Android.Custom.dll</HintPath>
+    </Reference>
+    <Reference Include="NGraphics.Custom, Version=1.0.5741.13259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\MonoAndroid10\NGraphics.Custom.dll</HintPath>
+    </Reference>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\MonoAndroid23\PCLCrypto.dll</HintPath>
     </Reference>
@@ -132,6 +138,12 @@
     </Reference>
     <Reference Include="Stripe">
       <HintPath>..\..\Components\stripe-1.0.7\lib\android\Stripe.dll</HintPath>
+    </Reference>
+    <Reference Include="SVG.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\MonoAndroid10\SVG.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SVG.Forms.Plugin.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\MonoAndroid10\SVG.Forms.Plugin.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -351,7 +363,19 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\p20.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\party.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\Accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\Decline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\backicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\bgkicon.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\party.9.png" />
   </ItemGroup>
   <Import Project="..\goParty\goParty.projitems" Label="Shared" Condition="Exists('..\goParty\goParty.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

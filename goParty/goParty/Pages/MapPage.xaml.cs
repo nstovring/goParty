@@ -26,6 +26,7 @@ namespace goParty.Pages
 
         public MapPage()
         {
+            Title = Constants.locatePartyPageTitle;
             //this.rootPage = rootPage;
             InitializeComponent();
             try

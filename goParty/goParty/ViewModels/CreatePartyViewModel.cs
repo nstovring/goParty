@@ -29,7 +29,21 @@ namespace goParty.ViewModels
         Command findLocationCmd;
         public Command FindLocationCmd => findLocationCmd ?? (findLocationCmd = new Command(async () => await ExecuteFindLocationCommand().ConfigureAwait(false)));
 
-#region Getters & Setters
+
+        Command backIconClickedCmd;
+        public Command BackIconClickedCommand => backIconClickedCmd ?? (backIconClickedCmd = new Command( () =>  ExecuteBackButtonClickedCommand()));
+
+        private void ExecuteBackButtonClickedCommand()
+        {
+            Tapped(this, 1);
+        }
+
+
+        public delegate void TappedEventHandler(object sender, float e);
+        public event TappedEventHandler Tapped;
+
+
+        #region Getters & Setters
         Stream partyHeaderImageStream;
         ImageSource _partyHeaderImageSource;
         Geocoder geoCoder;

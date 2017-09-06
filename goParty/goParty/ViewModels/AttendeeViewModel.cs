@@ -46,11 +46,11 @@ namespace goParty.ViewModels
                 tempDetails.partyID = att.partyId;
                 tempDetails.attendeeID = att.Id;
                 AttendeeListItem attitem = new AttendeeListItem(tempDetails);
-                await attitem.GetParty();
+                //await attitem.GetParty();
                 attitem.userDetails = tempDetails;
                 temp.Add(attitem);
             }
-
+            ImageHelper.LoadedImages.Clear();
             Attendees.AddRange(temp);
         }
     }

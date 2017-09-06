@@ -1,34 +1,47 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:SVG.Forms.Plugin.Abstractions;assembly=SVG.Forms.Plugin.Abstractions"
              x:Class="goParty.Views.UserCardView"
              >
-  <ContentView.Content>
-        <Frame OutlineColor="Beige" HasShadow="True" Padding="0">
-           
-            <Grid Padding="0">
+    <ContentView.Content>
+        <Grid>
+            <Grid Padding="0" x:Name="BackGrid">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="330*"/>
+                    <RowDefinition Height="120*"/>
                 </Grid.RowDefinitions>
-                <Image Grid.ColumnSpan="2" Source="{Binding PartyImageSource}" Aspect="AspectFill">
-                    <Image.GestureRecognizers>
-                        <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <StackLayout Grid.ColumnSpan="2" x:Name="CardStackLayout" Orientation="Horizontal">
-                    <Frame OutlineColor="Beige" HasShadow="True" Padding="1" HorizontalOptions="StartAndExpand">
-                        <Image Source="{Binding Attendee.picture}" VerticalOptions="Center" />
-                    </Frame>
-                    <Label Text="{Binding Attendee.name}" HorizontalOptions="Center" TextColor="White" FontSize="Medium" VerticalOptions="End"/>
-                </StackLayout>
+                    <Image Grid.Column="0" Grid.RowSpan="2" Source="Accept.png" Aspect="AspectFit"></Image>
+                    <Image  Grid.Column="2" Grid.RowSpan="2" Source="Decline.png" Aspect="AspectFit"></Image>
             </Grid>
-            
-            
-        </Frame>
+
+            <Frame x:Name="CardFrame" OutlineColor="Beige" HasShadow="True" Padding="0">
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="330*"/>
+                        <RowDefinition Height="120*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="{Binding Attendee.picture}" Aspect="AspectFill">
+                        <Image.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
+                            <TapGestureRecognizer Tapped="TapGesture_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="White" Opacity="0.6" VerticalOptions="Fill" HorizontalOptions="Fill" />
+
+                    <Label Grid.Row="1" TranslationX="10" Text="{Binding Attendee.name}" HorizontalOptions="Start" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+        </Grid>
     </ContentView.Content>
-    
 </ContentView>

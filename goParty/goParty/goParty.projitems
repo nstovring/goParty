@@ -52,8 +52,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\TodoItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AttendeePage.xaml.cs">
+      <DependentUpon>AttendeePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\CreatePartyPage.xaml.cs">
       <DependentUpon>CreatePartyPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPage.xaml.cs">
+      <DependentUpon>ManagementPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\StripePages\CreditCardPage.xaml.cs">
@@ -102,11 +110,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzurePartyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AzureStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\StripeService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\TabbedMainPage.xaml.cs">
+      <DependentUpon>TabbedMainPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AttendeePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AttendeeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BankAccountViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreatePartyViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CreditCardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntryPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManagementPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PartyCarouselPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PaymentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
@@ -122,8 +136,20 @@
       <DependentUpon>BankAccountView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardGridView.xaml.cs">
+      <DependentUpon>CardGridView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CardListView.xaml.cs">
       <DependentUpon>CardListView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardGridItemView.xaml.cs">
+      <DependentUpon>CardGridItemView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CreatePartyView.xaml.cs">
+      <DependentUpon>CreatePartyView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserCardView.xaml.cs">
@@ -208,6 +234,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Images\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\StripePages\" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +258,42 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\AttendeePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardGridItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TabbedMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CreatePartyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

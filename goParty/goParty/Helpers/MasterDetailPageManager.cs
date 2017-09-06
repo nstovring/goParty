@@ -45,9 +45,9 @@ namespace goParty.Helpers
         };
 
 
-        public static List<MasterPageItem> PageItems()
+        public static ObservableRangeCollection<MasterPageItem> PageItems()
         {
-            var masterPageItems = new List<MasterPageItem>();
+            var masterPageItems = new ObservableRangeCollection<MasterPageItem>();
 
             masterPageItems.Add(new MasterPageItem
             {

@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using goParty.Models;
 using goParty.Helpers;
+using goParty.Views;
 
 namespace goParty.Pages
 {
 	public partial class MainPage : ContentPage
 	{
-
         public ListView ListView { get { return listView; } }
-
-
+        public ObservableRangeCollection<MasterPageItem> ItemsSource;
         public MainPage()
 		{
-			InitializeComponent();
-            var masterPageItems = MasterDetailPageManager.PageItems();
-            listView.ItemsSource = masterPageItems;
-
+            ItemsSource = MasterDetailPageManager.PageItems();
+            InitializeComponent();
+            listView.ItemsSource = ItemsSource;
         }
-	}
+    }
 }

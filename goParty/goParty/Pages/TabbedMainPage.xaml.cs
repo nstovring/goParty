@@ -1,5 +1,4 @@
-﻿using goParty.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace goParty.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProfilePage : ContentPage
+	public partial class TabbedMainPage : TabbedPage
 	{
-		public ProfilePage ()
+		public TabbedMainPage ()
 		{
-			InitializeComponent();
-            ProfilePageViewModel profilePageViewModel = new ProfilePageViewModel();
-            
-            BindingContext = profilePageViewModel;
+			InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
-		}
-	}
+        }
+    }
 }

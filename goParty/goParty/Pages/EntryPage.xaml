@@ -4,16 +4,22 @@
              x:Class="goParty.Pages.EntryPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="CenterAndExpand"
-                     Orientation="Vertical"
-                     VerticalOptions="Center">
-            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"/>
-            <Button BackgroundColor="Blue"
+        <Grid>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="party.jpg"/>
+            <ActivityIndicator Grid.Row="0" Grid.Column="0" Color="Red" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Button Grid.Row="1" BackgroundColor="Blue"
                     BorderRadius="10"
                     Command="{Binding LoginCommand}"
                     Text="Login with Facebook"
                     TextColor="White" 
-                    HorizontalOptions="CenterAndExpand" VerticalOptions="End"/>
-        </StackLayout>
+                    HorizontalOptions="FillAndExpand" VerticalOptions="End"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

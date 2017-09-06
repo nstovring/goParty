@@ -31,6 +31,8 @@ namespace goParty
         public static SearchIndexClient AttendeeUserIdSearchIndexClient;
         public static SearchIndexClient AttendeePartyIdSearchIndexClient;
 
+        public static App Instance;
+
         public static IAuthenticate Authenticator { get; private set; }
 
         public static void Init(IAuthenticate authenticator)
@@ -40,6 +42,7 @@ namespace goParty
 
         public App ()
 		{
+            Instance = this;
 			InitializeComponent();
             ServiceLocator.Instance.Add<ICloudService, AzureCloudService>();
             ServiceLocator.Instance.Add<IStripeProvider, StripeService>();
@@ -47,7 +50,10 @@ namespace goParty
             try
             {
                 MainPage = new EntryPage();
-            }catch(Exception ex)
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.Black);
+
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"[Load Error] Error = {ex.Message}");
             }
@@ -67,5 +73,12 @@ namespace goParty
 		{
 			// Handle when your app resumes
 		}
-	}
+
+        // Called by the back button in our header/navigation bar.
+        public void OnBackButtonPressed(object sender, EventArgs e)
+        {
+            RootPage instance = RootPage.instance;
+            instance.IsPresented = true;
+        }
+    }
 }

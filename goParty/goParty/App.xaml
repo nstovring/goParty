@@ -1,10 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="goParty.App">
+             x:Class="goParty.App"
+             >
 	<Application.Resources>
 
 		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <ControlTemplate x:Key="MainPageTemplate">
 
-	</Application.Resources>
+                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Begin Content -->
+                    <ScrollView Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
+                        <ContentPresenter VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                    </ScrollView>
+                    <!-- End Content -->
+                    
+                    <!-- Begin Header -->
+                    <StackLayout
+            Orientation="Horizontal"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Spacing="0"
+            BackgroundColor="Black"
+            Opacity="1"
+            HeightRequest="50"
+            Grid.Column="0" Grid.Row="0">
+                        <StackLayout.Padding>
+                            <OnPlatform x:TypeArguments="Thickness"
+                            iOS="10, 10, 10, 10"
+                            Android="10, 10, 10, 10"
+                            WinPhone="10, 10, 10, 10" />
+                        </StackLayout.Padding>
+                        <!-- My header content to make my app the prettiest. -->
+                        <Image Source="backicon.png" Aspect="AspectFill" HorizontalOptions="Start" VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnBackButtonPressed" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="{TemplateBinding Title}" TextColor="MediumPurple" FontSize="Large"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <!-- End Header -->
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

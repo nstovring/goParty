@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gv="clr-namespace:goParty.Views"
              x:Class="goParty.Pages.MainPage"
              Padding="0,40,0,0"
              Icon="hamburger.png"
              Title="Personal Organiser">
-    <StackLayout>
+    <StackLayout BackgroundColor="Black">
+        <!--<gv:CardGridView x:Name="listView" ItemsSource="{Binding ItemsSource}"></gv:CardGridView>-->
         <ListView x:Name="listView" SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -16,7 +18,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding IconSource}" />
-                            <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="FillAndExpand" FontSize="Medium"/>
+                            <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" VerticalOptions="FillAndExpand" FontSize="Medium"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

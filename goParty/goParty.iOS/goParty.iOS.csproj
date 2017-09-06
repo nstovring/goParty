@@ -147,6 +147,12 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NGraphics.Custom, Version=1.0.5741.13259, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\Xamarin.iOS10\NGraphics.Custom.dll</HintPath>
+    </Reference>
+    <Reference Include="NGraphics.iOS.Custom, Version=1.0.5741.13264, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\Xamarin.iOS10\NGraphics.iOS.Custom.dll</HintPath>
+    </Reference>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
     </Reference>
@@ -182,6 +188,12 @@
     </Reference>
     <Reference Include="Stripe">
       <HintPath>..\..\Components\stripe-1.0.7\lib\ios-unified\Stripe.dll</HintPath>
+    </Reference>
+    <Reference Include="SVG.Forms.Plugin.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\Xamarin.iOS10\SVG.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SVG.Forms.Plugin.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.Svg.1.0.0.27\lib\Xamarin.iOS10\SVG.Forms.Plugin.iOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />

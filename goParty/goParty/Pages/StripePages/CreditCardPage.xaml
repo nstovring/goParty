@@ -6,17 +6,21 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Red"/>
-                <Entry  Placeholder="Enter Your Card Number Here" FontSize="Medium" Keyboard="Numeric" Text="{Binding CardNumber}"/>
-                <Entry  Placeholder="MM" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateM}"/>
-                <Entry  Placeholder="YY" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateY}"/>
-                <Entry  Placeholder="CVC" FontSize="Medium" Keyboard="Numeric" Text="{Binding CVC}"/>
+                <Frame HasShadow="True" >
+                    <StackLayout>
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Red"/>
+                        <Entry  Placeholder="Enter Your Card Number Here" FontSize="Medium" Keyboard="Numeric" Text="{Binding CardNumber}"/>
+                        <Entry  Placeholder="MM" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateM}"/>
+                        <Entry  Placeholder="YY" FontSize="Medium" Keyboard="Numeric" Text="{Binding ExpirationDateY}"/>
+                        <Entry  Placeholder="CVC" FontSize="Medium" Keyboard="Numeric" Text="{Binding CVC}"/>
 
-                <Button Text="Save Details" Command="{Binding SaveCardDetailsCommand}" />
-                <Button Text="Get Details" Command="{Binding GetCardDetailsCommand}" />
-
-                <bv:BankAccountView HorizontalOptions="CenterAndExpand"/>
-
+                        <Button Text="Save Details" Command="{Binding SaveCardDetailsCommand}" />
+                        <Button Text="Get Details" Command="{Binding GetCardDetailsCommand}" />
+                    </StackLayout>
+                </Frame>
+                <Frame HasShadow="True" >
+                    <bv:BankAccountView HorizontalOptions="CenterAndExpand"/>
+                </Frame>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

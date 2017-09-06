@@ -31,5 +31,12 @@ namespace goParty.Helpers
 
         public static readonly string stripeTestKey = "pk_test_iiM8BYGCcNk6AbWkx7joIQKv";
         public static readonly string stripeAccountIdPropertyName = "stripe_account_id";
+
+        #region Page Names
+        public static string profilePageTitle = "My Page";
+        public static string locatePartyPageTitle = "Locate Party";
+        public static string managePartyPageTitle = "Manage & Create";
+
+        #endregion
     }
 }
