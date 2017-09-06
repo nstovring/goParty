@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Android.Content;
 using SVG.Forms.Plugin.Droid;
+using CarouselView.FormsPlugin.Android;
 
 namespace goParty.Droid
 {
@@ -32,7 +33,7 @@ namespace goParty.Droid
             Xamarin.FormsMaps.Init(this, bundle);
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
-
+            CarouselViewRenderer.Init();
             loginProvider.Init(this);
 
             var width = Resources.DisplayMetrics.WidthPixels;

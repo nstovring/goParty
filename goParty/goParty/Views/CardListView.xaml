@@ -5,7 +5,9 @@
   <ContentView.Content>
         <Frame Padding="10">
             <AbsoluteLayout x:Name="ListAbsoluteLayout" VerticalOptions="Fill" HorizontalOptions="Fill">
-
+                <AbsoluteLayout.GestureRecognizers>
+                    <PanGestureRecognizer/>
+                </AbsoluteLayout.GestureRecognizers>
             </AbsoluteLayout>
         </Frame>
     </ContentView.Content>

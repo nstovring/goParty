@@ -5,6 +5,18 @@
              x:Class="goParty.Views.AtendeeView"
              >
   <ContentView.Content>
-        <av:CardListView ItemsSource="{Binding Attendees}" HorizontalOptions="FillAndExpand"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <av:CardListView Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Attendees}" HorizontalOptions="FillAndExpand"/>
+
+            <Image Grid.Row="0" Grid.Column="0" Source="backicon.png" VerticalOptions="Start" HorizontalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackIconClickedCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
     </ContentView.Content>
 </ContentView>

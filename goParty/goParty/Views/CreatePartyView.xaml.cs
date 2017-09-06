@@ -15,13 +15,9 @@ namespace goParty.Views
         public CreatePartyViewModel createPartyViewModel;
         public CreatePartyView ()
 		{
-            createPartyViewModel = new CreatePartyViewModel();
+            createPartyViewModel = new CreatePartyViewModel(this);
             BindingContext = createPartyViewModel;
             InitializeComponent();
 		}
-
-        public delegate void TappedEventHandler(object sender, float e);
-        public event TappedEventHandler Tapped;
-
     }
 }

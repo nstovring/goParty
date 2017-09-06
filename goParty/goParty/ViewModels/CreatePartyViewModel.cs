@@ -11,6 +11,7 @@ using System.IO;
 using Xamarin.Forms.Maps;
 using System.Diagnostics;
 using goParty.Pages;
+using goParty.Views;
 
 namespace goParty.ViewModels
 {
@@ -28,20 +29,6 @@ namespace goParty.ViewModels
 
         Command findLocationCmd;
         public Command FindLocationCmd => findLocationCmd ?? (findLocationCmd = new Command(async () => await ExecuteFindLocationCommand().ConfigureAwait(false)));
-
-
-        Command backIconClickedCmd;
-        public Command BackIconClickedCommand => backIconClickedCmd ?? (backIconClickedCmd = new Command( () =>  ExecuteBackButtonClickedCommand()));
-
-        private void ExecuteBackButtonClickedCommand()
-        {
-            Tapped(this, 1);
-        }
-
-
-        public delegate void TappedEventHandler(object sender, float e);
-        public event TappedEventHandler Tapped;
-
 
         #region Getters & Setters
         Stream partyHeaderImageStream;
@@ -126,8 +113,9 @@ namespace goParty.ViewModels
         public Map ResultMap;
        
 
-        public CreatePartyViewModel()
+        public CreatePartyViewModel(View parent)
         {
+            this.parent = (CreatePartyView)parent;
             partyDetails = new PartyDetails()
             {
                 price = 0,

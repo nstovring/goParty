@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Forms;
 
 namespace goParty.Abstractions
 {
@@ -10,7 +11,7 @@ namespace goParty.Abstractions
         public event PropertyChangedEventHandler PropertyChanged;
         string _propTitle = string.Empty;
         bool _propIsBusy;
-
+        public View parent;
         public string Title
         {
             get { return _propTitle; }
@@ -41,5 +42,18 @@ namespace goParty.Abstractions
                 return;
             PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
+
+
+        Command backIconClickedCmd;
+        public Command BackIconClickedCommand => backIconClickedCmd ?? (backIconClickedCmd = new Command(() => ExecuteBackButtonClickedCommand()));
+
+        public virtual void ExecuteBackButtonClickedCommand()
+        {
+            Tapped(parent, 1);
+        }
+
+        public delegate void TappedEventHandler(object sender, float e);
+        public event TappedEventHandler Tapped;
+
     }
 }

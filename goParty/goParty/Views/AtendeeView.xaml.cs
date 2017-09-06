@@ -13,10 +13,12 @@ namespace goParty.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AtendeeView : ContentView
 	{
+        public AttendeeViewModel viewModel;
 		public AtendeeView ()
 		{
 			InitializeComponent ();
-            BindingContext = new AttendeeViewModel();
+            viewModel = new AttendeeViewModel(this);
+            BindingContext = viewModel;
 		}
 
         public void OnMore(object sender, EventArgs e)

@@ -16,6 +16,7 @@ namespace goParty.Pages
 		{
 			InitializeComponent ();
             NavigationPage.SetHasNavigationBar(this, false);
+            
         }
     }
 }

@@ -13,7 +13,6 @@ namespace goParty.ViewModels
 {
     public class AttendeeViewModel : BaseViewModel
     {
-
         public ObservableRangeCollection<AttendeeListItem> attendees = new ObservableRangeCollection<AttendeeListItem>();
         public ObservableRangeCollection<AttendeeListItem> Attendees
         {
@@ -21,8 +20,9 @@ namespace goParty.ViewModels
             set { SetProperty(ref attendees, value, "Attendees"); }
         }
 
-        public AttendeeViewModel()
+        public AttendeeViewModel(View parent)
         {
+            this.parent = (AtendeeView)parent;
             Initialize();
         }
 

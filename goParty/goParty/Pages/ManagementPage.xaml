@@ -19,9 +19,9 @@
             </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0"  Text="Create Party" Command="{Binding GoToCreatePartyViewCommand}" BackgroundColor="OrangeRed"/>
-            <Button Grid.Row="1" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToAttendeeViewCommand}" BackgroundColor="OrangeRed"/>
-            <Button Grid.Row="2" Grid.Column="0" Text="Pending Partycrashers" Command="{Binding GoToPartiesAttendingViewCommand}" BackgroundColor="OrangeRed"/>
-            <Button Grid.Row="3" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToPartiesHostingViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="0" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToAttendeeViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="1" Grid.Column="0" Text="Pending Partycrashers" Command="{Binding GoToPartiesAttendingViewCommand}" BackgroundColor="OrangeRed"/>
+            <Button Grid.Row="1" Grid.Column="1"   Text="Pending Partycrashers" Command="{Binding GoToPartiesHostingViewCommand}" BackgroundColor="OrangeRed"/>
 
         </Grid>
 
