@@ -37,7 +37,7 @@ namespace goParty.Views
             set { SetProperty(ref partyImageSource, value, "PartyImageSource"); }
         }
         public float cardDistance = 0;
-        const int animLength = 250;
+        const int animLength = 100;
         public UserCardView (AttendeeListItem item)
 		{
 			InitializeComponent ();
@@ -97,30 +97,30 @@ namespace goParty.Views
 
         private async void HandleTouchEnd()
         {
+
+            if (TranslationX > App.ScreenWidth / 4f)
+            {
+                OnSwipeRight();
+                return;
+            }
+            else if (TranslationX < -(App.ScreenWidth / 4f))
+            {
+                OnSwipeLeft();
+                return;
+            }
+
             await CardFrame.TranslateTo(0, 0, animLength, Easing.SpringOut);
             BackGrid.Opacity = 0;
             cardDistance = (float)X;
             sliding = false;
         }
 
-        private async void HandleTouch(float totalX)
+        private void HandleTouch(float totalX)
         {
             sliding = true;
-
-            await CardFrame.TranslateTo(totalX * modifier, 0, animLength, Easing.SpringOut);
             cardDistance = totalX;
+            CardFrame.TranslationX += cardDistance;//, 0, animLength, Easing.SpringOut);
             BackGrid.Opacity = 1f-(Math.Abs(cardDistance)/ App.ScreenWidth);
-
-            if(cardDistance > App.ScreenWidth/4f)
-            {
-                OnSwipeRight();
-                return;
-            }
-            else if(cardDistance < -(App.ScreenWidth / 4f))
-            {
-                OnSwipeLeft();
-                return;
-            }
         }
 
         // to hande when a touch event begins

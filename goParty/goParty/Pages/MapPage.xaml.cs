@@ -13,6 +13,7 @@ using goParty.Services;
 using Plugin.Geolocator;
 using goParty.Helpers;
 using goParty.Abstractions;
+using goParty.Views;
 
 namespace goParty.Pages
 {
@@ -23,11 +24,9 @@ namespace goParty.Pages
         private Map _map;
         public static List<PartyDetailsDBCarouselItem> parties = new List<PartyDetailsDBCarouselItem>();
 
-
         public MapPage()
         {
             Title = Constants.locatePartyPageTitle;
-            //this.rootPage = rootPage;
             InitializeComponent();
             try
             {
@@ -43,10 +42,18 @@ namespace goParty.Pages
                 Debug.WriteLine($"[Login] Error = {ex.Message}");
             }
 
-            var stack = new StackLayout { Spacing = 0 };
-            stack.Children.Add(_map);
-            Content = stack;
-            //NavigationPage.SetHasNavigationBar(this, false);
+            var absoluteLayout = new AbsoluteLayout();
+            AbsoluteLayout.SetLayoutBounds(_map, new Rectangle(0, 0, App.ScreenWidth, App.ScreenHeight));
+            AbsoluteLayout.SetLayoutFlags(_map, AbsoluteLayoutFlags.None);
+
+            var filterView = new MapFilterView();
+            AbsoluteLayout.SetLayoutBounds(filterView, new Rectangle(0, 0, App.ScreenWidth, App.ScreenHeight));
+            AbsoluteLayout.SetLayoutFlags(filterView, AbsoluteLayoutFlags.None);
+
+            absoluteLayout.Children.Add(_map);
+            absoluteLayout.Children.Add(filterView);
+
+            Content = absoluteLayout;
             InitializePage();
         }
         async void InitializePage()
@@ -71,10 +78,7 @@ namespace goParty.Pages
             {
                 Debug.WriteLine("Error: " + error);
             }
-            var stack = new StackLayout { Spacing = 0 };
-            stack.Children.Add(_map);
             _map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(1)));
-            Content = stack;
 
             await GetPartiesFromDataBase(position);
 

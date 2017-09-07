@@ -37,8 +37,8 @@
         
         <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding rating}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
 
-        <Button  Grid.Row="2" Grid.Column="0" Text="Credit Card Information" Command="{Binding GoToCreditDetailsPageCommand}" BackgroundColor="OrangeRed"/>
-        <BoxView Grid.Row="2" Grid.Column="1" Color="WhiteSmoke" />
+        <Button  Grid.Row="2" Grid.Column="0" Text="Settings" Command="{Binding GoToSettingsPageCommand}" BackgroundColor="WhiteSmoke"/>
+        <Button  Grid.Row="2" Grid.Column="1" Text="Edit Profile"  Command="{Binding GoToEditProfilePageCommand}" BackgroundColor="WhiteSmoke" />
 
     </Grid>
 </ContentPage>

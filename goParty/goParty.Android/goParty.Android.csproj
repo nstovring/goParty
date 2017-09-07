@@ -253,6 +253,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderers\CustomTab.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Services\DroidLoginProvider.cs" />
     <Compile Include="MainActivity.cs" />

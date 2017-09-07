@@ -15,6 +15,7 @@ using System.IO;
 using Android.Content;
 using SVG.Forms.Plugin.Droid;
 using CarouselView.FormsPlugin.Android;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace goParty.Droid
 {
@@ -23,8 +24,10 @@ namespace goParty.Droid
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
-            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            RequestWindowFeature(WindowFeatures.NoTitle);
+            //Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+            //Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
+
+            //RequestWindowFeature(WindowFeatures.NoTitle);
             TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar; 
 

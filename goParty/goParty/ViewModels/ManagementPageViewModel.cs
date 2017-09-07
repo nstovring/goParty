@@ -7,7 +7,7 @@ using goParty.Pages;
 using goParty.Abstractions;
 using goParty.Helpers;
 using goParty.Views;
-
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 namespace goParty.ViewModels
 {
     public class ManagementPageViewModel : BaseViewModel
@@ -16,21 +16,29 @@ namespace goParty.ViewModels
         public Command GoToAttendeeViewCommand => goToAttendeeViewCmd ?? (goToAttendeeViewCmd = new Command(() => ExecuteGoToSenderViewCommand(attendeeView, 1)));
 
         Command goToCreatePartyViewCmd;
-        public Command GoToCreatePartyViewCommand => goToCreatePartyViewCmd ?? (goToCreatePartyViewCmd = new Command( () => ExecuteGoToSenderViewCommand(createPartyView,1)));
+        public Command GoToCreatePartyViewCommand => goToCreatePartyViewCmd ?? (goToCreatePartyViewCmd = new Command(async () => await ExecuteGoToCreatePartyPageCommand()));
+
+        private async Task ExecuteGoToCreatePartyPageCommand()
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new CreatePartyPage());
+        }
 
         private async void ExecuteGoToSenderViewCommand(object sender, float e)
         {
-            View senderView = (View)sender;
-            if (mainPageVisible)
-            {
-                await senderView.TranslateTo(-App.ScreenWidth, 0, 250, Easing.Linear);
-                mainPageVisible = !mainPageVisible;
-            }
-            else
-            {
-                await senderView.TranslateTo(App.ScreenWidth, 0, 250, Easing.Linear);
-                mainPageVisible = !mainPageVisible;
-            }
+            
+            //if (mainPageVisible)
+            //{
+            //    await senderView.TranslateTo(-App.ScreenWidth, 0, 250, Easing.Linear);
+            //    TabbedMainPage.Instance.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
+            //
+            //    mainPageVisible = !mainPageVisible;
+            //}
+            //else
+            //{
+            //    await senderView.TranslateTo(App.ScreenWidth, 0, 250, Easing.Linear);
+            //    TabbedMainPage.Instance.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(true);
+            //    mainPageVisible = !mainPageVisible;
+            //}
         }
 
 

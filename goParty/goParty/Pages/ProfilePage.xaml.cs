@@ -1,5 +1,6 @@
 ﻿using CarouselView.FormsPlugin.Abstractions;
 using goParty.Helpers;
+using goParty.Pages.ProfileSubPages;
 using goParty.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace goParty.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProfilePage : ContentPage
 	{
-		public ProfilePage ()
+       
+        public ProfilePage ()
 		{
 			InitializeComponent();
             ProfilePageViewModel profilePageViewModel = new ProfilePageViewModel();
@@ -33,6 +35,7 @@ namespace goParty.Pages
             myCarousel.ShowIndicators = true;
             myCarousel.IndicatorsShape = IndicatorsShape.Circle;
             //myCarousel.ItemTemplate = new MyTemplateSelector(); //new DataTemplate (typeof(MyView));
+            myCarousel.BackgroundColor = Color.White;
             myCarousel.Position = 0; //default
             myCarousel.InterPageSpacing = 10;
             myCarousel.Orientation = CarouselViewOrientation.Horizontal;

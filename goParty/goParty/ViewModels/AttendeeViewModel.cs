@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using goParty.Models.APIModels;
 using goParty.Views;
+using goParty.Pages;
 
 namespace goParty.ViewModels
 {
@@ -25,6 +26,12 @@ namespace goParty.ViewModels
             this.parent = (AtendeeView)parent;
             Initialize();
         }
+
+        //public override void ExecuteBackButtonClickedCommand()
+        //{
+        //    TabbedMainPage.Instance.InputTransparent = false;
+        //    base.ExecuteBackButtonClickedCommand();
+        //}
 
         public async void Initialize()
         {

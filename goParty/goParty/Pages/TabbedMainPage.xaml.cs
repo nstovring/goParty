@@ -12,11 +12,13 @@ namespace goParty.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TabbedMainPage : TabbedPage
 	{
+        public static TabbedMainPage Instance;
 		public TabbedMainPage ()
 		{
+            Instance = this;
 			InitializeComponent ();
+            SelectedItem = Children[1];
             NavigationPage.SetHasNavigationBar(this, false);
-            
         }
     }
 }

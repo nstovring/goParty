@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="goParty.Views.MapFilterView">
+    <ContentView.Content>
+        <AbsoluteLayout x:Name="FiltersAbsoluteLayout" HeightRequest="800" HorizontalOptions="Fill" >
+            <Frame Padding="0" CornerRadius="10" BackgroundColor="White" Opacity="0.8">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
+                </Frame.GestureRecognizers>
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <BoxView Grid.Column="1" BackgroundColor="Gray" HeightRequest="20" WidthRequest="40">
+                           
+                        </BoxView>
+
+                    </Grid>
+                   
+                    <SearchBar Placeholder="Pull up to see filters" FontSize="Medium" x:Name="PullLabel" HorizontalOptions="Center" Focused="SearchBar_Focused" Unfocused="SearchBar_Focused">
+                   
+                </SearchBar>
+                <TableView Intent="Settings">
+                    <TableRoot>
+                        <TableSection Title="Ring">
+                            <SwitchCell Text="New Voice Mail" />
+                            <SwitchCell Text="New Mail" On="true" />
+                        </TableSection>
+                        <TableSection Title="Test">
+                            <SwitchCell Text="New Voice Mail" />
+                            <SwitchCell Text="New Mail" On="true" />
+                        </TableSection>
+                        <TableSection Title="Test">
+                            <SwitchCell Text="New Voice Mail" />
+                            <SwitchCell Text="New Mail" On="true" />
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+                
+            </StackLayout>
+            </Frame>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

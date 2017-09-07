@@ -2,6 +2,7 @@
 using goParty.Helpers;
 using goParty.Models;
 using goParty.Pages;
+using goParty.Pages.ProfileSubPages;
 using goParty.Services;
 using System;
 using System.Collections.Generic;
@@ -37,13 +38,22 @@ namespace goParty.ViewModels
         }
 
        
-        Command goToCreditDetailsPageCmd;
-        public Command GoToCreditDetailsPageCommand => goToCreditDetailsPageCmd ?? (goToCreditDetailsPageCmd = new Command(async () => await ExecuteGoToCreditDetailsPageCommand().ConfigureAwait(false)));
+        Command goToSettingsPageCmd;
+        public Command GoToSettingsPageCommand => goToSettingsPageCmd ?? (goToSettingsPageCmd = new Command(async () => await ExecuteGoToSettingsPageCommand().ConfigureAwait(false)));
 
-        private async Task ExecuteGoToCreditDetailsPageCommand()
+        private async Task ExecuteGoToSettingsPageCommand()
         {
-            await App.Instance.MainPage.Navigation.PushModalAsync(new CreditCardPage());
+            await App.Current.MainPage.Navigation.PushModalAsync(new ProfileSettingsPage());
         }
+
+        Command goToEditProfilecmd;
+        public Command GoToEditProfilePageCommand => goToEditProfilecmd ?? (goToEditProfilecmd = new Command(async () => await ExecuteGoToEditProfileCommand().ConfigureAwait(false)));
+
+        private async Task ExecuteGoToEditProfileCommand()
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new EditProfilePage());
+        }
+
 
         public StackLayout stackLayout;
         public StackLayout stackLayoutHosting;

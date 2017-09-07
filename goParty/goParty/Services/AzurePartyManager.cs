@@ -157,9 +157,9 @@ namespace goParty.Services
 
         public void SortCarouselPartiesToIndex(int index)
         {
-            PartyDetailsDBCarouselItem item = CarouselItems[MyMath.Clamp(index,0,CarouselItems.Count-1)];
-            CarouselItems[index] = CarouselItems[0];
-            CarouselItems[0] = item;
+            //PartyDetailsDBCarouselItem item = CarouselItems[MyMath.Clamp(index,0,CarouselItems.Count-1)];
+            //CarouselItems[index] = CarouselItems[0];
+            //CarouselItems[0] = item;
         }
         
 
