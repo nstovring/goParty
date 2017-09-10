@@ -22,6 +22,7 @@ namespace goParty.ViewModels
         //public PartyDetailsDBCarouselItem selectedParty;
         public PartyCarouselPageViewModel()
         {
+            Title = Constants.PartyCarouselViewModelTitle;
             Parties = new ObservableRangeCollection<PartyDetailsDBCarouselItem>();
             Parties.AddRange(AzurePartyManager.DefaultManager.CarouselItems);
         }

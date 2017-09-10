@@ -16,9 +16,9 @@ namespace goParty.Pages
 		public CreatePartyPage ()
 		{
 			InitializeComponent ();
-            //CreatePartyViewModel myViewModel = new CreatePartyViewModel(this);
+            CreatePartyViewModel myViewModel = new CreatePartyViewModel();
             //myViewModel.ResultMap = ResultMap;
-            //BindingContext = myViewModel;
+            BindingContext = myViewModel;
 		}
 	}
 }

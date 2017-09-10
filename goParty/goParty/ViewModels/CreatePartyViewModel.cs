@@ -116,6 +116,17 @@ namespace goParty.ViewModels
         public CreatePartyViewModel(View parent)
         {
             this.parent = (CreatePartyView)parent;
+            Initialize();
+        }
+
+        public CreatePartyViewModel()
+        {
+            Initialize();
+        }
+
+        void Initialize()
+        {
+            Title = Constants.CreatePartyPageTitle;
             partyDetails = new PartyDetails()
             {
                 price = 0,

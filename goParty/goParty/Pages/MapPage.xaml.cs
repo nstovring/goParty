@@ -192,7 +192,7 @@ namespace goParty.Pages
             manager.SortCarouselPartiesToIndex(selectedParty.index);
             Debug.WriteLine("Pin Pressed");
             var carouselPage = new PartyCarouselPage();
-            await Navigation.PushModalAsync(carouselPage, false);
+            await Navigation.PushModalAsync(carouselPage);
         }
     }
 }

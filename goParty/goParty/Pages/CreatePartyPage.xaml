@@ -3,54 +3,132 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:goParty.Helpers"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              x:Class="goParty.Pages.CreatePartyPage"
+             Title="Create Party"
              >
     <ContentPage.Content>
         <StackLayout>
-            <Grid Padding="0">
+            <Grid Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
+                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFill" Source="{Binding partyHeaderImageSource, Mode=TwoWay}" VerticalOptions="FillAndExpand">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ReplacePartyImageCmd}"/>
-                    </Image.GestureRecognizers>
-                </Image>
+                <!-- This is the Select Image Box -->
 
-                <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Placeholder="{Binding Source={x:Static local:Constants.titlePlaceholder}, Mode=OneWay}" PlaceholderColor="White" TextColor="White" Text="{Binding partyDetailsTitle ,Mode=TwoWay}" FontSize="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
-                </Entry>
+                <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="0" Margin="0" CornerRadius="10">
+                    <Grid Padding="0" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0" Grid.Column="0"  Aspect="AspectFill" Source="{Binding partyHeaderImageSource, Mode=TwoWay}" VerticalOptions="FillAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ReplacePartyImageCmd}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  BackgroundColor="Red">
+                            <Entry Placeholder="{Binding Source={x:Static local:Constants.titlePlaceholder}, Mode=OneWay}" PlaceholderColor="White" TextColor="White" Text="{Binding partyDetailsTitle ,Mode=TwoWay}" FontSize="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                            <Editor TextColor="Black" Text="{Binding partyDetailsDescription, Mode=TwoWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
+                        </StackLayout>
+
+                    </Grid>
+                </Frame>
                 
-                <Button Grid.Row="1" Grid.Column="2" TextColor="Black" Text="{Binding joinButtonLabel, Mode=OneWay}" Command="{Binding CreatePartyCommand}" FontSize="16" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" IsEnabled="{Binding isJoinButtonActive}" BackgroundColor="OrangeRed"/>
-                <ActivityIndicator Grid.Row="2" Grid.Column="1" IsRunning="{Binding isBusy}" Color="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                <Grid Grid.Row="2" Grid.ColumnSpan="3" Padding="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="3*" />
-                    </Grid.ColumnDefinitions>
-                    <Entry Grid.Row="0" Grid.Column="0" TextColor="Black" Text="{Binding partyDetails.price , Mode=TwoWay}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Keyboard="Numeric"/>
-                    <Entry Grid.Row="1" Grid.Column="0" TextColor="Black" Text="{Binding partyDetails.ageMin , Mode=TwoWay}" FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Keyboard="Numeric"/>
-                    <DatePicker Grid.Row="2" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                    <Editor Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" TextColor="Black" Text="{Binding partyDetailsDescription, Mode=TwoWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
-                    <SearchBar Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Placeholder="{Binding Source={x:Static local:Constants.wherePlaceholder}, Mode=OneWay}" Text="{Binding SearchText, Mode=TwoWay}" SearchCommand="{Binding FindLocationCmd}"/>
-                </Grid>
-                <maps:Map Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="ResultMap" IsShowingUser="True">
-                </maps:Map>
+                <!-- This is the Creation Matrix 1 -->
+                <Frame CornerRadius="10" HasShadow="True" Padding="0" Margin="0" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2">
+                    <controls:CarouselViewControl x:Name="CarouselViewControl" Orientation="Horizontal" BackgroundColor="Red" ShowIndicators="True">
+                        <controls:CarouselViewControl.ItemsSource>
+                            <x:Array Type="{x:Type View}">
+                                
+                                
+                                <Grid Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <BoxView  Grid.Row="0" Grid.Column="0"  BackgroundColor="DarkRed"/>
+                                    <DatePicker Grid.Row="0" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                    <BoxView  Grid.Row="0" Grid.Column="1"  BackgroundColor="OrangeRed"/>
+                                    <Label  Grid.Row="0" Grid.Column="1" Text="Time" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                                    <BoxView  Grid.Row="1" Grid.Column="0" BackgroundColor="OrangeRed"/>
+                                    <Label  Grid.Row="1" Grid.Column="0" Text="Location" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                    <BoxView  Grid.Row="1" Grid.Column="1" BackgroundColor="DarkRed"/>
+                                    <Label  Grid.Row="1" Grid.Column="1" Text="Price" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                                
+                                
+                                <StackLayout>
+                                    <Image Source="party.jpg" Aspect="AspectFill"/>
+                                </StackLayout>
+
+
+                                <StackLayout BackgroundColor="Blue" VerticalOptions="FillAndExpand">
+                                    <Grid Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0" BackgroundColor="Orange" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <BoxView  Grid.Row="0" Grid.Column="0"  BackgroundColor="DarkRed"/>
+                                    <DatePicker Grid.Row="0" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                    <BoxView  Grid.Row="0" Grid.Column="1"  BackgroundColor="OrangeRed"/>
+                                    <Label  Grid.Row="0" Grid.Column="1" Text="Time" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                                    <BoxView  Grid.Row="1" Grid.Column="0" BackgroundColor="OrangeRed"/>
+                                    <Label  Grid.Row="1" Grid.Column="0" Text="Location" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                    <BoxView  Grid.Row="1" Grid.Column="1" BackgroundColor="DarkRed"/>
+                                    <Label  Grid.Row="1" Grid.Column="1" Text="Price" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                                </StackLayout>
+                            </x:Array>
+                        </controls:CarouselViewControl.ItemsSource>
+                    </controls:CarouselViewControl>
+                </Frame>
+
+
+                <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="0" Margin="0" CornerRadius="10">
+                    <Grid Padding="0" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView Grid.Row="0" Grid.Column="0" Color="OrangeRed"/>
+                        <Button Grid.Row="0" Grid.Column="0" TextColor="Black" Text="{Binding joinButtonLabel, Mode=OneWay}" Command="{Binding CreatePartyCommand}" FontSize="16" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsEnabled="{Binding isJoinButtonActive}" BackgroundColor="OrangeRed"/>
+                        <ActivityIndicator Grid.Row="0" Grid.Column="0" IsRunning="{Binding isBusy}" Color="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                        <BoxView Grid.Row="0" Grid.Column="1" Color="White"/>
+                    </Grid>
+                </Frame>
+
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>

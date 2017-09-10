@@ -5,6 +5,7 @@
              xmlns:design="clr-namespace:goParty.Helpers"
              xmlns:local="clr-namespace:goParty.Models"
              x:Class="goParty.Pages.PartyCarouselPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
              Title="{Binding Title}"
              x:Name="PartyCarouselPage">
     <ContentPage.Content>

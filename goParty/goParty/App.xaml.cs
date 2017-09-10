@@ -75,10 +75,9 @@ namespace goParty
 		}
 
         // Called by the back button in our header/navigation bar.
-        public void OnBackButtonPressed(object sender, EventArgs e)
+        public async void OnBackButtonPressed(object sender, EventArgs e)
         {
-            RootPage instance = RootPage.instance;
-            instance.IsPresented = true;
+            await App.Instance.MainPage.Navigation.PopModalAsync();
         }
     }
 }

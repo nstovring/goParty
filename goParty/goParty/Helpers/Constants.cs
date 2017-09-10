@@ -36,6 +36,8 @@ namespace goParty.Helpers
         public static string profilePageTitle = "My Page";
         public static string locatePartyPageTitle = "Locate Party";
         public static string managePartyPageTitle = "Manage & Create";
+        public static string PartyCarouselViewModelTitle = "Parties";
+        public static string CreatePartyPageTitle = "Parties";
 
         #endregion
     }

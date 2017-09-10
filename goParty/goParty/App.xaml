@@ -15,9 +15,9 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <!-- Begin Content -->
-                    <ScrollView Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
-                        <ContentPresenter VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-                    </ScrollView>
+                    <!--<ScrollView Grid.Column="0" Grid.Row="1" Grid.RowSpan="1"> -->
+                    <ContentPresenter  Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                    <!--</ScrollView> -->
                     <!-- End Content -->
                     
                     <!-- Begin Header -->
@@ -26,7 +26,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Spacing="0"
-            BackgroundColor="Black"
+            BackgroundColor="White"
             Opacity="1"
             HeightRequest="50"
             Grid.Column="0" Grid.Row="0">
@@ -42,7 +42,7 @@
                                 <TapGestureRecognizer Tapped="OnBackButtonPressed" />
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="{TemplateBinding Title}" TextColor="MediumPurple" FontSize="Large"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        <Label Text="{TemplateBinding Title}" TextColor="Black" FontSize="Large"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                     </StackLayout>
                     <!-- End Header -->
                 </Grid>

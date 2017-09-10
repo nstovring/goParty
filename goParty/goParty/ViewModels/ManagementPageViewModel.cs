@@ -12,6 +12,15 @@ namespace goParty.ViewModels
 {
     public class ManagementPageViewModel : BaseViewModel
     {
+
+        Command goToPartyCarouselPagecmd;
+        public Command GoToPartyCarouselPageCommand => goToPartyCarouselPagecmd ?? (goToPartyCarouselPagecmd = new Command(() => ExecuteGoToPartyCarouselPageCommand()));
+
+        private void ExecuteGoToPartyCarouselPageCommand()
+        {
+            App.Current.MainPage.Navigation.PushModalAsync(new PartyCarouselPage());
+        }
+
         Command goToAttendeeViewCmd;
         public Command GoToAttendeeViewCommand => goToAttendeeViewCmd ?? (goToAttendeeViewCmd = new Command(() => ExecuteGoToSenderViewCommand(attendeeView, 1)));
 
