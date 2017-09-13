@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:av="clr-namespace:goParty.Views"
+             x:Class="goParty.Pages.ManagementPages.AttendeePages.PendingAttendees"
+             Title="Pending">
+    <ContentPage.Content>
+        <StackLayout>
+            <av:AtendeeView HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Pending"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

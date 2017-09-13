@@ -21,8 +21,13 @@ namespace goParty.ViewModels
             App.Current.MainPage.Navigation.PushModalAsync(new PartyCarouselPage());
         }
 
-        Command goToAttendeeViewCmd;
-        public Command GoToAttendeeViewCommand => goToAttendeeViewCmd ?? (goToAttendeeViewCmd = new Command(() => ExecuteGoToSenderViewCommand(attendeeView, 1)));
+        Command goToAttendeePageCmd;
+        public Command GoToAttendeePageCommand => goToAttendeePageCmd ?? (goToAttendeePageCmd = new Command(async () => await ExecuteGoToAttendeePageCommand()));
+
+        private async Task ExecuteGoToAttendeePageCommand()
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new AttendeePage());
+        }
 
         Command goToCreatePartyViewCmd;
         public Command GoToCreatePartyViewCommand => goToCreatePartyViewCmd ?? (goToCreatePartyViewCmd = new Command(async () => await ExecuteGoToCreatePartyPageCommand()));
@@ -32,51 +37,13 @@ namespace goParty.ViewModels
             await App.Current.MainPage.Navigation.PushModalAsync(new CreatePartyPage());
         }
 
-        private async void ExecuteGoToSenderViewCommand(object sender, float e)
-        {
-            
-            //if (mainPageVisible)
-            //{
-            //    await senderView.TranslateTo(-App.ScreenWidth, 0, 250, Easing.Linear);
-            //    TabbedMainPage.Instance.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
-            //
-            //    mainPageVisible = !mainPageVisible;
-            //}
-            //else
-            //{
-            //    await senderView.TranslateTo(App.ScreenWidth, 0, 250, Easing.Linear);
-            //    TabbedMainPage.Instance.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(true);
-            //    mainPageVisible = !mainPageVisible;
-            //}
-        }
-
-
         public AbsoluteLayout MainLayout;
-        CreatePartyView createPartyView;
-        AtendeeView attendeeView;
         double createPartyXTranslation = App.ScreenWidth;
 
-        bool mainPageVisible = true;
         public ManagementPageViewModel(AbsoluteLayout layout)
         {
             MainLayout = layout;
             Title = Constants.managePartyPageTitle;
-
-            createPartyView = new CreatePartyView();
-            createPartyView.createPartyViewModel.Tapped += ExecuteGoToSenderViewCommand;
-            AbsoluteLayout.SetLayoutBounds(createPartyView, new Rectangle(createPartyXTranslation, 0, App.ScreenWidth, App.ScreenHeight));
-            AbsoluteLayout.SetLayoutFlags(createPartyView, AbsoluteLayoutFlags.None);
-
-
-            attendeeView = new AtendeeView();
-            attendeeView.viewModel.Tapped += ExecuteGoToSenderViewCommand;
-            AbsoluteLayout.SetLayoutBounds(attendeeView, new Rectangle(createPartyXTranslation, 0, App.ScreenWidth, App.ScreenHeight));
-            AbsoluteLayout.SetLayoutFlags(attendeeView, AbsoluteLayoutFlags.None);
-
-
-            MainLayout.Children.Add(createPartyView);
-            MainLayout.Children.Add(attendeeView);
-
         }
 
     }

@@ -22,7 +22,7 @@ namespace goParty.Views
         float modifier = 1.2f;
         bool sliding = false;
         bool expanded = false;
-
+        double animationSlideRange = App.ScreenWidth/2f;
         public AttendeeListItem attendee;
         public AttendeeListItem Attendee
         {
@@ -98,12 +98,12 @@ namespace goParty.Views
         private async void HandleTouchEnd()
         {
 
-            if (TranslationX > App.ScreenWidth / 4f)
+            if (TranslationX > animationSlideRange)
             {
                 OnSwipeRight();
                 return;
             }
-            else if (TranslationX < -(App.ScreenWidth / 4f))
+            else if (TranslationX < -(animationSlideRange))
             {
                 OnSwipeLeft();
                 return;

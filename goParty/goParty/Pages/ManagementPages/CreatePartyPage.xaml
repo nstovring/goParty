@@ -50,13 +50,12 @@
                 </Frame>
                 
                 <!-- This is the Creation Matrix 1 -->
-                <Frame CornerRadius="10" HasShadow="True" Padding="0" Margin="0" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2">
-                    <controls:CarouselViewControl x:Name="CarouselViewControl" Orientation="Horizontal" BackgroundColor="Red" ShowIndicators="True">
+                <controls:CarouselViewControl x:Name="CarouselViewControl" Orientation="Horizontal" BackgroundColor="White" ShowIndicators="True" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2">
                         <controls:CarouselViewControl.ItemsSource>
                             <x:Array Type="{x:Type View}">
-                                
-                                
-                                <Grid Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+                                <Frame CornerRadius="10" HasShadow="True" Padding="0" Margin="0" HeightRequest="{Binding App.Instance.Height/2}">
+                                    <Grid Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="2*"/>
@@ -69,7 +68,7 @@
                                     <BoxView  Grid.Row="0" Grid.Column="0"  BackgroundColor="DarkRed"/>
                                     <DatePicker Grid.Row="0" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
 
-                                    <BoxView  Grid.Row="0" Grid.Column="1"  BackgroundColor="OrangeRed"/>
+                                    <BoxView  Grid.Row="0" Grid.Column="1"  BackgroundColor="OrangeRed" VerticalOptions="FillAndExpand"/>
                                     <Label  Grid.Row="0" Grid.Column="1" Text="Time" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
 
                                     <BoxView  Grid.Row="1" Grid.Column="0" BackgroundColor="OrangeRed"/>
@@ -78,41 +77,15 @@
                                     <BoxView  Grid.Row="1" Grid.Column="1" BackgroundColor="DarkRed"/>
                                     <Label  Grid.Row="1" Grid.Column="1" Text="Price" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
                                 </Grid>
-                                
-                                
-                                <StackLayout>
-                                    <Image Source="party.jpg" Aspect="AspectFill"/>
-                                </StackLayout>
+                            </Frame>
 
+                            <StackLayout>
+                                <Image Source="party.jpg" Aspect="AspectFill"/>
+                            </StackLayout>
 
-                                <StackLayout BackgroundColor="Blue" VerticalOptions="FillAndExpand">
-                                    <Grid Padding="0" Margin="0" ColumnSpacing="0" RowSpacing="0" BackgroundColor="Orange" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="2*"/>
-                                    </Grid.RowDefinitions>
-
-                                    <BoxView  Grid.Row="0" Grid.Column="0"  BackgroundColor="DarkRed"/>
-                                    <DatePicker Grid.Row="0" Grid.Column="0" TextColor="Black" Date="{Binding partyDetails.when, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-
-                                    <BoxView  Grid.Row="0" Grid.Column="1"  BackgroundColor="OrangeRed"/>
-                                    <Label  Grid.Row="0" Grid.Column="1" Text="Time" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-
-                                    <BoxView  Grid.Row="1" Grid.Column="0" BackgroundColor="OrangeRed"/>
-                                    <Label  Grid.Row="1" Grid.Column="0" Text="Location" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-
-                                    <BoxView  Grid.Row="1" Grid.Column="1" BackgroundColor="DarkRed"/>
-                                    <Label  Grid.Row="1" Grid.Column="1" Text="Price" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-                                </Grid>
-                                </StackLayout>
                             </x:Array>
                         </controls:CarouselViewControl.ItemsSource>
                     </controls:CarouselViewControl>
-                </Frame>
 
 
                 <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="0" Margin="0" CornerRadius="10">

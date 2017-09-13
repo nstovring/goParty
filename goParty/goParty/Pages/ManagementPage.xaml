@@ -23,7 +23,7 @@
                 </Frame>
                 <Button Grid.Row="1" Grid.Column="0"  Text="Parties" Command="{Binding GoToPartyCarouselPageCommand}" BackgroundColor="White"/>
                 <Button Grid.Row="1" Grid.Column="1"   Text="Create" Command="{Binding GoToCreatePartyViewCommand}" BackgroundColor="White"/>
-                <Button Grid.Row="2" Grid.Column="0" Text="Manage" Command="{Binding GoToAttendeeViewCommand}" BackgroundColor="White"/>
+                <Button Grid.Row="2" Grid.Column="0" Text="Manage" Command="{Binding GoToAttendeePageCommand}" BackgroundColor="White"/>
                 <Button Grid.Row="2" Grid.Column="1"   Text="Notifications" Command="{Binding GoToPartyCarouselPageCommand}" BackgroundColor="White"/>
 
         </Grid>

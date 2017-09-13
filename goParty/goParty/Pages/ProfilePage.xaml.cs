@@ -1,4 +1,4 @@
-﻿//using CarouselView.FormsPlugin.Abstractions;
+﻿using CarouselView.FormsPlugin.Abstractions;
 using goParty.Helpers;
 using goParty.Pages.ProfileSubPages;
 using goParty.ViewModels;
@@ -25,20 +25,20 @@ namespace goParty.Pages
             BindingContext = profilePageViewModel;
             NavigationPage.SetHasNavigationBar(this, false);
 
-            var myCarousel = new CarouselView();
+            var myCarousel = new CarouselViewControl();
 
             myCarousel.ItemsSource = new ObservableRangeCollection<View>
             {
                 new FavoritesView(), new CreditInformationView(), new FriendsView()
             };
 
-            //myCarousel.ShowIndicators = true;
-            //myCarousel.IndicatorsShape = IndicatorsShape.Circle;
+            myCarousel.ShowIndicators = true;
+            myCarousel.IndicatorsShape = IndicatorsShape.Circle;
             //myCarousel.ItemTemplate = new MyTemplateSelector(); //new DataTemplate (typeof(MyView));
             myCarousel.BackgroundColor = Color.White;
             myCarousel.Position = 0; //default
             //myCarousel.InterPageSpacing = 10;
-            //myCarousel.Orientation = CarouselViewOrientation.Horizontal;
+            myCarousel.Orientation = CarouselViewOrientation.Horizontal;
 
             Frame carouselFrame = new Frame()
             {

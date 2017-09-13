@@ -2,6 +2,7 @@
 using goParty.Helpers;
 using goParty.Models.APIModels;
 using goParty.Services;
+using goParty.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace goParty.Models
         bool _propIsBusy;
         public bool _paid = false;
         public bool _accepted = false;
+        public bool _declined = false;
 
         public bool Paid
         {
@@ -53,10 +55,25 @@ namespace goParty.Models
             set { SetProperty(ref _paid, value, "Paid"); }
         }
 
+
+        public AtendeeView.AttendeeType _attendeeType = AtendeeView.AttendeeType.Pending;
+
+        public AtendeeView.AttendeeType AttendeeType
+        {
+            get { return _attendeeType; }
+            set { SetProperty(ref _attendeeType, value, "AttendeeType", null); }
+        }
+
         public bool Accepted
         {
             get { return _accepted; }
-            set { SetProperty(ref _accepted, value, "Accepted", AcceptAttendeeCommand); }
+            set { SetProperty(ref _accepted, value, "Accepted");}
+        }
+
+        public bool Declined
+        {
+            get { return _declined; }
+            set { SetProperty(ref _declined, value, "Declined"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -79,6 +96,8 @@ namespace goParty.Models
 
         private async Task ExecuteAcceptAttendeeCommand()
         {
+            if (!Accepted)
+                return;
             //Charge Customer
             var stripeService = ServiceLocator.Instance.Resolve<IStripeProvider>();
             string id;
@@ -108,17 +127,30 @@ namespace goParty.Models
                 userId = this.userId,
                 partyId = this.partyid,
                 UpdatedAt = DateTime.Now,
-                accepted = true
+                accepted = true,
+                declined = false
             };
             await Table.UpdateItemAsync(attendee);
         }
 
-        Command declineAttendeecmd;
-        public Command DeclineAttendeeCommand => declineAttendeecmd ?? (declineAttendeecmd = new Command(async () => await ExecuteDeclineAttendeeCommand().ConfigureAwait(false)));
+        Action declineAttendeecmd;
+        public Action DeclineAttendeeCommand => declineAttendeecmd ?? (declineAttendeecmd = new Action(async () => await ExecuteDeclineAttendeeCommand().ConfigureAwait(false)));
 
-        private Task ExecuteDeclineAttendeeCommand()
+        public async Task ExecuteDeclineAttendeeCommand()
         {
-            throw new NotImplementedException();
+            if (!Declined)
+                return;
+            var Table = cloudService.GetTable<AttendeeDetails>();
+            AttendeeDetails attendee = new AttendeeDetails()
+            {
+                Id = attendeeID,
+                userId = this.userId,
+                partyId = this.partyid,
+                UpdatedAt = DateTime.Now,
+                accepted = false,
+                declined = true
+            };
+            await Table.UpdateItemAsync(attendee);
         }
 
         //public event PropertyChangedEventHandler PropertyChanged;

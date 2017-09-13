@@ -1,4 +1,5 @@
-﻿using goParty.ViewModels;
+﻿using goParty.Abstractions;
+using goParty.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,33 @@ using Xamarin.Forms.Xaml;
 namespace goParty.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AtendeeView : ContentView
+	public partial class AtendeeView : ContentView , IRefreshable
 	{
         public AttendeeViewModel viewModel;
-		public AtendeeView ()
+
+        public static readonly BindableProperty AttendeeTypeProperty =
+           BindableProperty.Create(nameof(attendeeType), typeof(AttendeeType), typeof(AtendeeView), AttendeeType.Pending,
+           propertyChanged: OnItemsSourcePropertyChanged);
+
+        private static void OnItemsSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            //((CardListView)bindable).Refresh();
+        }
+
+        public enum AttendeeType {Accepted, Declined, Pending };
+
+        public AttendeeType attendeeType{
+            get
+            {
+                return (AttendeeType)GetValue(AttendeeTypeProperty);
+            }
+            set
+            {
+                SetValue(AttendeeTypeProperty, value);
+            }
+        }
+
+        public AtendeeView ()
 		{
 			InitializeComponent ();
             viewModel = new AttendeeViewModel(this);
@@ -31,6 +55,11 @@ namespace goParty.Views
         {
             var mi = ((MenuItem)sender);
             Application.Current.MainPage.DisplayAlert("Delete Context Action", mi.CommandParameter + " delete context action", "OK");
+        }
+
+        public Task Refresh()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace goParty.Models
 
         public bool paid { get; set; }
         public bool accepted { get; set; }
+        public bool declined { get; set; }
 
         public string chargeId { get; set; }
     }

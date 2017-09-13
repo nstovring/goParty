@@ -52,11 +52,24 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\TodoItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\AttendeePage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePage.xaml.cs">
       <DependentUpon>AttendeePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\CreatePartyPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\AcceptedAttendees.xaml.cs">
+      <DependentUpon>AcceptedAttendees.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\DeclinedAttendees.xaml.cs">
+      <DependentUpon>DeclinedAttendees.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IRefreshable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\PendingAttendees.xaml.cs">
+      <DependentUpon>PendingAttendees.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPage.xaml.cs">
       <DependentUpon>CreatePartyPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -84,7 +97,7 @@
       <DependentUpon>MapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\PartyCarouselPage.xaml.cs">
       <DependentUpon>PartyCarouselPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -216,13 +229,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\CreatePartyPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\PartyCarouselPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -247,7 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Images\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\StripePages\" />
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +289,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\AttendeePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -324,6 +338,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ProfileSubPages\EditProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\AcceptedAttendees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\DeclinedAttendees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\PendingAttendees.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -2,12 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:av="clr-namespace:goParty.Views"
-             x:Class="goParty.Pages.AttendeePage"
-             ControlTemplate="{StaticResource MainPageTemplate}"
-             Title="{Binding Title}">
+             x:Class="goParty.Pages.ManagementPages.AttendeePages.DeclinedAttendees"
+             Title="Declined">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Black">
-            <av:AtendeeView HorizontalOptions="Center"/>
+        <StackLayout>
+            <av:AtendeeView HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Declined"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

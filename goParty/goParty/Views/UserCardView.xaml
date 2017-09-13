@@ -16,8 +16,8 @@
                     <RowDefinition Height="330*"/>
                     <RowDefinition Height="120*"/>
                 </Grid.RowDefinitions>
-                    <Image Grid.Column="0" Grid.RowSpan="2" Source="Accept.png" Aspect="AspectFit"></Image>
-                    <Image  Grid.Column="2" Grid.RowSpan="2" Source="Decline.png" Aspect="AspectFit"></Image>
+                <Image Grid.Column="0" Grid.RowSpan="2" Source="Accept.png" Aspect="AspectFit"/>
+                <Image  Grid.Column="2" Grid.RowSpan="2" Source="Decline.png" Aspect="AspectFit"/>
             </Grid>
 
             <Frame x:Name="CardFrame" OutlineColor="Beige" HasShadow="True" Padding="0">

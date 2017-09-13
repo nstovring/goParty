@@ -49,6 +49,8 @@ namespace goParty.Abstractions
 
         public virtual void ExecuteBackButtonClickedCommand()
         {
+            if (parent == null)
+                throw new NotImplementedException();
             Tapped(parent, 1);
         }
 

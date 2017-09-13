@@ -20,6 +20,7 @@ namespace goParty.Views
 		{
 			InitializeComponent ();
             this.TranslateTo(0, App.ScreenHeight / 1.3, 100, Easing.Linear);
+           
         }
 
         private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
@@ -80,7 +81,7 @@ namespace goParty.Views
             filterYMovement = 0;
         }
 
-        double filterTop = 0;
+        double filterTop =0;
         double filterMiddle = App.ScreenHeight / 2;
         double filterUpperBottom = App.ScreenHeight / 1.5;
         double filterBottom = App.ScreenHeight / 1.3;
