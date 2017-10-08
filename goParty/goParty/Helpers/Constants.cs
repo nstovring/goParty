@@ -20,7 +20,7 @@ namespace goParty.Helpers
         public static readonly string attendeePartyIDIndex = "attendeedetails-partyid";
         public static readonly string attendeeUserIDIndex = "attendeedetails-userid";
 
-
+        public static readonly List<string> PartyTypes = new List<string>{ "Pop-up", "House Party", "Bar", "Beach Party", "Concert" };
         public enum JoinedPartyStates { JoinParty, RequestSent, EventJoined, CancelEvent };
         public static readonly string[] joinButtonTitles = { "Join Event", "Request Sent", "Event Joined", "Cancel Event" };
 
@@ -31,6 +31,8 @@ namespace goParty.Helpers
 
         public static readonly string stripeTestKey = "pk_test_iiM8BYGCcNk6AbWkx7joIQKv";
         public static readonly string stripeAccountIdPropertyName = "stripe_account_id";
+
+        public static int defaultSearchRange = 30000;
 
         #region Page Names
         public static string profilePageTitle = "My Page";

@@ -222,5 +222,24 @@ namespace goParty.Services
         {
             await RetreiveExtraDataFromCloud();
         }
+
+        public async Task<ICollection<PartyDetails>> RetreivePartiesWithinRange(double longitude, double latitude, double range)
+        {
+            IDictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("longitude", longitude.ToString());
+            dictionary.Add("latitude", latitude.ToString());
+            dictionary.Add("range", range.ToString());
+            return await client.InvokeApiAsync<ICollection<PartyDetails>>("Party", HttpMethod.Get, dictionary);
+        }
+
+        public async Task<ICollection<PartyDetails>> RetreivePartiesWithinRange(double longitude, double latitude, double range, int type)
+        {
+            IDictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("longitude", longitude.ToString());
+            dictionary.Add("latitude", latitude.ToString());
+            dictionary.Add("range", range.ToString());
+            dictionary.Add("type", type.ToString());
+            return await client.InvokeApiAsync<ICollection<PartyDetails>>("Party", HttpMethod.Get, dictionary);
+        }
     }
 }

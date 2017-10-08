@@ -21,6 +21,7 @@ namespace goParty.Models
         ICloudService cloudService;
         public AttendeeListItem(UserDetails userDetails)
         {
+            this.userId = userDetails.userId;
             customerid = userDetails.userId;
             name = userDetails.name;
             rating = userDetails.rating;
@@ -90,55 +91,54 @@ namespace goParty.Models
             set { SetProperty(ref _propIsBusy, value, "IsBusy"); }
         }
 
-        Action acceptAttendeecmd;
-        public Action AcceptAttendeeCommand => acceptAttendeecmd ?? (acceptAttendeecmd = new Action(async () => await ExecuteAcceptAttendeeCommand().ConfigureAwait(false)));
+        Task acceptAttendeecmd;
+        public Task AcceptAttendeeCommand => acceptAttendeecmd ?? (acceptAttendeecmd = new Task(async () => await ExecuteAcceptAttendeeCommand().ConfigureAwait(false)));
 
 
-        private async Task ExecuteAcceptAttendeeCommand()
+        public async Task ExecuteAcceptAttendeeCommand()
         {
-            if (!Accepted)
-                return;
             //Charge Customer
-            var stripeService = ServiceLocator.Instance.Resolve<IStripeProvider>();
-            string id;
-            var loginProvider = DependencyService.Get<ILoginProvider>();
-            Account acc = loginProvider.RetreiveAccountFromSecureStore();
-            acc.Properties.TryGetValue(Constants.stripeAccountIdPropertyName, out id);
-
-            string JParty = JsonConvert.SerializeObject(partyDetails);
-
-            StripeCharge stripeCharge = new StripeCharge()
-            {
-                amount = price,
-                customerId = customerid,
-                currency = "dkk",
-                receiverId = id, //This users id
-                partyId = partyid,
-                ObjectJson = JParty
-            };
-            StripeResponse response = await stripeService.ChargeCustomer(stripeCharge);
+            //var stripeService = ServiceLocator.Instance.Resolve<IStripeProvider>();
+            //string id;
+            //var loginProvider = DependencyService.Get<ILoginProvider>();
+            //Account acc = loginProvider.RetreiveAccountFromSecureStore();
+            //acc.Properties.TryGetValue(Constants.stripeAccountIdPropertyName, out id);
+            //
+            //string JParty = JsonConvert.SerializeObject(partyDetails);
+            //
+            //StripeCharge stripeCharge = new StripeCharge()
+            //{
+            //    amount = price,
+            //    customerId = customerid,
+            //    currency = "dkk",
+            //    receiverId = id, //This users id
+            //    partyId = partyid,
+            //    ObjectJson = JParty
+            //};
+            //StripeResponse response = await stripeService.ChargeCustomer(stripeCharge);
 
             //Update Table
-            //cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+            cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
             var Table = cloudService.GetTable<AttendeeDetails>();
             AttendeeDetails attendee = new AttendeeDetails()
             {
                 Id = attendeeID,
                 userId = this.userId,
-                partyId = this.partyid,
+                partyId = this.partyID,
                 UpdatedAt = DateTime.Now,
                 accepted = true,
                 declined = false
             };
             await Table.UpdateItemAsync(attendee);
+            Accepted = true;
         }
 
-        Action declineAttendeecmd;
-        public Action DeclineAttendeeCommand => declineAttendeecmd ?? (declineAttendeecmd = new Action(async () => await ExecuteDeclineAttendeeCommand().ConfigureAwait(false)));
+        Task declineAttendeecmd;
+        public Task DeclineAttendeeCommand => declineAttendeecmd ?? (declineAttendeecmd = new Task(async () => await ExecuteDeclineAttendeeCommand().ConfigureAwait(false)));
 
         public async Task ExecuteDeclineAttendeeCommand()
         {
-            if (!Declined)
+            if (Declined == false)
                 return;
             var Table = cloudService.GetTable<AttendeeDetails>();
             AttendeeDetails attendee = new AttendeeDetails()
@@ -151,6 +151,7 @@ namespace goParty.Models
                 declined = true
             };
             await Table.UpdateItemAsync(attendee);
+            Declined = true;
         }
 
         //public event PropertyChangedEventHandler PropertyChanged;

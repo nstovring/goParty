@@ -14,26 +14,45 @@ namespace goParty.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CardListView : ContentView
     {
+
+        string _propTitle;
+        bool _propIsBusy;
+        public int index = 0;
+
+        public string Title
+        {
+            get { return _propTitle; }
+            set { SetProperty(ref _propTitle, value, "Title"); }
+        }
+
+        public bool IsBusy
+        {
+            get { return _propIsBusy; }
+            set { SetProperty(ref _propIsBusy, value, "IsBusy"); }
+        }
+
+
         const int animLength = 250;
-        public List<UserCardView> cards = new List<UserCardView>();
+        public List<CardView> cards = new List<CardView>();
 
         public int UserCardCount = 0;
-        public double cardHeight = 150;
+        public double cardHeight = 200;
+
 
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(nameof(ItemsSource), typeof(System.Collections.ICollection), typeof(CardListView), null,
             propertyChanged: OnItemsSourcePropertyChanged);
 
-        private static void OnItemsSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static async void OnItemsSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            ((CardListView)bindable).Refresh();
+            await ((CardListView)bindable).Refresh();
         }
 
-        public ObservableRangeCollection<AttendeeListItem> ItemsSource
+        public ObservableRangeCollection<CardListItem> ItemsSource
         {
             get
             {
-                return (ObservableRangeCollection<AttendeeListItem>)GetValue(ItemsSourceProperty);
+                return (ObservableRangeCollection<CardListItem>)GetValue(ItemsSourceProperty);
             }
             set
             {
@@ -44,105 +63,165 @@ namespace goParty.Views
         public CardListView()
         {
             InitializeComponent();
+            scrollView = CardScrollView;
+            BindingContext = this;
         }
 
-        private void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        //public delegate event OnRefresh
+        // A delegate type for hooking up change notifications.
+        public delegate Task RefreshEventHandler(object sender, int index);
+        public event RefreshEventHandler Refreshed;
+
+        private async void ItemsSource_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Refresh();
+            await Refresh();
+            BindingContext = this;
         }
 
-        public void Refresh()
+        public PartyCardView partyCardView;
+
+        public async void TransitionToCardDetails(CardView sender, TappedEventArgs e)
         {
-            ItemsSource.CollectionChanged -= ItemsSource_CollectionChanged;
-            ItemsSource.CollectionChanged += ItemsSource_CollectionChanged;
-            if (ItemsSource == null || ItemsSource.Count <= 0)
+            //Get card details view
+            
+            //Fill content
+
+            //Animate image
+        }
+
+        Command refreshCmd;
+        public Command RefreshCommand => refreshCmd ?? (refreshCmd = new Command(async () => await Refresh().ConfigureAwait(false)));
+
+        public async Task Refresh()
+        {
+            if (IsBusy)
                 return;
+            IsBusy = true;
 
-            PopulateView();
+            try
+            {
+                await Refreshed?.Invoke(this, index);
+                ItemsSource.CollectionChanged -= ItemsSource_CollectionChanged;
+                ItemsSource.CollectionChanged += ItemsSource_CollectionChanged;
+                if (ItemsSource == null || ItemsSource.Count <= 0)
+                    return;
+
+                await PopulateView();
+            }catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Refresh Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public async void OnChildSwiped(object sender, bool e)
         {
+            //Swiped left
             if (e == false)
             {
                 cards = OrderCardsByIndex(cards);
 
-                UserCardView user = (UserCardView)sender;
+                CardView user = (CardView)sender;
+                //await user.attendee.ExecuteDeclineAttendeeCommand();
 
                 for (int i = user.index + 1; i < UserCardCount; i++)
                 {
-                    UserCardView card = cards[i];
+                    CardView card = cards[i];
                     card.index--;
                 }
 
                 cards[user.index].index = UserCardCount - 1;
 
                 cards = OrderCardsByIndex(cards);
-                OffsetCards();
+                //OffsetCards();
             }
+            //Swiped Right
             else
             {
+                cards = OrderCardsByIndex(cards);
 
+                CardView user = (CardView)sender;
+
+                //await user.attendee.ExecuteAcceptAttendeeCommand();
+                for (int i = user.index + 1; i < UserCardCount; i++)
+                {
+                    CardView card = cards[i];
+                    card.index--;
+                }
+
+                cards[user.index].index = UserCardCount - 1;
+
+                cards = OrderCardsByIndex(cards);
+                //OffsetCards();
             }
         }
 
-        public List<UserCardView> OrderCardsByIndex(List<UserCardView> cards)
+        void RemoveCardFromList(CardListItem view)
         {
-            UserCardView[] temp = new UserCardView[cards.Count];
+            //ListAbsoluteLayout.Children.Remove(view);
+            ItemsSource.RemoveAt(view.index);
+
+            PopulateView();
+        }
+
+        public List<CardView> OrderCardsByIndex(List<CardView> cards)
+        {
+            CardView[] temp = new CardView[cards.Count];
 
             for (int i = 0; i < UserCardCount; i++)
             {
-                UserCardView card = cards[i];
+                CardView card = cards[i];
                 temp[card.index] = card;
             }
 
             return temp.ToList();
         }
+        public static ScrollView scrollView;
 
-
-        public async void PopulateView()
+        public async Task PopulateView()
         {
-            var tcs = new TaskCompletionSource<List<UserCardView>>();
-            ListAbsoluteLayout.Children.Clear();
-            UserCardCount = ListAbsoluteLayout.Children.Count;
+            var tcs = new TaskCompletionSource<List<CardView>>();
+            ListStackLayout.Children.Clear();
+            UserCardCount = ListStackLayout.Children.Count;
             foreach (var item in ItemsSource)
             {
-                UserCardView cardViewItem = new UserCardView(item);
+                CardView cardViewItem = new CardView(item);
                 cardViewItem.index = UserCardCount;
-                cardViewItem.Swiped += OnChildSwiped;
-                cardViewItem.Tapped += OffsetCardsByHeight;
                 cardViewItem.HeightRequest = cardHeight;
-                ListAbsoluteLayout.Children.Add(cardViewItem);
+                cardViewItem.WidthRequest = App.ScreenWidth;
+
+                ListStackLayout.Children.Add(cardViewItem);
                 cards.Add(cardViewItem);
                 UserCardCount++;
             }
             tcs.SetResult(cards);
 
             await tcs.Task;
-            OffsetCards();
+            //OffsetCards();
+            UpdateChildrenLayout();
         }
 
         public int margin = 5;
 
-        public void OffsetCards()
+        protected void SetProperty<T>(ref T store, T value, string propName, Action onChanged = null)
         {
-            double currentOffset = margin;
-            foreach (var card in cards)
-            {
-                card.TranslateTo(0, (card.HeightRequest * card.index) + margin * card.index, animLength, Easing.SpringIn);
-            }
+            if (EqualityComparer<T>.Default.Equals(store, value))
+                return;
+            store = value;
+            if (onChanged != null)
+                onChanged();
+            OnPropertyChanged(propName);
         }
 
-        public void OffsetCardsByHeight(object sender, float requestedHeight)
-        {
-            UserCardView user = (UserCardView)sender;
-            double offset = requestedHeight - user.Height;
 
-            for (int i = user.index + 1; i < UserCardCount; i++)
-            {
-                UserCardView card = cards[i];
-                card.TranslateTo(0, card.TranslationY + offset, animLength, Easing.Linear);
-            }
-        }
+        //public void OnPropertyChanged(string propName)
+        //{
+        //    if (PropertyChanged == null)
+        //        return;
+        //    PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        //}
     }
 }

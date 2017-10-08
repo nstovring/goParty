@@ -16,13 +16,6 @@ namespace goParty.Helpers
             TargetType = typeof(ProfilePage)
         };
 
-        public static MasterPageItem TaskListPage = new MasterPageItem
-        {
-            Title = "Profile Page",
-            IconSource = "hamburger.png",
-            TargetType = typeof(TaskList)
-        };
-
         public static MasterPageItem MapPage = new MasterPageItem
         {
             Title = "Profile Page",
@@ -56,12 +49,6 @@ namespace goParty.Helpers
                 TargetType = typeof(ProfilePage)
             });
 
-            masterPageItems.Add(new MasterPageItem
-            {
-                Title = "Task List",
-                IconSource = "todo.png",
-                TargetType = typeof(TaskList)
-            });
 
             masterPageItems.Add(new MasterPageItem
             {

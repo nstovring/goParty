@@ -6,7 +6,7 @@
              Title="Declined">
     <ContentPage.Content>
         <StackLayout>
-            <av:AtendeeView HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Declined"/>
+            <av:AtendeeView x:Name="AttendeView" HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Declined"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

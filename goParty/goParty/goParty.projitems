@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageResizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\MasterDetailPageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PartyHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewModelLocator.cs" />
@@ -37,8 +38,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AppServiceIdentity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\AttendeeListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CardListItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MasterPageItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsDB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -48,7 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsDBCarouselItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PartyDetailsItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TodoItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserInfo.cs" />
@@ -77,6 +78,14 @@
       <DependentUpon>ManagementPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\MasterDetailPage.xaml.cs">
+      <DependentUpon>MasterDetailPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\MasterDetailPageMaster.xaml.cs">
+      <DependentUpon>MasterDetailPageMaster.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ProfileSubPages\EditProfilePage.xaml.cs">
       <DependentUpon>EditProfilePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -97,7 +106,7 @@
       <DependentUpon>MapPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\PartyCarouselPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml.cs">
       <DependentUpon>PartyCarouselPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -113,15 +122,11 @@
       <DependentUpon>RootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\TaskDetail.xaml.cs">
-      <DependentUpon>TaskDetail.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\TaskList.xaml.cs">
-      <DependentUpon>TaskList.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\TabbedContentPage.xaml.cs">
+      <DependentUpon>TabbedContentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -146,8 +151,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PaymentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfilePageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RootPageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskDetailViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TaskListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabbedContentPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserCardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AtendeeView.xaml.cs">
       <DependentUpon>AtendeeView.xaml</DependentUpon>
@@ -155,6 +159,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\BankAccountView.xaml.cs">
       <DependentUpon>BankAccountView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardDetailView.xaml.cs">
+      <DependentUpon>CardDetailView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CardGridView.xaml.cs">
@@ -169,12 +177,33 @@
       <DependentUpon>CardGridItemView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardView.xaml.cs">
+      <DependentUpon>CardView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CreatePartyView.xaml.cs">
       <DependentUpon>CreatePartyView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CardListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTab\CustomTabView.xaml.cs">
+      <DependentUpon>CustomTabView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTab\HeaderItem.xaml.cs">
+      <DependentUpon>HeaderItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MapFilterView.xaml.cs">
       <DependentUpon>MapFilterView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PartyCardView.xaml.cs">
+      <DependentUpon>PartyCardView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PartyItemViews\StaticMapView.xaml.cs">
+      <DependentUpon>StaticMapView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserCardView.xaml.cs">
@@ -194,18 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\EntryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TaskList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TaskDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -235,7 +252,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\PartyCarouselPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\PartyCarouselPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -356,6 +373,60 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\PendingAttendees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PartyItemViews\StaticMapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\MasterDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\MasterDetailPageMaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\TabbedContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CustomTab\CustomTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CustomTab\HeaderItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PartyCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

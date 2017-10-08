@@ -22,7 +22,7 @@ namespace goParty.Views
         float modifier = 1.2f;
         bool sliding = false;
         bool expanded = false;
-        double animationSlideRange = App.ScreenWidth/2f;
+        double animationSlideRange = App.ScreenWidth/4f;
         public AttendeeListItem attendee;
         public AttendeeListItem Attendee
         {
@@ -98,12 +98,12 @@ namespace goParty.Views
         private async void HandleTouchEnd()
         {
 
-            if (TranslationX > animationSlideRange)
+            if (CardFrame.TranslationX > animationSlideRange)
             {
                 OnSwipeRight();
                 return;
             }
-            else if (TranslationX < -(animationSlideRange))
+            else if (CardFrame.TranslationX < -(animationSlideRange))
             {
                 OnSwipeLeft();
                 return;
@@ -173,12 +173,5 @@ namespace goParty.Views
             OnSwiped(true);
             //Accepted Attendee
         }
-
-        //Command RejectAttendeecmd;
-        //public Command SaveCardDetailsCommand => saveCardDetailscmd ?? (saveCardDetailscmd = new Command(async () => await ExecuteSaveCardDetailsCommand().ConfigureAwait(false)));
-        //
-        //Command AcceptAttendeecmd;
-        //public Command GetCardDetailsCommand => getCardDetailscmd ?? (getCardDetailscmd = new Command(async () => await ExecuteGetCardDetailsCommand().ConfigureAwait(false)));
-
     }
 }

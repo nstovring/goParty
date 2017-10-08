@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using AsNum.XFControls.iOS;
 
 namespace goParty.iOS
 {
@@ -25,6 +26,7 @@ namespace goParty.iOS
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init ();
             //SQLitePCL.CurrentPlatform.Init();
+            AsNumAssemblyHelper.HoldAssembly();
             LoadApplication(new goParty.App ());
 
 			return base.FinishedLaunching (app, options);

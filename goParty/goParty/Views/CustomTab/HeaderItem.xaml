@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="goParty.Views.CustomTab.HeaderItem">
+  <ContentView.Content>
+        <Grid BackgroundColor="Transparent">
+            <Label x:Name="HeaderLabel" Text="{Binding Text}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Medium"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

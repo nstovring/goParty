@@ -55,7 +55,7 @@ namespace goParty.Services
         //{
         //    try
         //    {
-        //        return await table.ToListAsync();
+        //        return await table.Where(;
         //    }
         //    catch (Exception ex)
         //    {

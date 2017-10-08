@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using goParty.Models;
-
+using System.Collections.Generic;
 
 namespace goParty.Abstractions
 {
@@ -20,5 +20,9 @@ namespace goParty.Abstractions
         Task RegisterForPushNotifications();
 
         Task RetreiveExtraDataFromCloud();
+
+        Task<ICollection<PartyDetails>> RetreivePartiesWithinRange(double longitude, double latitude, double range);
+        Task<ICollection<PartyDetails>> RetreivePartiesWithinRange(double longitude, double latitude, double range, int type);
+
     }
 }

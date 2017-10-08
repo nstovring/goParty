@@ -6,7 +6,7 @@
              Title="Accepted">
     <ContentPage.Content>
         <StackLayout>
-            <av:AtendeeView HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Accepted"/>
+            <av:AtendeeView x:Name="AttendeView" HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Accepted"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

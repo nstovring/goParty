@@ -22,7 +22,7 @@ namespace goParty.Pages
 	{
         //private List<Pin> _pins;
         private Map _map;
-        public static List<PartyDetailsDBCarouselItem> parties = new List<PartyDetailsDBCarouselItem>();
+        public static List<PartyDetailsItem> parties = new List<PartyDetailsItem>();
 
         public MapPage()
         {
@@ -64,24 +64,12 @@ namespace goParty.Pages
 
         private async Task InitMap()
         {
-            var position = new Position(55.669989, 12.572854);
-            try
-            {
-                var locator = CrossGeolocator.Current;
-                var pos = await locator.GetPositionAsync(TimeSpan.FromMilliseconds(50));
-                position = new Position(pos.Latitude, pos.Longitude);
-                //Overriding to Copenhagen
-                position = new Position(55.669989, 12.572854);
-                Debug.WriteLine("Updated Position");
-            }
-            catch (Exception error)
-            {
-                Debug.WriteLine("Error: " + error);
-            }
+            var position = await LocationHelper.GetLocation();
             _map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(1)));
 
-            await GetPartiesFromDataBase(position);
-
+            parties = await GetPartiesFromDataBase(position);
+            if (parties == null || parties.Count < 1)
+                return;
             PlacePoints();
             _map.PropertyChanged += async (o, e) =>
             {
@@ -93,53 +81,62 @@ namespace goParty.Pages
         double zoom;
         AzurePartyManager manager;
 
-        private async Task GetPartiesFromDataBase(Position position)
+        private async Task<List<PartyDetailsItem>> GetPartiesFromDataBase(Position position)
         {
             manager = AzurePartyManager.DefaultManager;
             await manager.DeleteAllBuggedPartiesAsync();
-            //parties = await manager.GetAllPartiesAsync();
-            parties = await manager.GetCarouselItemsAsync(
-                await manager.GetPartiesFromLocationAsync(
+            TaskCompletionSource<List<PartyDetailsItem>> tcs = new TaskCompletionSource<List<PartyDetailsItem>>();
+            List<PartyDetails> partydetails = await manager.GetPartiesFromLocationAsync(
                     position.Latitude,
-                    position.Longitude, 
-                    30000));
+                    position.Longitude,
+                    30000);
 
-            if (parties == null || !parties.Any())
+
+            List<PartyDetailsItem> partyDetailsItems = new List<PartyDetailsItem>();
+            foreach (var item in partydetails)
             {
-                ICloudTable<PartyDetails> Table;
-                ICloudService cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
-                Table = cloudService.GetTable<PartyDetails>();
-                ICollection<PartyDetails> tempPartyDetails = await Table.ReadAllItemsAsync();
-            
-                List<PartyDetailsDB> tempPartyDetailsDB = new List<PartyDetailsDB>();
-                foreach(PartyDetails deet in tempPartyDetails)
-                {
-                    PartyDetailsDB tempDeetDB = new PartyDetailsDB {
-                        title = deet.title,
-                        description = deet.description,
-                        partyId = deet.partyId,
-                        userId = deet.userId,
-                        picture = deet.picture,
-                        ageMax = deet.ageMax,
-                        ageMin = deet.ageMin,
-                        rating = deet.rating,
-                        price = deet.price,
-                        when = deet.when,
-                        where = deet.where,
-                        type = deet.type,
-                        lon = deet.lon,
-                        latt = deet.latt,
-                        maxParticipants = deet.maxParticipants,
-                        documentDBId = deet.Id,
-                        location = new Microsoft.Azure.Documents.Spatial.Point(deet.lon, deet.latt)
-                    };
-                    tempPartyDetailsDB.Add(tempDeetDB);
-                }
-            
-                await Task.WhenAll(tempPartyDetailsDB.Select(q => manager.InsertItemAsync(q)));
-                await manager.DeleteAllBuggedPartiesAsync();
-                parties = await manager.GetCarouselItemsAsync(await manager.GetAllPartiesAsync());
+                partyDetailsItems.Add(new PartyDetailsItem(item));
             }
+            tcs.SetResult(partyDetailsItems);
+            //parties = manager.GetCarouselItemsAsync(partydetailDB).Result;
+
+            //if (parties == null || !parties.Any())
+            //{
+            //    ICloudTable<PartyDetails> Table;
+            //    ICloudService cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+            //    Table = cloudService.GetTable<PartyDetails>();
+            //    ICollection<PartyDetails> tempPartyDetails = await Table.ReadAllItemsAsync();
+            //
+            //    List<PartyDetailsDB> tempPartyDetailsDB = new List<PartyDetailsDB>();
+            //    foreach(PartyDetails deet in tempPartyDetails)
+            //    {
+            //        PartyDetailsDB tempDeetDB = new PartyDetailsDB {
+            //            title = deet.title,
+            //            description = deet.description,
+            //            partyId = deet.partyId,
+            //            userId = deet.userId,
+            //            picture = deet.picture,
+            //            ageMax = deet.ageMax,
+            //            ageMin = deet.ageMin,
+            //            rating = deet.rating,
+            //            price = deet.price,
+            //            when = deet.when,
+            //            where = deet.where,
+            //            type = deet.type,
+            //            lon = deet.lon,
+            //            latt = deet.latt,
+            //            maxParticipants = deet.maxParticipants,
+            //            documentDBId = deet.Id,
+            //            location = new Microsoft.Azure.Documents.Spatial.Point(deet.lon, deet.latt)
+            //        };
+            //        tempPartyDetailsDB.Add(tempDeetDB);
+            //    }
+            //
+            //    await Task.WhenAll(tempPartyDetailsDB.Select(q => manager.InsertItemAsync(q)));
+            //    await manager.DeleteAllBuggedPartiesAsync();
+            //    parties = await manager.GetCarouselItemsAsync(await manager.GetAllPartiesAsync());
+            //}
+            return await tcs.Task;
 
         }
 
@@ -164,7 +161,7 @@ namespace goParty.Pages
             }
 
             int index = 0;
-            foreach (PartyDetailsDBCarouselItem party in parties)
+            foreach (PartyDetailsItem party in parties)
             {
                 var position = new Position(party.latt, party.lon);
                 var pin = new Pin()
@@ -186,7 +183,7 @@ namespace goParty.Pages
         }
 
 
-        public async void GoToParties(Object sender, EventArgs args, PartyDetailsDBCarouselItem selectedParty)
+        public async void GoToParties(Object sender, EventArgs args, PartyDetailsItem selectedParty)
         {
             //PartyHelper.SortPartyByIndex(index);
             manager.SortCarouselPartiesToIndex(selectedParty.index);

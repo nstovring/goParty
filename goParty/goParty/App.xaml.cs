@@ -12,6 +12,7 @@ using goParty.Models;
 using Xamarin.Auth;
 using Microsoft.Azure.Search;
 using Stripe;
+using Xamarin.Forms.Maps;
 
 namespace goParty
 {
@@ -26,6 +27,7 @@ namespace goParty
         public static double ScreenHeight;
 
         public static UserDetails userDetails;
+        public static Position currentPosition;
         public static Account account;
         public static SearchIndexClient UserDetailsUserIdSearchIndexClient;
         public static SearchIndexClient AttendeeUserIdSearchIndexClient;
@@ -78,6 +80,12 @@ namespace goParty
         public async void OnBackButtonPressed(object sender, EventArgs e)
         {
             await App.Instance.MainPage.Navigation.PopModalAsync();
+        }
+
+        public void OnBackButtonPressedPresenter(object sender, EventArgs e)
+        {
+            RootMasterDetailPage.Instance.IsPresented = !RootMasterDetailPage.Instance.IsPresented;
+            //await App.Instance.MainPage.Navigation.PopModalAsync();
         }
     }
 }

@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="goParty.Views.CardListView">
+             xmlns:controls="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             x:Class="goParty.Views.CardListView" BackgroundColor="Black">
   <ContentView.Content>
-        <Frame Padding="10">
-            <AbsoluteLayout x:Name="ListAbsoluteLayout" VerticalOptions="Fill" HorizontalOptions="Fill">
+        <controls:PullToRefreshLayout
+          IsPullToRefreshEnabled="True"
+          RefreshCommand="{Binding RefreshCommand}"
+          IsRefreshing="{Binding IsBusy}"
+          RefreshColor="Blue" HorizontalOptions="Fill" VerticalOptions="Fill">
+            <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand" x:Name="CardScrollView">
+                <StackLayout x:Name="ListStackLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                <!--<AbsoluteLayout x:Name="ListAbsoluteLayout" VerticalOptions="Fill" HorizontalOptions="Fill">
                 <AbsoluteLayout.GestureRecognizers>
                     <PanGestureRecognizer/>
-                </AbsoluteLayout.GestureRecognizers>
-            </AbsoluteLayout>
-        </Frame>
+                </AbsoluteLayout.GestureRecognizers> -->
+            </ScrollView>
+        </controls:PullToRefreshLayout>
     </ContentView.Content>
 </ContentView>

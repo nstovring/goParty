@@ -17,13 +17,13 @@ namespace goParty.ViewModels
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public class PartyCarouselPageViewModel : BaseViewModel
     {
-        public ObservableRangeCollection<PartyDetailsDBCarouselItem> Parties { get; set; }
-        public ObservableRangeCollection<PartyDetailsDB> PartiesGrouped { get; set; }
+        public ObservableRangeCollection<PartyDetailsItem> Parties { get; set; }
+        public ObservableRangeCollection<PartyDetails> PartiesGrouped { get; set; }
         //public PartyDetailsDBCarouselItem selectedParty;
         public PartyCarouselPageViewModel()
         {
             Title = Constants.PartyCarouselViewModelTitle;
-            Parties = new ObservableRangeCollection<PartyDetailsDBCarouselItem>();
+            Parties = new ObservableRangeCollection<PartyDetailsItem>();
             Parties.AddRange(AzurePartyManager.DefaultManager.CarouselItems);
         }
     }

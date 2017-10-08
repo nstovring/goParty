@@ -38,9 +38,9 @@ namespace goParty.ViewModels
 
         bool _isPartyHeaderEnabled;
         bool _isJoinButtonActive = true;
-        bool _isThisUserAttending = false;
-        bool _isThisUsersFriendsAttending = false;
-        bool _isThisUserHosting = false;
+        //bool _isThisUserAttending = false;
+        //bool _isThisUsersFriendsAttending = false;
+        //bool _isThisUserHosting = false;
 
         public string _searchText;
         public string _searchResult;
@@ -136,7 +136,8 @@ namespace goParty.ViewModels
                 when = DateTime.Now,
                 picture = Constants.picturePlaceholder,
                 title = string.Empty,
-                description = Constants.descriptionPlaceholder
+                description = Constants.descriptionPlaceholder,
+                hostpicture = App.userDetails.picture
             };
             partyHeaderImageSource = ImageSource.FromFile(partyDetails.picture);
             joinButtonLabel = "Create Party";
@@ -185,7 +186,7 @@ namespace goParty.ViewModels
 
                 ICloudTable<PartyDetails> Table = cloudService.GetTable<PartyDetails>();
                 partyDetails = await Table.CreateItemAsync(partyDetails);
-                PartyDetailsDB partyDetailsDB = new PartyDetailsDB(partyDetails);
+                PartyDetails partyDetailsDB = partyDetails;
                 await manager.InsertItemAsync(partyDetailsDB);
             }
             catch(Exception ex)

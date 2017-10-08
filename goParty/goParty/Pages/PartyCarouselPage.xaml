@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+             xmlns:design="clr-namespace:goParty.Helpers"
+             xmlns:local="clr-namespace:goParty.Models"
+             xmlns:map ="clr-namespace:goParty.Views.PartyItemViews"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="goParty.Pages.PartyCarouselPage"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             Title="{Binding Title}"
+             x:Name="PartyCarouselPage">
+    <ContentPage.Content>
+        <StackLayout Padding="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <cv:CarouselView   x:Name="CarouselParties" ItemsSource="{Binding Parties}">
+                <cv:CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollView Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <StackLayout Spacing="0">
+                                <Grid VerticalOptions="Start">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"  Source="{Binding pictureImageSource}" HeightRequest="300" Aspect="AspectFill"/>
+                                    <BoxView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Color="Gray" HeightRequest="50" VerticalOptions="End" Opacity="0.8"/>
+                                    <Label TranslationX="20" TranslationY="10" FontSize="Medium" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding title}" TextColor="White" HeightRequest="50" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand"/>
+                                    <ActivityIndicator Grid.Row="0" Grid.Column="1" IsRunning="{Binding isBusy}" Color="White"/>
+
+                                </Grid>
+
+                                <Grid  VerticalOptions="Start" HeightRequest="250">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout  Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="{Binding price}" FontSize="Medium"  HorizontalOptions="Center" />
+                                        <Label Text="DKK" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center"/>
+                                        <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
+                                    </StackLayout>
+                                    <StackLayout  Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="{Binding ageRange}" FontSize="Medium"  HorizontalOptions="Center" />
+                                        <Label Text="Age Limit" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center" />
+                                        <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
+                                    </StackLayout>
+                                    <StackLayout  Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="{Binding when, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium"  HorizontalOptions="Center" />
+                                        <Label Text="Time" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center"/>
+                                        <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
+                                    </StackLayout>
+
+                                    <BoxView BackgroundColor="DarkGray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Type}" TextColor="White" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Start" BackgroundColor="DarkGray" />
+                                    <Label Margin="10" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Text="{Binding description}" VerticalOptions="Start" HorizontalOptions="Center" LineBreakMode="WordWrap"  BackgroundColor="DarkGray" TextColor="Gray"/>
+                                    <Button Grid.Column="1" Grid.Row="0" Margin="0,0,10,0"
+                                            FontSize="Medium" 
+                                            HeightRequest="50" 
+                                            Text="{Binding joinButtonLabel, Mode=OneWay}"  
+                                            Command="{Binding JoinPartyCommand}" 
+                                            IsEnabled="{Binding isJoinButtonActive}" 
+                                            BackgroundColor="OrangeRed" 
+                                            TextColor="White" 
+                                            VerticalOptions="Start" HorizontalOptions="End"
+                                            TranslationY="-50"/>
+                                </Grid>
+
+                                <Grid HeightRequest="250">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="3" Padding="0" Margin="0">
+                                        <Image Source="p2.jpg" Aspect="AspectFill" />
+                                    </Frame>
+                                    <Frame Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Padding="0" Margin="0">
+                                        <Image Source="p10.jpg" Aspect="AspectFill" />
+                                    </Frame>
+                                    <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Padding="0" Margin="0">
+                                        <Image Source="p8.jpg" Aspect="AspectFill" />
+                                    </Frame>
+                                </Grid>
+
+                                <Grid HeightRequest="250" Padding="10">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="More Information" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" />
+                                    <Label Text="Other Settings" FontSize="Medium" Grid.Row="1" Grid.Column="0"  />
+                                    <Label Text="No.Guests" FontSize="Medium" Grid.Row="2" Grid.Column="0"  />
+                                    <Label Text="Friends Attending" FontSize="Medium" Grid.Row="3" Grid.Column="0"  />
+                                    <Label Text="Location" FontSize="Medium" Grid.Row="4" Grid.Column="0"  />
+
+                                </Grid>
+
+                                <map:StaticMapView Lattitude="{Binding latt}" Longtitude="{Binding lon}" HeightRequest="250"/>
+
+                            </StackLayout>
+                        </ScrollView>
+                    </DataTemplate>
+                </cv:CarouselView.ItemTemplate>
+            </cv:CarouselView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -70,5 +70,6 @@ namespace goParty.Models
 
         public int maxParticipants { get; set; }
 
+        public string hostpicture { get; set; }
     }
 }

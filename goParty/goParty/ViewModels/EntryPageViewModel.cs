@@ -19,7 +19,7 @@ namespace goParty.ViewModels
     {
         public EntryPageViewModel()
         {
-            Title = "Task List";
+            Title = "Entry Page";
             ExecuteLoginCommand();
         }
 
@@ -45,8 +45,9 @@ namespace goParty.ViewModels
             }
             finally
             {
-                Application.Current.MainPage = new NavigationPage(new Pages.TabbedMainPage());
                 IsBusy = false;
+                Application.Current.MainPage =  new Pages.RootMasterDetailPage();
+                //Application.Current.MainPage = new NavigationPage(new Pages.TabbedMainPage());
             }
         }
 

@@ -6,7 +6,7 @@
              Title="Pending">
     <ContentPage.Content>
         <StackLayout>
-            <av:AtendeeView HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Pending"/>
+            <av:AtendeeView x:Name="AttendeView" HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Pending"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

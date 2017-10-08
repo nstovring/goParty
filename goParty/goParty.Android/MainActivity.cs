@@ -15,6 +15,9 @@ using System.IO;
 using Android.Content;
 using SVG.Forms.Plugin.Droid;
 using CarouselView.FormsPlugin.Android;
+using ImageCircle.Forms.Plugin.Droid;
+using AsNum.XFControls.Droid;
+using Refractored.XamForms.PullToRefresh.Droid;
 
 namespace goParty.Droid
 {
@@ -29,11 +32,14 @@ namespace goParty.Droid
 			base.OnCreate (bundle);
             global::Xamarin.Forms.Forms.Init (this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
+            PullToRefreshLayoutRenderer.Init();
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             var loginProvider = (DroidLoginProvider)DependencyService.Get<ILoginProvider>();
             CarouselViewRenderer.Init();
+            ImageCircleRenderer.Init();
             loginProvider.Init(this);
-           var width = Resources.DisplayMetrics.WidthPixels;
+            AsNumAssemblyHelper.HoldAssembly();
+            var width = Resources.DisplayMetrics.WidthPixels;
             var height = Resources.DisplayMetrics.HeightPixels;
             var density = Resources.DisplayMetrics.Density;
 

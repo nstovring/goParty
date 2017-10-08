@@ -12,10 +12,11 @@ using goParty.Models.APIModels;
 using Xamarin.Auth;
 using System.IO;
 using System.Linq;
+using Xamarin.Forms.Maps;
 
 namespace goParty.Models
 {
-    public class PartyDetailsDBCarouselItem : PartyDetailsDB, INotifyPropertyChanged
+    public class PartyDetailsItem : PartyDetails, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -75,8 +76,35 @@ namespace goParty.Models
             set { SetProperty(ref _pictureImageSource, value, "pictureImageSource"); }
         }
 
-        public PartyDetailsDBCarouselItem(PartyDetails valueSource)
+        public ImageSource _hostPictureImageSource;
+
+        public ImageSource hostPictureImageSource
         {
+            get { return _hostPictureImageSource; }
+            set { SetProperty(ref _hostPictureImageSource, value, "hostPictureImageSource"); }
+        }
+
+
+        string _ageRange;
+
+        public string AgeRange
+        {
+            get { return _ageRange; }
+            set { SetProperty(ref _ageRange, value, "ageRange"); }
+        }
+
+        string _type;
+
+        public string Type
+        {
+            get { return _type; }
+            set { SetProperty(ref _type, value, "Type"); }
+        }
+
+
+        public PartyDetailsItem(PartyDetails valueSource)
+        {
+            hostpicture = valueSource.hostpicture;
             userId = valueSource.userId;
             partyId = valueSource.partyId;
             ageMin = valueSource.ageMin;
@@ -86,12 +114,16 @@ namespace goParty.Models
             description = valueSource.description;
             when = valueSource.when;
             where = valueSource.where;
+            Type = Constants.PartyTypes[valueSource.type];
+            type = valueSource.type;
             lon = valueSource.lon;
             latt = valueSource.latt;
             Id = valueSource.Id;
             documentDBId = valueSource.documentDBId;
             price = valueSource.price;
-            location = new Microsoft.Azure.Documents.Spatial.Point(lon,latt);
+
+            //location = new Microsoft.Azure.Documents.Spatial.Point(lon,latt);
+            AgeRange = ageMin.ToString() + "-" + ageMax.ToString();
 
             if (isThisUserAttending == true)
             {
@@ -106,16 +138,18 @@ namespace goParty.Models
                 joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.JoinParty];
             }
 
-            LoadImage();
+            pictureImageSource =  LoadImage(picture).Result;
         }
 
-        public async void LoadImage()
+        public async Task<ImageSource> LoadImage(string imagePath)
         {
-            if (picture.Length > 10)
+            if (string.IsNullOrWhiteSpace(imagePath))
+                return null;
+            if (imagePath.Length > 10)
             {
                 ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
                 ImageSource img = item?.image;
-                pictureImageSource =  img ?? await AzureStorage.LoadImage(picture);
+                return  img ?? await AzureStorage.LoadImage(picture);
             }
             else
             {
@@ -125,10 +159,9 @@ namespace goParty.Models
                 {
                     img = ImageSource.FromFile(picture);
                     ImageHelper.LoadedImages.Add(new ImageHelper.ImageHelperItem { image = img, imageId = picture });
-                    pictureImageSource = img;
-                    return;
+                    return  img;
                 }
-                pictureImageSource = item.image;
+                return item.image;
             }
         }
 

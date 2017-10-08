@@ -18,10 +18,9 @@ namespace goParty.Pages.ManagementPages.AttendeePages
 			InitializeComponent ();
 		}
 
-        public Task Refresh()
+        public async Task Refresh()
         {
-            //throw new NotImplementedException();
-            return null;
+            await AttendeView.Refresh();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace goParty.Helpers
 		{
 		}
 
-		public static async Task<byte[]> ResizeImage(byte[] imageData, float width, float height)
+		public static byte[] ResizeImage(byte[] imageData, float width, float height)
 		{
 #if __IOS__
 			return ResizeImageIOS(imageData, width, height);

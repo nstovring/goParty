@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="goParty.App"
              >
-	<Application.Resources>
+    <Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <!-- Application resource dictionary -->
         <ResourceDictionary>
             <ControlTemplate x:Key="MainPageTemplate">
 
@@ -19,7 +19,7 @@
                     <ContentPresenter  Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
                     <!--</ScrollView> -->
                     <!-- End Content -->
-                    
+
                     <!-- Begin Header -->
                     <StackLayout
             Orientation="Horizontal"
@@ -33,16 +33,82 @@
                         <StackLayout.Padding>
                             <OnPlatform x:TypeArguments="Thickness"
                             iOS="10, 10, 10, 10"
-                            Android="10, 10, 10, 10"
+                            Android="10, 0, 10, 0"
                             WinPhone="10, 10, 10, 10" />
                         </StackLayout.Padding>
                         <!-- My header content to make my app the prettiest. -->
-                        <Image Source="backicon.png" Aspect="AspectFill" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Image Source="CloseWindowIcon.png" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnBackButtonPressed" />
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="{TemplateBinding Title}" TextColor="Black" FontSize="Large"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        <Label Text="{TemplateBinding Title}" TextColor="Black" FontSize="Medium"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        <Image Source="FavoritesUnClickedIcon.png" Aspect="AspectFill" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <!-- End Header -->
+                </Grid>
+            </ControlTemplate>
+
+            <Style x:Key="buttonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="BorderColor" Value="Lime" />
+                <Setter Property="BorderRadius" Value="5" />
+                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="TextColor" Value="Teal" />
+            </Style>
+
+            <Style TargetType="Grid">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="Fill" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+
+            <ControlTemplate x:Key="MasterDetailTemplate">
+
+                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0"  BackgroundColor="Black" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Begin Content -->
+                    <!--<ScrollView Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">-->
+                    <ContentPresenter Grid.Column="0" Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+                    <!-- </ScrollView> -->
+                    <!-- End Content -->
+
+                    <!-- Begin Header -->
+                    <StackLayout Grid.Column="0" Grid.Row="0">
+                        <StackLayout.Padding>
+                            <OnPlatform x:TypeArguments="Thickness"
+                            iOS="10, 10, 10, 10"
+                            Android="5, 5, 5, 5"
+                            WinPhone="10, 10, 10, 10" />
+                        </StackLayout.Padding>
+                        <Frame HeightRequest="50">
+                            <StackLayout
+                                Orientation="Horizontal"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                BackgroundColor="White"
+                                Opacity="1"
+                                HeightRequest="50"
+                                >
+                                <!-- My header content to make my app the prettiest. -->
+
+
+                                <Image Source="backicon.png" Aspect="AspectFit" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnBackButtonPressedPresenter" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <SearchBar Placeholder="Search by postcode, type, etc." FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                                <Image Source="FavoritesUnClickedIcon.png" Aspect="AspectFill" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+
+                            </StackLayout>
+                        </Frame>
                     </StackLayout>
                     <!-- End Header -->
                 </Grid>

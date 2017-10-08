@@ -110,7 +110,7 @@ namespace goParty.Services
         {
             ByteArrayToImageSource byteArrayToImageSource = new ByteArrayToImageSource();
             Byte[] imageByteArray = await GetFileAsync(ContainerType.Image, imageId);
-            Byte[] resizedImageByteArray = await ImageResizer.ResizeImage(imageByteArray, 800, 533);
+            Byte[] resizedImageByteArray = ImageResizer.ResizeImage(imageByteArray, 800, 533);
             ImageSource img = byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;
             ImageHelper.LoadedImages.Add(new ImageHelper.ImageHelperItem { image = img, imageId = imageId });
             return byteArrayToImageSource.Convert(resizedImageByteArray, typeof(ImageSource), null, null) as ImageSource;

@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pag="clr-namespace:goParty.Pages"
              Title="{Binding Title}"
-             x:Class="goParty.Pages.TabbedMainPage">
-    <pag:ProfilePage/>
-    <pag:MapPage/>
-    <pag:ManagementPage/>
+             x:Class="goParty.Pages.TabbedMainPage"
+             x:Name="TabbedPage"
+             >
+        <pag:ProfilePage/>
+        <pag:MapPage/>
+        <pag:ManagementPage/>
 </TabbedPage>

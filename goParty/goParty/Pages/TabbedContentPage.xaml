@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctrls="clr-namespace:AsNum.XFControls;assembly=AsNum.XFControls"
+             xmlns:views="clr-namespace:goParty.Views"
+             x:Class="goParty.Pages.TabbedContentPage"
+             x:Name="TabbedContentPageName">
+    <ContentPage.Content>
+        <AbsoluteLayout >
+            <Grid BackgroundColor="OrangeRed">
+                <views:CustomTabView x:Name="TabView" ItemsSource="{Binding Items}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Blue" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
+            <views:PartyCardView/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
