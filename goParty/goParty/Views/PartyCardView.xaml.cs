@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using ImageCircle.Forms.Plugin.Abstractions;
 namespace goParty.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -20,7 +19,7 @@ namespace goParty.Views
 
         public static PartyCardView instance;
 
-        public double _partyImageHeight = 150;
+        public double _partyImageHeight = 200;
         public double PartyImageHeight
         {
             get { return _partyImageHeight; }
@@ -33,34 +32,35 @@ namespace goParty.Views
             get { return _partyDetailsItem; }
             set { SetProperty(ref _partyDetailsItem, value, "PartyDetailsItem"); }
         }
+
+        public ImageSource _partydetailsImage;
+
+        public ImageSource PartyDetailsImage
+        {
+            get { return _partydetailsImage; }
+            set { SetProperty(ref _partydetailsImage, value, "PartyDetailsImage"); }
+        }
+
         Image AnimateableImage;
-        Frame imageInFrame;
+        View imageInFrame;
         public PartyCardView()
         {
-            instance = this;
-            BindingContext = this;
-            InitializeComponent();
-
-            AnimateableImage = new Image
+            try
             {
-                Aspect = Aspect.AspectFill
-            };
+                instance = this;
+                BindingContext = this;
+                InitializeComponent();
 
-            imageInFrame = new Frame()
+                CreateCard();
+
+                prevY = App.ScreenHeight;
+                if (PartyDetailsItem == null)
+                    TransitionFrom();
+            }catch(Exception ex)
             {
-                Padding = 0,
-                Margin = 0,
-                Content = AnimateableImage
-            };
-
-            AbsLayout.Children.Add(imageInFrame, new Rectangle(0, App.ScreenHeight, App.ScreenWidth, PartyImageHeight));
-            AbsoluteLayout.SetLayoutFlags(imageInFrame, AbsoluteLayoutFlags.None);
-            prevY = App.ScreenHeight;
-
-            CardListView.scrollView.Scrolled += PartyScrollView_Scrolled;
-
-            if (PartyDetailsItem == null)
-                TransitionFrom();
+                Application.Current.MainPage.DisplayAlert("Error!", "Error Displaying Party Page" + ex.Message, "OK");
+                throw new Exception(ex.Message);
+            }
         }
 
         private void PartyScrollView_Scrolled(object sender, ScrolledEventArgs e)
@@ -73,32 +73,81 @@ namespace goParty.Views
         uint animationSpeed = 500;
 
 
-        public async void TransitionTo(double startY)
+        void CreateCard()
         {
+            if (imageInFrame == null)
+            {
+                AnimateableImage = new Image
+                {
+                    Aspect = Aspect.AspectFill
+                };
+
+                Frame frame = new Frame()
+                {
+                    Padding = 0,
+                    Margin = 0,
+                    Content = AnimateableImage
+                };
+
+                //imageInFrame.Content 
+                imageInFrame = new ContentView()
+                {
+                    Padding = 0,
+                    Margin = 0,
+                    Content = frame
+                };
+                AbsLayout.Children.Add(imageInFrame, new Rectangle(0, App.ScreenHeight, App.ScreenWidth, _partyImageHeight));
+                AbsoluteLayout.SetLayoutFlags(imageInFrame, AbsoluteLayoutFlags.None);
+            }
+            if(PartyDetailsItem != null)
+            {
+                AnimateableImage.Source = PartyDetailsItem.pictureImageSource;
+            }
+
+        }
+
+        public async void TransitionTo(double startY, double scrollAmount)
+        {
+            CreateCard();
+
+            AbsLayout.LowerChild(imageInFrame);
+
+            scrollY = scrollAmount;
             //double scrollX = PartyScrollView.ScrollX;
             startY = startY - scrollY;
             prevY = startY;
-            AnimateableImage.Source = PartyDetailsItem.pictureImageSource;
-            imageInFrame.TranslationY = -App.ScreenHeight + startY;
+            //imageInFrame..Source = PartyDetailsItem.pictureImageSource;
+            imageInFrame.TranslationY = startY + _partyImageHeight / 2 - App.ScreenHeight;
             //AnimateableImage.
-            ContentGrid.FadeTo(1, animationSpeed, Easing.CubicInOut);
-            HeaderLayout.FadeTo(1, animationSpeed, Easing.CubicInOut);
+            DetailsScrollView.FadeTo(1, animationSpeed * 2, Easing.CubicInOut);
+            HeaderLayout.FadeTo(1, animationSpeed * 2, Easing.CubicInOut);
             //AnimateableImage.ScaleTo(2, 250, Easing.Linear);
-            imageInFrame.HeightRequest = PartyImageHeight;
-            await imageInFrame.FadeTo(1, animationSpeed, Easing.CubicInOut);
+            //imageInFrame.HeightRequest = PartyImageHeight;
+            imageInFrame.FadeTo(1, animationSpeed, Easing.CubicInOut);
             await imageInFrame.TranslateTo(imageInFrame.X, -App.ScreenHeight, animationSpeed, Easing.CubicInOut);
+            PartyDetailsImage = PartyDetailsItem.pictureImageSource;
+            //await imageInFrame.FadeTo(0, animationSpeed, Easing.CubicInOut);
+
             InputTransparent = false;
+        }
+
+        public async void ClickedEventHandler(object sender, EventArgs e)
+        {
+            await PartyDetailsItem.ExecuteJoinPartyCommand();
         }
 
         public async void TransitionFrom()
         {
-            ContentGrid.FadeTo(0, animationSpeed, Easing.CubicInOut);
+            DetailsScrollView.FadeTo(0, animationSpeed, Easing.CubicInOut);
             HeaderLayout.FadeTo(0, animationSpeed, Easing.CubicInOut);
-            if (AnimateableImage != null)
+            //AbsLayout.Children.Remove(imageInFrame);
+            //AbsLayout.Children.Insert(0, imageInFrame);
+            if (imageInFrame != null)
             {
-                await imageInFrame.TranslateTo(imageInFrame.X, -App.ScreenHeight + prevY, animationSpeed, Easing.CubicInOut);
+                //await imageInFrame.FadeTo(1, animationSpeed, Easing.CubicInOut);
+                PartyDetailsImage = null;
+                await imageInFrame.TranslateTo(imageInFrame.X, -App.ScreenHeight + prevY + _partyImageHeight/2 + DetailsScrollView.ScrollY, animationSpeed, Easing.CubicInOut);
                 await imageInFrame.FadeTo(0, animationSpeed, Easing.CubicInOut);
-
             }
             InputTransparent = true;
         }

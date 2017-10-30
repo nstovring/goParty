@@ -1,4 +1,5 @@
-﻿using goParty.Helpers;
+﻿using goParty.Abstractions;
+using goParty.Helpers;
 using goParty.Models;
 using System;
 using System.Collections.Generic;
@@ -20,19 +21,47 @@ namespace goParty.Pages
         public ListView ListView;
         public MasterDetailPageMaster()
         {
-            InitializeComponent();
             BindingContext = new MasterDetailPageMasterViewModel();
+            InitializeComponent();
             ListView = MenuItemsListView;
         }
 
-        class MasterDetailPageMasterViewModel : INotifyPropertyChanged
+        class MasterDetailPageMasterViewModel : BaseViewModel, INotifyPropertyChanged
         {
             public ObservableRangeCollection<MasterPageItem> MenuItems { get; set; }
-            
+
+            public string _userName;
+            public int _rating;
+            public string _userProfilePicture;
+
+
+            public string UserName
+            {
+                get { return _userName; }
+                set { SetProperty(ref _userName, value, "UserName"); }
+            }
+
+            public int Rating
+            {
+                get { return _rating; }
+                set { SetProperty(ref _rating, value, "Rating"); }
+            }
+            public string UserProfilePicture
+            {
+                get { return _userProfilePicture; }
+                set { SetProperty(ref _userProfilePicture, value, "UserProfilePicture"); }
+            }
+         
+
             public MasterDetailPageMasterViewModel()
             {
                 MenuItems = MasterDetailPageManager.PageItems();
+                UserName = App.UserDetails.name;
+                Rating = App.UserDetails.rating;
+                UserProfilePicture = App.UserDetails.picture;
             }
+
+           
             
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;

@@ -79,7 +79,6 @@ namespace goParty.Views
         }
 
         public delegate void ItemSelectedEventHandler(object sender, SelectedItemChangedEventArgs e);
-        public event ItemSelectedEventHandler ItemSelected;
 
         public CardGridItemView SelectedItem;
     }

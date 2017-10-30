@@ -16,11 +16,13 @@ namespace goParty.Pages.ManagementPages.AttendeePages
 		public DeclinedAttendees ()
 		{
 			InitializeComponent ();
+            BindingContext = new AttendeesViewModel(wrapLayout, AttendeesViewModel.AttendeeViewType.Denied);
 		}
+
 
         public async Task Refresh()
         {
-            await AttendeView.Refresh();
+            await ((AttendeesViewModel)BindingContext).Refresh();
         }
     }
 }

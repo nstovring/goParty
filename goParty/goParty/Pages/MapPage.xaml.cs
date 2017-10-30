@@ -95,7 +95,9 @@ namespace goParty.Pages
             List<PartyDetailsItem> partyDetailsItems = new List<PartyDetailsItem>();
             foreach (var item in partydetails)
             {
-                partyDetailsItems.Add(new PartyDetailsItem(item));
+                PartyDetailsItem tempItem = new PartyDetailsItem(item);
+                await tempItem.InitializeCard();
+                partyDetailsItems.Add(tempItem);
             }
             tcs.SetResult(partyDetailsItems);
             //parties = manager.GetCarouselItemsAsync(partydetailDB).Result;

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:imagecircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="goParty.Pages.ManagementPages.CreatePartyPages.PricePopupPage">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <ContentView  HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Transparent">
+                    <imagecircle:CircleImage Source="checkmark.png" HeightRequest="35" WidthRequest="35" FillColor="Green" BorderThickness="2" BorderColor="White"/>
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AcceptWindowButtonPressed"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+
+                <ContentView  HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent">
+                    <imagecircle:CircleImage Source="CloseWindowIcon.png" HeightRequest="35" WidthRequest="35" FillColor="Red" BorderThickness="2" BorderColor="White"/>
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CloseWindowButtonPressed"/>
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+                
+            </StackLayout>
+            <Frame Padding="0" CornerRadius="5" >
+                <Entry Placeholder="Insert Price" Keyboard="Numeric" Text="{Binding partyDetails.price, Mode=TwoWay}"/>
+            </Frame>
+
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:rv="clr-namespace:goParty.Views.RatingView"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:map="clr-namespace:goParty.Views.PartyItemViews"
              x:Class="goParty.Views.PartyCardView"
              BackgroundColor="Transparent">
     <ContentView.Content>
@@ -10,102 +13,90 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-            <ScrollView  Grid.Column="0" Grid.Row="1" BackgroundColor="Transparent" >
-                <AbsoluteLayout  Grid.Column="0" Grid.Row="1" x:Name="AbsLayout" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" HeightRequest="1600" InputTransparent="True">
+            <ScrollView x:Name="DetailsScrollView" Grid.Column="0" Grid.Row="1" BackgroundColor="Transparent" >
+                <Frame Padding="0" Margin="10,5,10,5" BackgroundColor="Transparent" HeightRequest="900">
+                        <AbsoluteLayout  Grid.Column="0" Grid.Row="1" x:Name="AbsLayout" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" HeightRequest="900">
+                        <ContentView>
+                            <StackLayout Spacing="0"  x:Name="ContentGrid" >
 
-                    <StackLayout Spacing="0"  x:Name="ContentGrid" >
-                        <Grid VerticalOptions="Start" x:Name="ImageGrid">
-                            <Grid.RowDefinitions >
-                                <RowDefinition Height="{Binding PartyImageHeight}"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                                <Grid VerticalOptions="Start" x:Name="ImageGrid" Padding="0" RowSpacing="0" BackgroundColor="Transparent">
+                                        <Grid.RowDefinitions >
+                                            <RowDefinition Height="{Binding PartyImageHeight}"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions >
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                            <!--<Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"  Source="{Binding PartyDetailsItem.pictureImageSource}" HeightRequest="300" Aspect="AspectFill"/> -->
-                            <BoxView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Color="Gray" HeightRequest="300" VerticalOptions="End" Opacity="0"/>
+                                        <BoxView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Color="Transparent"  HeightRequest="{Binding PartyImageHeight}" VerticalOptions="End" Opacity="1"/>
+                                        <!--<Image  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"  Aspect="AspectFill" Source="{Binding PartyDetailsImage}"/> -->
+                                        <BoxView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Color="#013859" HeightRequest="100" VerticalOptions="End" />
+                                        <Label FontSize="Medium" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding PartyDetailsItem.when, StringFormat='{}{0:dd.MM.yyyy}'}" TextColor="White" HeightRequest="50" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand"/>
+                                        <ActivityIndicator Grid.Row="1" Grid.Column="1" IsRunning="{Binding PartyDetailsItem.isBusy}" Color="White"/>
+                                        <controls:CircleImage Source="{Binding PartyDetailsItem.hostpicture}" HeightRequest="100" WidthRequest="100" BorderColor="White" BorderThickness="5" HorizontalOptions="Center"
+                                                  Grid.Row="1" Grid.ColumnSpan="3" VerticalOptions="Start" TranslationY="-50" />
+                                        <rv:RatingView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Rating="{Binding PartyDetailsItem.rating}" HorizontalOptions="End" VerticalOptions="Start" HeightRequest="40" Margin="5,10,5,10"/>
 
-                            <BoxView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Color="Gray" HeightRequest="50" VerticalOptions="End" Opacity="0.8"/>
-                            <Label TranslationX="20" TranslationY="10" FontSize="Medium" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding title}" TextColor="White" HeightRequest="50" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand"/>
-                            <ActivityIndicator Grid.Row="1" Grid.Column="1" IsRunning="{Binding PartyDetailsItem.isBusy}" Color="White"/>
-
-                        </Grid>
-
-                        <Grid  VerticalOptions="Start" HeightRequest="250" x:Name="DescriptionGrid">
-                            <Grid.RowDefinitions >
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackLayout  Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="{Binding PartyDetailsItem.price}" FontSize="Medium"  HorizontalOptions="Center" />
-                                <Label Text="DKK" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center"/>
-                                <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
-                            </StackLayout>
-                            <StackLayout  Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="{Binding PartyDetailsItem.ageRange}" FontSize="Medium"  HorizontalOptions="Center" />
-                                <Label Text="Age Limit" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center" />
-                                <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
-                            </StackLayout>
-                            <StackLayout  Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="{Binding PartyDetailsItem.when, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium"  HorizontalOptions="Center" />
-                                <Label Text="Time" TextColor="Gray" FontSize="Default"  HorizontalOptions="Center"/>
-                                <BoxView BackgroundColor="DarkGray" HeightRequest="1"/>
-                            </StackLayout>
-
-                            <BoxView BackgroundColor="DarkGray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding PartyDetailsItem.Type}" TextColor="White" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Start" BackgroundColor="DarkGray" />
-                            <Label Margin="10" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Text="{Binding PartyDetailsItem.description}" VerticalOptions="Start" HorizontalOptions="Center" LineBreakMode="WordWrap"  BackgroundColor="DarkGray" TextColor="Gray"/>
-                            <Button Grid.Column="1" Grid.Row="0" Margin="0,0,10,0"
+                                        <Button Grid.Column="2" Grid.Row="1" Margin="0,5,5,0"
                                             FontSize="Medium" 
                                             HeightRequest="50" 
-                                            Text="{Binding PartyDetailsItem.joinButtonLabel, Mode=OneWay}"  
-                                            Command="{Binding PartyDetailsItem.JoinPartyCommand}" 
+                                            Text="{Binding PartyDetailsItem.joinButtonLabel, Mode=OneWay}"
+                                            Clicked="ClickedEventHandler"
                                             IsEnabled="{Binding PartyDetailsItem.isJoinButtonActive}" 
                                             BackgroundColor="OrangeRed" 
                                             TextColor="White" 
                                             VerticalOptions="Start" HorizontalOptions="End"
-                                            TranslationY="-50"/>
-                        </Grid>
+                                            />
+                                        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding PartyDetailsItem.price}" FontSize="Medium" TextColor="White" HorizontalOptions="Center" VerticalOptions="End" Margin="0,5,10,5"/>
+                                        <ActivityIndicator Grid.ColumnSpan="3" Grid.RowSpan="2" IsRunning="{Binding PartyDetailsItem.isBusy}" Color="Blue"/>
+                                    </Grid>
 
-                        <Grid HeightRequest="250" Padding="10" x:Name="OtherInfoGrid">
-                            <Grid.RowDefinitions >
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
+                                    <Grid  VerticalOptions="Start" x:Name="DescriptionGrid">
+                                        <Grid.RowDefinitions >
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions >
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
 
-                            <Label Text="More Information" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="Other Settings" FontSize="Medium" Grid.Row="1" Grid.Column="0"  />
-                            <Label Text="No.Guests" FontSize="Medium" Grid.Row="2" Grid.Column="0"  />
-                            <Label Text="Friends Attending" FontSize="Medium" Grid.Row="3" Grid.Column="0"  />
-                            <Label Text="Location" FontSize="Medium" Grid.Row="4" Grid.Column="0"  />
+                                        <!--<BoxView BackgroundColor="DarkGray" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="3" />-->
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding PartyDetailsItem.Type}" TextColor="Black" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Start" />
+                                        <Label Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="{Binding PartyDetailsItem.description}" VerticalOptions="Start" HorizontalOptions="Center" LineBreakMode="WordWrap" TextColor="Black"/>
 
-                        </Grid>
+                                    </Grid>
 
-                        <!--<map:StaticMapView Lattitude="{Binding PartyDetailsItem.latt}" Longtitude="{Binding PartyDetailsItem.lon}" HeightRequest="250"/> -->
+                                    <Grid HeightRequest="250" Padding="10" x:Name="OtherInfoGrid">
+                                        <Grid.RowDefinitions >
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions >
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
 
-                    </StackLayout>
-                    
-                    
+                                        <Label Text="More Information" FontSize="Large" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="CenterAndExpand" />
+                                        <Label Text="Other Settings" FontSize="Medium" Grid.Row="1" Grid.Column="0"  />
+                                        <Label Text="No.Guests" FontSize="Medium" Grid.Row="2" Grid.Column="0"  />
+                                        <Label Text="Friends Attending" FontSize="Medium" Grid.Row="3" Grid.Column="0"  />
+                                        <Label Text="Location" FontSize="Medium" Grid.Row="4" Grid.Column="0"  />
+
+                                    </Grid>
+
+                                    <map:StaticMapView Lattitude="{Binding PartyDetailsItem.latt}" Longtitude="{Binding PartyDetailsItem.lon}" HeightRequest="250"/>
+                            </StackLayout>
+                        </ContentView>
                 </AbsoluteLayout>
+                </Frame>
             </ScrollView>
-                
-          
 
             <!-- Begin Header -->
             <StackLayout  x:Name="HeaderLayout"
@@ -113,7 +104,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Spacing="0"
-            BackgroundColor="White"
+            BackgroundColor="#017ebe"
             Opacity="1"
             HeightRequest="50"
             Grid.Column="0" Grid.Row="0">
@@ -124,13 +115,12 @@
                             WinPhone="10, 10, 10, 10" />
                 </StackLayout.Padding>
                 <!-- My header content to make my app the prettiest. -->
-                <Image Source="CloseWindowIcon.png" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                <Image Source="arrowback.png" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TransitionFrom" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Text="{TemplateBinding Title}" TextColor="Black" FontSize="Medium"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
-                <Image Source="FavoritesUnClickedIcon.png" Aspect="AspectFill" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                <Label Text="{Binding PartyDetailsItem.title}" TextColor="White" FontSize="Medium"  HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
             </StackLayout>
             <!-- End Header -->
 

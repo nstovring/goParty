@@ -1,4 +1,6 @@
-﻿using goParty.Models;
+﻿using goParty.Abstractions;
+using goParty.Helpers;
+using goParty.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace goParty.Pages
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MasterPageItem;
             if (item == null)
@@ -32,10 +34,23 @@ namespace goParty.Pages
             var page = (Page)Activator.CreateInstance(item.TargetType);
             page.Title = item.Title;
 
-            Detail = new NavigationPage(page);
-            IsPresented = false;
+            if (item.TargetType == typeof(EntryPage))
+            {
+                var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+                await cloudService.LogoutAsync();
+                //Application.Current.MainPage = new EntryPage();
+                MasterPage.ListView.SelectedItem = null;
+                IsPresented = false;
+                await Navigation.PopToRootAsync();
+                return;
+            }
+            else
+            {
 
-            MasterPage.ListView.SelectedItem = null;
+                Detail = new NavigationPage(page);
+                IsPresented = false;
+                MasterPage.ListView.SelectedItem = null;
+            }
         }
     }
 }

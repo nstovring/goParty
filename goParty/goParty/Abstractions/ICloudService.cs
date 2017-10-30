@@ -13,7 +13,7 @@ namespace goParty.Abstractions
 
         Task LogoutAsync();
 
-        //Task LoginAsync(User user);
+        bool UserHasLoggedInBefore();
 
         Task<AppServiceIdentity> GetIdentityAsync();
 

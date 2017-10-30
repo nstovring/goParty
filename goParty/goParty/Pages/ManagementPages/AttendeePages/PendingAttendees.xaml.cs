@@ -16,11 +16,12 @@ namespace goParty.Pages.ManagementPages.AttendeePages
 		public PendingAttendees ()
 		{
 			InitializeComponent ();
-		}
+            BindingContext = new AttendeesViewModel(wrapLayout, AttendeesViewModel.AttendeeViewType.Pending);
+        }
 
         public async Task Refresh()
         {
-            await AttendeView.Refresh();
+            await ((AttendeesViewModel)BindingContext).Refresh();
         }
     }
 }

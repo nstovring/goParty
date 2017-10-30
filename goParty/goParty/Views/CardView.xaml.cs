@@ -59,9 +59,10 @@ namespace goParty.Views
         }
 
         private CardListItem item;
-
-        public CardView (CardListItem item)
+        private ScrollView parent;
+        public CardView (CardListItem item, ScrollView parent)
 		{
+            this.parent = parent;
             this.item = item;
             //Populate card with values
             if(item.attendeeListItem != null)
@@ -77,13 +78,14 @@ namespace goParty.Views
 			InitializeComponent ();
 		}
 
+
         private void InitializePartyCard(PartyDetailsItem partyDetailsItem)
         {
             Icon = partyDetailsItem.hostpicture;
             BackgroundImage = partyDetailsItem.pictureImageSource;
             Title = partyDetailsItem.title;
             subTitle = partyDetailsItem.when.ToString();
-            LeftDetail =  LocationHelper.distance(partyDetailsItem.latt,partyDetailsItem.lon,App.currentPosition.Latitude,App.currentPosition.Longitude,'K').ToString();
+            LeftDetail =  LocationHelper.distance(partyDetailsItem.latt,partyDetailsItem.lon,App.CurrentPosition.Latitude,App.CurrentPosition.Longitude,'K').ToString();
             RightDetail = "DKK" + partyDetailsItem.price;
         }
 
@@ -113,7 +115,8 @@ namespace goParty.Views
             //Fade to Details
             if (item.partyDetailsItem != null) {
                 PartyCardView.instance.PartyDetailsItem = item.partyDetailsItem;
-                PartyCardView.instance.TransitionTo(this.Y);
+                PartyCardView.instance.TransitionTo(this.Y - DescriptionBox.Height, parent.ScrollY);
+                //LargeImage.TranslateTo(0, -App.ScreenHeight, 500, Easing.Linear);
             }
             else
             {

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="goParty.Views.CustomFilterView.FilterView"
+             BackgroundColor="White" HeightRequest="150" WidthRequest="300">
+  <ContentView.Content>
+        <TableView Intent="Settings" HeightRequest="150" WidthRequest="300">
+            <TableRoot>
+                <TableSection Title="Ring">
+                    <SwitchCell Text="New Voice Mail" />
+                    <SwitchCell Text="New Mail" On="true" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentView.Content>
+</ContentView>

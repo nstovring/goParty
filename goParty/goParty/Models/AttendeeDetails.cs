@@ -1,4 +1,5 @@
 ﻿using goParty.Abstractions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ namespace goParty.Models
         public string partyId { get; set; }
 
         public bool paid { get; set; }
+        [JsonProperty(PropertyName = "accepted")]
         public bool accepted { get; set; }
         public bool declined { get; set; }
 

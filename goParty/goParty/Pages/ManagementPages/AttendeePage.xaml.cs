@@ -1,4 +1,4 @@
-﻿using goParty.ViewModels;
+﻿using goParty.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +7,15 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
-using System.Collections.Specialized;
-using goParty.Abstractions;
 
 namespace goParty.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AttendeePage : Xamarin.Forms.TabbedPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AttendeePage : TabbedPage
     {
-		public AttendeePage ()
-		{
-			InitializeComponent ();
-            BindingContext = new AttendeePageViewModel();
-            this.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
-        }
-
-        protected override void OnPagesChanged(NotifyCollectionChangedEventArgs e)
+        public AttendeePage ()
         {
-            base.OnPagesChanged(e);
+            InitializeComponent();
         }
 
         protected override void OnCurrentPageChanged()
@@ -33,10 +23,8 @@ namespace goParty.Pages
             base.OnCurrentPageChanged();
             if (CurrentPage == null)
                 return;
-            IRefreshable RefreshablePage = CurrentPage as IRefreshable;
-            RefreshablePage.Refresh();
+            ((IRefreshable)CurrentPage).Refresh();
         }
-
 
     }
 }

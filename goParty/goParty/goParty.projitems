@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthenticationDelegatingHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ByteArrayToImageSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\FilterSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationHelper.cs" />
@@ -61,6 +62,11 @@
       <DependentUpon>AcceptedAttendees.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\AllAttendees.xaml.cs">
+      <DependentUpon>AllAttendees.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\AttendeeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\DeclinedAttendees.xaml.cs">
       <DependentUpon>DeclinedAttendees.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -70,12 +76,28 @@
       <DependentUpon>PendingAttendees.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\ConfirmationPopupPage.xaml.cs">
+      <DependentUpon>ConfirmationPopupPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPage.xaml.cs">
       <DependentUpon>CreatePartyPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPage.xaml.cs">
       <DependentUpon>ManagementPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\AgeRangePopupPage.xaml.cs">
+      <DependentUpon>AgeRangePopupPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\FindLocationPopUpPage.xaml.cs">
+      <DependentUpon>FindLocationPopUpPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\PricePopupPage.xaml.cs">
+      <DependentUpon>PricePopupPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Pages\MasterDetailPage.xaml.cs">
@@ -185,7 +207,10 @@
       <DependentUpon>CreatePartyView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\CardListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomFilterView\FilterView.xaml.cs">
+      <DependentUpon>FilterView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomTab\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -204,6 +229,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PartyItemViews\StaticMapView.xaml.cs">
       <DependentUpon>StaticMapView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RatingView\RatingView.xaml.cs">
+      <DependentUpon>RatingView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserCardView.xaml.cs">
@@ -278,7 +307,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Images\" />
     <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Pages\StripePages\" />
   </ItemGroup>
   <ItemGroup>
@@ -301,12 +329,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -427,6 +449,54 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CardDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CustomFilterView\FilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RatingView\RatingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePages\AllAttendees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\AttendeePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\FindLocationPopUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\PricePopupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\CreatePartyPages\AgeRangePopupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Pages\ManagementPages\ConfirmationPopupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

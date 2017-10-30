@@ -62,9 +62,9 @@ namespace goParty.ViewModels
         public ProfilePageViewModel()
         {
             Title = Constants.profilePageTitle;
-            profilePicture = App.userDetails.picture;
-            rating = App.userDetails.rating;
-            name = App.userDetails.name;
+            profilePicture = App.UserDetails.picture;
+            rating = App.UserDetails.rating;
+            name = App.UserDetails.name;
             //PartiesAttending = new ObservableRangeCollection<PartyDetails>();
            // PartiesHosting = new ObservableRangeCollection<PartyDetails>();
 

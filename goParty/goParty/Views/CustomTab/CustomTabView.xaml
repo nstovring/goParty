@@ -3,34 +3,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="goParty.Views.CustomTabView">
     <ContentView.Content>
-        <Grid Padding="0" Margin="0" RowSpacing="0" >
+        <Grid Padding="0" Margin="0" RowSpacing="0" x:Name="TabViewGrid" BackgroundColor="White">
             <Grid.RowDefinitions >
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="0" x:Name="filterRow" />
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="11*"/>
             </Grid.RowDefinitions>
 
-            <Frame Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Padding="0">
+            <Frame Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Padding="0" HasShadow="True">
                 <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
-                    <Image Source="CrossMark.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="StartAndExpand">
+                    <Image Source="hamburger.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="StartAndExpand">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped" />
                         </Image.GestureRecognizers>
                     </Image>
-                    <SearchBar Placeholder="Search by postcode, type etc." VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="Small"/>
-                    <Image Source="FavSelectedMark.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,0,5,0"/>
+                    <SearchBar x:Name="searchBar" Placeholder="Search by postcode, type etc." VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="Small"/>
+                    <Image Source="filter.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,0,5,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterImageTapped" />
+                    </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
             </Frame>
-            
-            <ScrollView Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal" Spacing="20" Margin="10,0,10,0" x:Name="HeaderStackLayout">
-                    
-                </StackLayout>
+
+                <!--<Frame Grid.Row="1" x:Name="xamlFilterView" HeightRequest="200" Padding="0">
+                    <TableView Intent="Settings" >
+                        <TableRoot>
+                            <TableSection Title="Ring">
+                                <SwitchCell Text="New Voice Mail" />
+                                <SwitchCell Text="New Mail" On="true" />
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </Frame>-->
+
+            <ScrollView Grid.Column="0" Grid.Row="2" Orientation="Horizontal" BackgroundColor="#013859">
+                <Frame Padding="0" HasShadow="True">
+                    <StackLayout Orientation="Horizontal" Spacing="20" Margin="10,0,10,0" Padding="5,0,5,0" x:Name="HeaderStackLayout">
+
+                    </StackLayout>
+                </Frame>
             </ScrollView>
             <!--Abolute layout which contains the pages-->
-            <Grid Grid.Row="2" x:Name="AbsLayout">
+            <Grid Grid.Row="3" x:Name="AbsLayout">
                 
             </Grid>
+
         </Grid>
     </ContentView.Content>
 </ContentView>

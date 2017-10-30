@@ -18,18 +18,33 @@ using CarouselView.FormsPlugin.Android;
 using ImageCircle.Forms.Plugin.Droid;
 using AsNum.XFControls.Droid;
 using Refractored.XamForms.PullToRefresh.Droid;
+using Adapt.Presentation.AndroidPlatform;
 
 namespace goParty.Droid
 {
-	[Activity (Label = "goParty", Icon = "@drawable/icon", Theme="@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
-	{
-		protected override void OnCreate (Bundle bundle)
+	[Activity (Label = "goParty", Icon = "@drawable/icon", Theme="@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity , IRequestPermissionsActivity
+    {
+        #region Fields
+        private PresentationFactory _PresentationFactory;
+        #endregion
+
+        #region Events
+        public event PermissionsRequestCompletedHander PermissionsRequestCompleted;
+        #endregion
+
+        protected override void OnCreate (Bundle bundle)
 		{
             TabLayoutResource = Resource.Layout.Tabbar;
-			ToolbarResource = Resource.Layout.Toolbar; 
+			ToolbarResource = Resource.Layout.Toolbar;
 
-			base.OnCreate (bundle);
+            //Adapt Initialization
+            var permissions = new Permissions(this);
+            _PresentationFactory = new PresentationFactory(ApplicationContext, permissions);
+
+            base.OnCreate (bundle);
+
+
             global::Xamarin.Forms.Forms.Init (this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             PullToRefreshLayoutRenderer.Init();
@@ -57,10 +72,18 @@ namespace goParty.Droid
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        //{
+        //    PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //}
+
+        #region Public Overrides
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            PermissionsRequestCompleted?.Invoke(requestCode, permissions, grantResults);
         }
+        #endregion
 
 
         public static readonly int PickImageId = 1000;

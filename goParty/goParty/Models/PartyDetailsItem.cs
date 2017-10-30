@@ -102,7 +102,21 @@ namespace goParty.Models
         }
 
 
+        //public string Hostpicture
+        //{
+        //    get { return hostpicture; }
+        //    set { SetProperty(ref hostpicture, value, "Hostpicture"); }
+        //}
+
+        PartyDetails valueSource;
+
         public PartyDetailsItem(PartyDetails valueSource)
+        {
+            this.valueSource = valueSource;
+            //InitializeCard(valueSource);
+        }
+
+        public async Task InitializeCard()
         {
             hostpicture = valueSource.hostpicture;
             userId = valueSource.userId;
@@ -121,7 +135,7 @@ namespace goParty.Models
             Id = valueSource.Id;
             documentDBId = valueSource.documentDBId;
             price = valueSource.price;
-
+            rating = valueSource.rating;
             //location = new Microsoft.Azure.Documents.Spatial.Point(lon,latt);
             AgeRange = ageMin.ToString() + "-" + ageMax.ToString();
 
@@ -137,15 +151,14 @@ namespace goParty.Models
             {
                 joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.JoinParty];
             }
-
-            pictureImageSource =  LoadImage(picture).Result;
+            pictureImageSource = await LoadImage(picture);
         }
 
         public async Task<ImageSource> LoadImage(string imagePath)
         {
             if (string.IsNullOrWhiteSpace(imagePath))
                 return null;
-            if (imagePath.Length > 10)
+            if (imagePath.Length > 10 && Uri.IsWellFormedUriString(imagePath,UriKind.RelativeOrAbsolute))
             {
                 ImageHelper.ImageHelperItem item = ImageHelper.LoadedImages.FirstOrDefault(x => x.imageId == picture);
                 ImageSource img = item?.image;
@@ -178,7 +191,7 @@ namespace goParty.Models
 
                 //TODO Optimize
                 string customerid;
-                loginProvider.RetreiveAccountFromSecureStore().Properties.TryGetValue(Constants.stripeAccountIdPropertyName,out customerid);
+                //loginProvider.RetreiveAccountFromSecureStore().Properties.TryGetValue(Constants.stripeAccountIdPropertyName,out customerid);
                 string userTableid = loginProvider.RetrieveTableIdFromSecureStore();
 
                 var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
@@ -187,10 +200,10 @@ namespace goParty.Models
                 AttendeeDetails attendeeDetails = new AttendeeDetails
                 {
                     userId = userTableid,
-                    partyId = documentDBId, //Actually tableid
+                    partyId = Id, //Actually tableid
                     paid = false,
                     accepted = false,
-                    chargeId = customerid,
+                    chargeId = "  ",
                 };
             
                 await Table.CreateItemAsync(attendeeDetails);

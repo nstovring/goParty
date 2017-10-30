@@ -64,6 +64,8 @@ namespace goParty.Models
 
         public DateTime when { get; set; }
 
+        public DateTime time { get; set; }
+
         public string where { get; set; }
 
         public int rating { get; set; }

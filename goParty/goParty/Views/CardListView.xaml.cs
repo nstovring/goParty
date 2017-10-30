@@ -105,7 +105,6 @@ namespace goParty.Views
                 ItemsSource.CollectionChanged += ItemsSource_CollectionChanged;
                 if (ItemsSource == null || ItemsSource.Count <= 0)
                     return;
-
                 await PopulateView();
             }catch(Exception ex)
             {
@@ -179,29 +178,34 @@ namespace goParty.Views
 
             return temp.ToList();
         }
-        public static ScrollView scrollView;
+        public ScrollView scrollView;
 
         public async Task PopulateView()
         {
-            var tcs = new TaskCompletionSource<List<CardView>>();
+            var tcs = new TaskCompletionSource<bool>();
+            await ListStackLayout.FadeTo(0, 50, Easing.Linear);
             ListStackLayout.Children.Clear();
             UserCardCount = ListStackLayout.Children.Count;
             foreach (var item in ItemsSource)
             {
-                CardView cardViewItem = new CardView(item);
+                CardView cardViewItem = new CardView(item, scrollView);
                 cardViewItem.index = UserCardCount;
                 cardViewItem.HeightRequest = cardHeight;
                 cardViewItem.WidthRequest = App.ScreenWidth;
-
-                ListStackLayout.Children.Add(cardViewItem);
                 cards.Add(cardViewItem);
+                ListStackLayout.Children.Add(cardViewItem);
                 UserCardCount++;
+                await Task.Delay(10);
             }
-            tcs.SetResult(cards);
+            tcs.SetResult(true);
 
             await tcs.Task;
+
+            //cards.ForEach(x => ListStackLayout.Children.Add(x));
+            await ListStackLayout.FadeTo(1, 50, Easing.Linear);
+
             //OffsetCards();
-            UpdateChildrenLayout();
+            //UpdateChildrenLayout();
         }
 
         public int margin = 5;

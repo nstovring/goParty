@@ -2,8 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
-             x:Class="goParty.Views.CardListView" BackgroundColor="Black">
+             x:Class="goParty.Views.CardListView" BackgroundColor="White">
   <ContentView.Content>
+       <!-- <Frame Padding="0" Margin="5,5,5,5"> -->
         <controls:PullToRefreshLayout
           IsPullToRefreshEnabled="True"
           RefreshCommand="{Binding RefreshCommand}"
@@ -17,5 +18,6 @@
                 </AbsoluteLayout.GestureRecognizers> -->
             </ScrollView>
         </controls:PullToRefreshLayout>
+        <!--</Frame> -->
     </ContentView.Content>
 </ContentView>

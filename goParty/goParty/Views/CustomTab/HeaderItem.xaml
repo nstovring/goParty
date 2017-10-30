@@ -4,7 +4,7 @@
              x:Class="goParty.Views.CustomTab.HeaderItem">
   <ContentView.Content>
         <Grid BackgroundColor="Transparent">
-            <Label x:Name="HeaderLabel" Text="{Binding Text}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="Medium"/>
+            <Label x:Name="HeaderLabel" Text="{Binding Text}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" TextColor="White" FontSize="Medium"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

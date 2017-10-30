@@ -26,8 +26,17 @@ namespace goParty
         public static double ScreenWidth;
         public static double ScreenHeight;
 
-        public static UserDetails userDetails;
-        public static Position currentPosition;
+        private static UserDetails userDetails;
+        private static Position currentPosition;
+
+        public static UserDetails UserDetails {
+            get => 
+                userDetails;
+            set => 
+                userDetails = value;
+        }
+        public static Position CurrentPosition { get => currentPosition; set => currentPosition = value; }
+
         public static Account account;
         public static SearchIndexClient UserDetailsUserIdSearchIndexClient;
         public static SearchIndexClient AttendeeUserIdSearchIndexClient;
@@ -36,6 +45,8 @@ namespace goParty
         public static App Instance;
 
         public static IAuthenticate Authenticator { get; private set; }
+
+        
 
         public static void Init(IAuthenticate authenticator)
         {
@@ -48,12 +59,13 @@ namespace goParty
 			InitializeComponent();
             ServiceLocator.Instance.Add<ICloudService, AzureCloudService>();
             ServiceLocator.Instance.Add<IStripeProvider, StripeService>();
+
             //MainPage = new EntryPage();
             try
             {
                 MainPage = new EntryPage();
-                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.Black);
-
+                MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.FromHex("013859"));
+                MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.White);
             }
             catch (Exception ex)
             {

@@ -19,7 +19,6 @@ namespace goParty.Views
 	public partial class UserCardView : ContentView, INotifyPropertyChanged
 	{
         public int index = 0;
-        float modifier = 1.2f;
         bool sliding = false;
         bool expanded = false;
         double animationSlideRange = App.ScreenWidth/4f;

@@ -66,6 +66,7 @@ namespace goParty.Droid.Services
             GcmService.RegistrationID = registrationId;
         }
 
+
         protected override void OnUnRegistered(Context context, string registrationId)
         {
             Log.Info("GcmService", $"Unregistered device from FCM");

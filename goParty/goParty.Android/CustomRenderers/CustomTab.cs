@@ -10,8 +10,9 @@ using Android.Support.Design.Widget;
 using Android.Content.Res;
 using goParty.Pages;
 using goParty.Droid.CustomRenderers;
+using goParty.Abstractions;
 
-[assembly: ExportRenderer(typeof(TabbedMainPage), typeof(CustomTab))]
+[assembly: ExportRenderer(typeof(AttendeePage), typeof(CustomTab))]
 namespace goParty.Droid.CustomRenderers
 {
     public class CustomTab : TabbedPageRenderer
@@ -24,7 +25,6 @@ namespace goParty.Droid.CustomRenderers
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-
             if (setup)
                 return;
 
@@ -34,41 +34,31 @@ namespace goParty.Droid.CustomRenderers
                 layout = (TabLayout)ViewGroup.GetChildAt(1);
                 setup = true;
 
+                
                 layout.SetBackgroundColor(Android.Graphics.Color.White);
                 layout.SetTabTextColors(Android.Graphics.Color.Black, Android.Graphics.Color.Red);
-                //for (int i = 0; i < layout.TabCount; i++)
-                //{
-                //    var tab = layout.GetTabAt(i);
-                //    var icon = tab.Icon;
-                //    if (icon != null)
-                //    {
-                //        icon = Android.Support.V4.Graphics.Drawable.DrawableCompat.Wrap(icon);
-                //        Android.Support.V4.Graphics.Drawable.DrawableCompat.SetTintList(icon, colors);
-                //    }
-                //}
-
-                //ColorStateList colors = null;
-                //if ((int)Build.VERSION.SdkInt >= 23)
-                //{
-                //    colors = Resources.GetColorStateList(Resource.Color.icon_tab, Forms.Context.Theme);
-                //}
-                //else
-                //{
-                //    colors = Resources.GetColorStateList(Resource.Color.icon_tab);
-                //}
-                //
-                //for (int i = 0; i < layout.TabCount; i++)
-                //{
-                //    var tab = layout.GetTabAt(i);
-                //    var icon = tab.Icon;
-                //    if (icon != null)
-                //    {
-                //        icon = Android.Support.V4.Graphics.Drawable.DrawableCompat.Wrap(icon);
-                //        Android.Support.V4.Graphics.Drawable.DrawableCompat.SetTintList(icon, colors);
-                //    }
-                //}
+               
 
             }
+        }
+        TabbedPage _page;
+
+
+        protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
+        {
+            base.OnElementChanged(e);
+            if (e.NewElement != null)
+            {
+                _page = (AttendeePage)e.NewElement;
+                
+                //((IRefreshable)_page.CurrentPage).Refresh();
+                //e.NewElement).Refresh();
+            }
+            else
+            {
+                _page = (AttendeePage)e.OldElement;
+            }
+
         }
 
     }

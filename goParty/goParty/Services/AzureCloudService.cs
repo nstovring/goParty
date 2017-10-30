@@ -32,6 +32,21 @@ namespace goParty.Services
 
         public ICloudTable<T> GetTable<T>() where T : TableData => new AzureCloudTable<T>(client);
 
+        public bool UserHasLoggedInBefore()
+        {
+            var loginProvider = DependencyService.Get<ILoginProvider>();
+            client.CurrentUser = loginProvider.RetrieveTokenFromSecureStore();
+            if (client.CurrentUser != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+      
+
         public async Task<MobileServiceUser> LoginAsync()
         {
             var loginProvider = DependencyService.Get<ILoginProvider>();
@@ -180,7 +195,7 @@ namespace goParty.Services
                         };
 
                         tempUserDetails = await GetTable<UserDetails>().CreateItemAsync(tempUserDetails);
-                        App.userDetails = tempUserDetails;
+                        App.UserDetails = tempUserDetails;
                         Account account = loginProvider.RetreiveAccountFromSecureStore();
                         account.Properties.Add("table_id", tempUserDetails.Id);
                         loginProvider.SaveAccountInSecureStore(account);
@@ -205,15 +220,15 @@ namespace goParty.Services
                 UserDetails userDetails = tempUserDetailsList.FirstOrDefault(x => x.userId == client.CurrentUser.UserId);
                 account.Properties.Add("table_id", userDetails.Id);
                 loginProvider.SaveAccountInSecureStore(account);
-                App.userDetails = userDetails;
+                App.UserDetails = userDetails;
             }
             else
             {
                 UserDetails tempUserDetails = await Table.ReadItemAsync(tableId);
-                App.userDetails = tempUserDetails;
+                App.UserDetails = tempUserDetails;
             }
 
-            if (App.userDetails != null)
+            if (App.UserDetails != null)
                 return true;
             return false;
         }

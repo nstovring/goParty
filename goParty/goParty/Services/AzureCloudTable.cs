@@ -12,7 +12,10 @@ namespace goParty.Services
     public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
     {
         MobileServiceClient client;
-        IMobileServiceTable<T> table;
+        private IMobileServiceTable<T> table;
+        public IMobileServiceTable<T> GetTable() {
+            return table;
+        }
 
         public AzureCloudTable(MobileServiceClient client)
         {
@@ -39,17 +42,32 @@ namespace goParty.Services
             await table.DeleteAsync(item);
         }
 
-        public async Task<ICollection<T>> ReadAllItemsAsync()
+        public async Task<ICollection<T>> ReadAllItemsAsync(string query)
         {
             try
             {
-                return await table.ToListAsync();
+                return (ICollection<T>) await table.ReadAsync<T>(query);
             }catch(Exception ex)
             {
                 Debug.WriteLine($"[Login] Error = {ex.Message}");
             }
             return null;
         }
+
+
+        public async Task<ICollection<T>> ReadAllItemsAsync()
+        {
+            try
+            {
+                return await table.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Login] Error = {ex.Message}");
+            }
+            return null;
+        }
+
 
         //public async Task<ICollection<T>> ReadAllItemsWithinRangeAsync(double lon, double latt, double range)
         //{

@@ -7,6 +7,14 @@
 
         <!-- Application resource dictionary -->
         <ResourceDictionary>
+
+            <!-- Styles -->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#013859"/>
+                <Setter Property="BarTextColor" Value="White"/>
+            </Style>
+            <!-- Styles -->
+
             <ControlTemplate x:Key="MainPageTemplate">
 
                 <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
@@ -26,7 +34,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Spacing="0"
-            BackgroundColor="White"
+            BackgroundColor="#013859"
             Opacity="1"
             HeightRequest="50"
             Grid.Column="0" Grid.Row="0">
@@ -37,9 +45,9 @@
                             WinPhone="10, 10, 10, 10" />
                         </StackLayout.Padding>
                         <!-- My header content to make my app the prettiest. -->
-                        <Image Source="CloseWindowIcon.png" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                        <Image Source="hamburger.png" Aspect="AspectFill" HorizontalOptions="StartAndExpand" VerticalOptions="Center">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnBackButtonPressed" />
+                                <TapGestureRecognizer Tapped="OnBackButtonPressedPresenter" />
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="{TemplateBinding Title}" TextColor="Black" FontSize="Medium"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>

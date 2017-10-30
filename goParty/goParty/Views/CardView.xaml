@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="goParty.Views.CardView">
   <ContentView.Content>
-        <Frame x:Name="CardFrame" OutlineColor="Beige" HasShadow="True" Padding="0" HorizontalOptions="FillAndExpand" Margin="5,5,5,0">
+        <Frame x:Name="CardFrame" OutlineColor="Black" HasShadow="True" Padding="0" HorizontalOptions="FillAndExpand" Margin="2,0,2,0" CornerRadius="5">
             <Grid Padding="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -19,15 +19,15 @@
                         <TapGestureRecognizer Tapped="TapGesture_Tapped"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <BoxView Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="Black" Opacity="0.8" VerticalOptions="Fill" HorizontalOptions="Fill" TranslationY="-40" />
-                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding LeftDetail}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Start" TranslationY="-40" Margin="5"/>
-                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding RightDetail}" TextColor="White" VerticalOptions="Center" HorizontalOptions="End" TranslationY="-40" Margin="5"/>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="White" Opacity="0.8" VerticalOptions="Fill" HorizontalOptions="Fill" TranslationY="-40" />
+                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding LeftDetail}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" TranslationY="-40" Margin="5"/>
+                <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding RightDetail}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="End" TranslationY="-40" Margin="5"/>
 
-                <BoxView Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="White" Opacity="1" VerticalOptions="Fill" HorizontalOptions="Fill" />
+                <BoxView x:Name="DescriptionBox" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="#017ebe" Opacity="1" VerticalOptions="Fill" HorizontalOptions="Fill" />
                 
-                <controls:CircleImage Source="{Binding Icon}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="End" HorizontalOptions="Center" Margin="0,5,5,0" BorderColor="Black" BorderThickness="1" HeightRequest="75" WidthRequest="75"/>
+                <controls:CircleImage Source="{Binding Icon}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="End" HorizontalOptions="Center" Margin="0,5,5,0" BorderColor="White" BorderThickness="3" HeightRequest="75" WidthRequest="75"/>
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" Padding="0" Margin="0" Spacing="0">
-                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="Black" FontSize="Medium" VerticalOptions="Center"/>
+                <Label Text="{Binding Title}" HorizontalOptions="Center" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                 <Label Text="{Binding subTitle}" HorizontalOptions="Center" TextColor="LightGray" FontSize="Small" VerticalOptions="Center"/>
                 </StackLayout>
             </Grid>

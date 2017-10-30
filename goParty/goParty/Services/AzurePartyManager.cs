@@ -87,7 +87,7 @@ namespace goParty.Services
             try
             {
                 var query = client.CreateDocumentQuery<PartyDetails>(collectionLink, new FeedOptions { MaxItemCount = -1, EnableScanInQuery = true })
-                     .Where(party => party.userId == App.userDetails.userId) //1 = 1m
+                     .Where(party => party.userId == App.UserDetails.userId) //1 = 1m
                      .AsDocumentQuery();
                 tempPartyList = new List<PartyDetails>();
                 while (query.HasMoreResults)
@@ -103,6 +103,7 @@ namespace goParty.Services
             foreach (var item in tempPartyList)
             {
                 PartyDetailsItem tempParty = new PartyDetailsItem(item);
+                await tempParty.InitializeCard();
                 tempParty.isThisUserHosting = true;
                 tempParty.joinButtonLabel = Constants.joinButtonTitles[(int)Constants.JoinedPartyStates.CancelEvent];
                 tempCarouselList.Add(tempParty);
@@ -122,6 +123,7 @@ namespace goParty.Services
             foreach (var item in partyList)
             {
                 PartyDetailsItem tempItem = new PartyDetailsItem(item);
+                await tempItem.InitializeCard();
                 tempItem.index = tempCarouselList.Count;
                 tempCarouselList.Add(tempItem);
             }
@@ -279,7 +281,7 @@ namespace goParty.Services
 
             foreach (var item in attendeeDetails)
             {
-                if (item.userId == App.userDetails.userId)
+                if (item.userId == App.UserDetails.userId)
                 {
                     partiesHosting.Add(item);
                 }

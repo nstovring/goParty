@@ -12,8 +12,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="party.jpg"/>
-            <ActivityIndicator Grid.Row="0" Grid.Column="0" Color="Red" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Image Grid.RowSpan="2" Aspect="AspectFill" Source="partycrasher.png"/>
+            <ActivityIndicator Grid.Row="0" Grid.Column="0" Color="Red" IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="50"/>
             <Button Grid.Row="1" BackgroundColor="Blue"
                     BorderRadius="10"
                     Command="{Binding LoginCommand}"

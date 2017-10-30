@@ -2,44 +2,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="goParty.Pages.MasterDetailPageMaster"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:cviews="clr-namespace:goParty.Views.RatingView"
              Title="Master">
-  <StackLayout>
-    <ListView x:Name="MenuItemsListView"
+    <StackLayout>
+        <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
-              ItemsSource="{Binding MenuItems}">
-      <ListView.Header>
-        <Grid BackgroundColor="#03A9F4">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-          </Grid.RowDefinitions>
-          <Label
-              Grid.Column="1"
-              Grid.Row="2"
-              Text="AppName"
-              Style="{DynamicResource SubtitleStyle}"/>
-        </Grid>
-      </ListView.Header>
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
-              <Label VerticalOptions="FillAndExpand" 
+              ItemsSource="{Binding MenuItems}"
+                 BackgroundColor="Transparent">
+            <!-- BackgroundColor="#1B3C4F"> -->
+               
+            <ListView.Header>
+                <Grid BackgroundColor="#03A9F4" HeightRequest="150">
+                   
+                    <Image Source="party.png" Aspect="AspectFill"/>
+                    <!-- <Label Grid.Column="1" Grid.Row="2" Text="{Binding UserName}" Style="{DynamicResource SubtitleStyle}" TextColor="White"/> -->
+                    <controls:CircleImage Source="{Binding UserProfilePicture}" VerticalOptions="Start" HorizontalOptions="Start" HeightRequest="100" WidthRequest="100" Margin="10,20,5,10"/>
+                    <cviews:RatingView Rating="{Binding Rating}" VerticalOptions="End" HorizontalOptions="End" HeightRequest="40" Margin="5,10,5,10"/>
+
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="15,5" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Image Source="{Binding IconSource}"  VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" Margin="5,10,5,10"/>
+                            <Label VerticalOptions="Center" HorizontalOptions="Start" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="24"/>
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </StackLayout>
+                    FontSize="Medium"  TextColor="White" Margin="5,10,5,10"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </StackLayout>
 </ContentPage>

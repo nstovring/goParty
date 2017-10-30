@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:imagecircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="goParty.Pages.ManagementPages.CreatePartyPages.FindLocationPopUpPage">
+    <!-- Content -->
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5" BackgroundColor="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentView>
+            <Frame CornerRadius="15" Padding="0">
+                <StackLayout>
+                    <maps:Map x:Name="MapView"/>
+                    <SearchBar x:Name="SearchBarView" Placeholder="Where is the party located?" SearchButtonPressed="SearchBarView_SearchButtonPressed" BackgroundColor="White"/>
+                </StackLayout>
+            </Frame>
+        </ContentView>
+        <ContentView  HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent">
+            <imagecircle:CircleImage Source="CloseWindowIcon.png" HeightRequest="35" WidthRequest="35" FillColor="Red" BorderThickness="2" BorderColor="White"/>
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseWindowButtonPressed"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+
+        <ContentView  HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Transparent">
+            <imagecircle:CircleImage Source="checkmark.png" HeightRequest="35" WidthRequest="35" FillColor="Green" BorderThickness="2" BorderColor="White"/>
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="AcceptWindowButtonPressed"/>
+            </ContentView.GestureRecognizers>
+        </ContentView>
+
+    </Grid>
+</pages:PopupPage>

@@ -44,7 +44,7 @@ namespace goParty.Views.CustomTab
 
         public void OnTapped(object sender, int index)
         {
-            HeaderLabel.TextColor = Color.Orange;
+            HeaderLabel.TextColor = Color.FromHex("E6C315");
             Tapped(this, index);
         }
 
@@ -52,7 +52,7 @@ namespace goParty.Views.CustomTab
         {
             if (index == selectedItem)
                 return;
-            HeaderLabel.TextColor = Color.Black;
+            HeaderLabel.TextColor = Color.FromHex("017ebe");
         }
 
         protected void SetProperty<T>(ref T store, T value, string propName, Action onChanged = null)

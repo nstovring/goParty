@@ -17,10 +17,15 @@ namespace goParty.ViewModels
 {
     public class EntryPageViewModel : BaseViewModel
     {
+        ICloudService cloudService;
         public EntryPageViewModel()
         {
             Title = "Entry Page";
-            ExecuteLoginCommand();
+            cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
+            //if (cloudService.UserHasLoggedInBefore())
+            //{
+            //    ExecuteLoginCommand();
+            //}
         }
 
         Command loginCmd;
@@ -34,10 +39,11 @@ namespace goParty.ViewModels
 
             try
             {
+                App.CurrentPosition = await LocationHelper.GetLocation();
                 var cloudService = ServiceLocator.Instance.Resolve<ICloudService>();
                 await cloudService.LoginAsync();
                 await cloudService.RetreiveExtraDataFromCloud();
-                await cloudService.RegisterForPushNotifications();
+                //await cloudService.RegisterForPushNotifications();
             }
             catch (Exception ex)
             {

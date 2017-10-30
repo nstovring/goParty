@@ -2,11 +2,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:av="clr-namespace:goParty.Views"
+             xmlns:controls="clr-namespace:Adapt.Presentation.Controls;assembly=Adapt.Presentation.Standard"
+            xmlns:pullControl="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
              x:Class="goParty.Pages.ManagementPages.AttendeePages.AcceptedAttendees"
              Title="Accepted">
     <ContentPage.Content>
-        <StackLayout>
-            <av:AtendeeView x:Name="AttendeView" HorizontalOptions="Center" VerticalOptions="FillAndExpand" attendeeType="Accepted"/>
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <pullControl:PullToRefreshLayout
+                Grid.Row="0"
+          IsPullToRefreshEnabled="True"
+          RefreshCommand="{Binding RefreshCommand}"
+          IsRefreshing="{Binding IsBusy}"
+          RefreshColor="Blue" HorizontalOptions="Fill" VerticalOptions="Fill">
+
+                <ScrollView >
+                    <controls:WrapLayout x:Name="wrapLayout" HorizontalOptions="Center">
+
+                    </controls:WrapLayout>
+                </ScrollView>
+            </pullControl:PullToRefreshLayout>
+            
+            <Grid  Grid.Row="1" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button BackgroundColor="ForestGreen" Grid.Column="0" Text="Accept Marked Attendees" TextColor="White" Command="{Binding AcceptAttendeeCommand}"/>
+                <Button BackgroundColor="PaleVioletRed" Grid.Column="1"  Text="Decline Marked Attendees" TextColor="White" Command="{Binding DeclineAttendeeCommand}"/>
+
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

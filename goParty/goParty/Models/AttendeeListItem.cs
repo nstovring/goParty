@@ -21,7 +21,7 @@ namespace goParty.Models
         ICloudService cloudService;
         public AttendeeListItem(UserDetails userDetails)
         {
-            this.userId = userDetails.userId;
+            this.userId = userDetails.Id;
             customerid = userDetails.userId;
             name = userDetails.name;
             rating = userDetails.rating;
